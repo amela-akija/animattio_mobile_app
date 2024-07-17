@@ -1,9 +1,9 @@
+import 'package:animattio_mobile_app/login_page.dart';
 import 'package:animattio_mobile_app/user_page.dart';
 import 'package:flutter/material.dart';
-import 'signup_page.dart';
-//Page for login
-class LoginPage extends StatelessWidget {
-  const LoginPage({super.key});
+//Page for registration
+class SignupPage extends StatelessWidget {
+  const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -12,9 +12,8 @@ class LoginPage extends StatelessWidget {
     Color buttonColor = const Color(0xFFF7A559);
     Color inputColor = const Color(0xFFFEFFD9);
     Color textColor = const Color(0xFF2A470C);
-    String loginTitle = "Log in";
-    String toSignUpString = "Don't have an account yet? Sign up";
-
+    String signUpTitle = "Sign up";
+    String toLogInString = "Already have an account? Sign in";
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: pageColor,
@@ -24,7 +23,7 @@ class LoginPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 50.0),
             child: Text(
-              loginTitle,
+              signUpTitle,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: fontColor,
@@ -36,7 +35,7 @@ class LoginPage extends StatelessWidget {
           Expanded(
             child: Stack(
               children: <Widget>[
-                 Center(
+                Center(
                   child: Transform.translate(
                      offset: Offset(0, 80),
                      child: Transform.scale(
@@ -47,8 +46,8 @@ class LoginPage extends StatelessWidget {
                      ),),
                   ),
                 ),
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.25,
+                              Positioned(
+                  top: MediaQuery.of(context).size.height * 0.20,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -88,9 +87,9 @@ class LoginPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                ),
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.4,
+                ),             
+                 Positioned(
+                  top: MediaQuery.of(context).size.height * 0.30,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40.0),
@@ -108,7 +107,48 @@ class LoginPage extends StatelessWidget {
                       ),
                       child: TextField(
                         style: TextStyle(color: textColor),
-                        obscureText: true,
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: inputColor,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: inputColor),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: inputColor),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: inputColor),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          hintText: 'Enter email:',
+                          hintStyle: TextStyle(color: textColor, fontFamily: 'Lilita One'),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                                Positioned(
+                  top: MediaQuery.of(context).size.height * 0.40,
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        style: TextStyle(color: textColor),
                         decoration: InputDecoration(
                           filled: true,
                           fillColor: inputColor,
@@ -132,13 +172,55 @@ class LoginPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.6,
+                                Positioned(
+                  top: MediaQuery.of(context).size.height * 0.50,
+                  width: MediaQuery.of(context).size.width,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withOpacity(0.3),
+                            spreadRadius: 1,
+                            blurRadius: 5,
+                            offset: const Offset(0, 3),
+                          ),
+                        ],
+                      ),
+                      child: TextField(
+                        style: TextStyle(color: textColor),
+                        decoration: InputDecoration(
+                          filled: true,
+                          fillColor: inputColor,
+                          border: OutlineInputBorder(
+                            borderSide: BorderSide(color: inputColor),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: inputColor),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(color: inputColor),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          hintText: 'Repeat password:',
+                          hintStyle: TextStyle(color: textColor, fontFamily: 'Lilita One'),
+                          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+                                Positioned(
+                  top: MediaQuery.of(context).size.height * 0.65,
                   width: MediaQuery.of(context).size.width,
                   child: Center(
                     child: ElevatedButton(
-                      onPressed: () {
-                          Navigator.of(context).push(
+                      onPressed: () { 
+                        Navigator.of(context).push(
                         MaterialPageRoute(builder: (BuildContext context) {return const UserPage();}));
                       },
                       style: ElevatedButton.styleFrom(
@@ -154,25 +236,25 @@ class LoginPage extends StatelessWidget {
                         elevation: 10,
                       ),
                       child: Text(
-                        'Log in',
+                        'Sign up',
                         style: TextStyle(color: fontColor),
                       ),
-                    ),
-                  ),
-                ),
-              ],
+                    ),),),
+                
+                
+                ],
             ),
           ),
-          Align(
+           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
               child: TextButton(
                 onPressed: () {Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {return const SignupPage();}));
+                        MaterialPageRoute(builder: (BuildContext context) {return const LoginPage();}));
                 },
                 child: Text(
-                  toSignUpString,
+                  toLogInString,
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: textColor,

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'login_page.dart';
+import 'signup_page.dart';
  // Main page from which user can choose either to log in or to sign up
 class MainPage extends StatelessWidget {
   const MainPage({super.key});
@@ -80,7 +81,8 @@ class MainPage extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
               child: Center(
                 child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () { Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {return const SignupPage();}));},
                   style: ElevatedButton.styleFrom(
                     backgroundColor: buttonColor,
                     padding: const EdgeInsets.symmetric(
