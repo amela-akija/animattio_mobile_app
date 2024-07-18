@@ -64,6 +64,9 @@ flutter:
    - assets/main_page/
    - assets/login_page/
    - assets/user_page/
+   - assets/avatar_page/
+   - assets/avatar_page/avatars/
+
 
   fonts:
     - family: Lilita One

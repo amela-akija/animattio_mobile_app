@@ -1,3 +1,4 @@
+import 'package:animattio_mobile_app/avatar_page.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
@@ -52,7 +53,7 @@ class UserPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: 30), // Adjusted height to move title higher
+                SizedBox(height: 30), 
                 Text(
                   userTitle,
                   textAlign: TextAlign.center,
@@ -62,14 +63,14 @@ class UserPage extends StatelessWidget {
                     fontFamily: 'Lilita One',
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.5), // Adjusted height to move buttons lower
+                SizedBox(height: MediaQuery.of(context).size.height * 0.5), 
                 SizedBox(
                   width: buttonWidth,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
-                        return const UserPage();
+                        return const AvatarPage();
                       }));
                     },
                     style: ElevatedButton.styleFrom(
