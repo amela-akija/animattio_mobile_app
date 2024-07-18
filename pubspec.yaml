@@ -66,6 +66,9 @@ flutter:
    - assets/user_page/
    - assets/avatar_page/
    - assets/avatar_page/avatars/
+   - assets/theme_page/icons/
+   - assets/mode_page/
+
 
 
   fonts:

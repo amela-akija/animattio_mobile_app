@@ -1,6 +1,11 @@
 //import 'package:animattio_mobile_app/login_page.dart';
 //import 'package:animattio_mobile_app/signup_page.dart';
+//import 'package:animattio_mobile_app/avatar_page.dart';
+//import 'package:animattio_mobile_app/main_page.dart';
 import 'package:animattio_mobile_app/avatar_page.dart';
+import 'package:animattio_mobile_app/mode_page.dart';
+import 'package:animattio_mobile_app/theme_page.dart';
+//import 'package:animattio_mobile_app/theme_page.dart';
 //import 'package:animattio_mobile_app/user_page.dart';
 import 'package:flutter/material.dart';
 //import 'main_page.dart';
@@ -18,7 +23,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:AvatarPage(),
+      home:ModePage(),
     );
   }
 }

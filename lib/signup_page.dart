@@ -37,7 +37,7 @@ class SignupPage extends StatelessWidget {
               children: <Widget>[
                 Center(
                   child: Transform.translate(
-                     offset: Offset(0, 80),
+                     offset: const Offset(0, 80),
                      child: Transform.scale(
                       scale:1.2,
                      

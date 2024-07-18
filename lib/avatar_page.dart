@@ -1,3 +1,4 @@
+import 'package:animattio_mobile_app/user_page.dart';
 import 'package:flutter/material.dart';
 
 class AvatarPage extends StatefulWidget {
@@ -10,8 +11,8 @@ class AvatarPage extends StatefulWidget {
 class _AvatarPageState extends State<AvatarPage> {
   final List<String> avatarImages = [
     'assets/avatar_page/avatars/avatar_1.png',
-    //'assets/avatar_page/avatars/avatar_2.png',
-    // Add more image paths as needed
+    'assets/avatar_page/avatars/avatar_2.png',
+    // TODO: Create custom avatars 
   ];
   int currentIndex = 0;
 
@@ -30,10 +31,10 @@ class _AvatarPageState extends State<AvatarPage> {
   @override
   Widget build(BuildContext context) {
     String pageTitle = "Choose your avatar";
-    Color fontColor = const Color(0xFFF7A559);
     Color buttonColor = const Color(0xFF2A470C);
     Color chooseColor = const Color(0xFFFEFFD9);
     Color pageColor = const Color(0xFF2A470C);
+    Color fontColor = const Color(0xFFFEFFD9);
 
     return Scaffold(
       backgroundColor: pageColor,
@@ -64,11 +65,26 @@ class _AvatarPageState extends State<AvatarPage> {
               ),
             ),
           ),
+          Positioned(
+            top: 20, 
+            left: 0,
+            child: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              color: chooseColor,
+              iconSize: 30, 
+              onPressed: () {
+                   Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return const UserPage();
+                      }));
+              },
+            ),
+          ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: 30),
+                const SizedBox(height: 10),
                 Text(
                   pageTitle,
                   textAlign: TextAlign.center,
@@ -78,12 +94,12 @@ class _AvatarPageState extends State<AvatarPage> {
                     fontFamily: 'Lilita One',
                   ),
                 ),
-                SizedBox(height: 50), // Adjust as needed
+                const SizedBox(height: 150),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     IconButton(
-                      icon: Icon(Icons.arrow_left),
+                      icon: const Icon(Icons.arrow_left),
                       color: buttonColor,
                       iconSize: 50,
                       onPressed: _showPreviousAvatar,
@@ -100,7 +116,7 @@ class _AvatarPageState extends State<AvatarPage> {
                       ),
                     ),
                     IconButton(
-                      icon: Icon(Icons.arrow_right),
+                      icon: const Icon(Icons.arrow_right),
                       color: buttonColor,
                       iconSize: 50,
                       onPressed: _showNextAvatar,
@@ -110,12 +126,47 @@ class _AvatarPageState extends State<AvatarPage> {
               ],
             ),
           ),
+          Positioned(
+            top: MediaQuery.of(context).size.height * 0.85,
+            width: MediaQuery.of(context).size.width,
+            child: Center(
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return const UserPage();
+                      },
+                    ),
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: buttonColor,
+                  padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                  textStyle: const TextStyle(
+                    fontSize: 25,
+                    fontFamily: 'Lilita One',
+                    fontWeight: FontWeight.w900,
+                  ),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  elevation: 10,
+                ),
+                child: Text(
+                  'Choose',
+                  style: TextStyle(color: fontColor),
+                ),
+              ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-void main() => runApp(MaterialApp(
+void main() => runApp(const MaterialApp(
+  debugShowCheckedModeBanner: false,
   home: AvatarPage(),
 ));

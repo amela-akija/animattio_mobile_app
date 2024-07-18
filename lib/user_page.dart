@@ -1,4 +1,5 @@
 import 'package:animattio_mobile_app/avatar_page.dart';
+import 'package:animattio_mobile_app/theme_page.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
@@ -28,7 +29,7 @@ class UserPage extends StatelessWidget {
           Positioned(
             left: 0,
             child: Transform.translate(
-              offset: Offset(0, 80),
+              offset: const Offset(0, 80),
               child: Transform.scale(
                 scale: 1,
                 child: Image.asset(
@@ -40,7 +41,7 @@ class UserPage extends StatelessWidget {
           Positioned(
             left: 0,
             child: Transform.translate(
-              offset: Offset(0, 125),
+              offset: const Offset(0, 125),
               child: Transform.scale(
                 scale: 1,
                 child: Image.asset(
@@ -53,7 +54,7 @@ class UserPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                SizedBox(height: 30), 
+                const SizedBox(height: 30), 
                 Text(
                   userTitle,
                   textAlign: TextAlign.center,
@@ -91,14 +92,14 @@ class UserPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 SizedBox(
                   width: buttonWidth,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
-                        return const UserPage();
+                        return const ThemePage();
                       }));
                     },
                     style: ElevatedButton.styleFrom(
@@ -119,7 +120,7 @@ class UserPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                SizedBox(height: 20),
+                const SizedBox(height: 20),
                 SizedBox(
                   width: buttonWidth,
                   child: ElevatedButton(
