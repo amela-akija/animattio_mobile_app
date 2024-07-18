@@ -1,5 +1,4 @@
 import 'package:animattio_mobile_app/start_game_page.dart';
-import 'package:animattio_mobile_app/user_page.dart';
 import 'package:flutter/material.dart';
 
 class ModePage extends StatefulWidget {
