@@ -1,12 +1,19 @@
+import 'dart:ui';
+
 import 'package:animattio_mobile_app/login_page.dart';
 import 'package:animattio_mobile_app/user_page.dart';
 import 'package:flutter/material.dart';
+
 //Page for registration
 class SignupPage extends StatelessWidget {
   const SignupPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    dynamic size, height, width;
+    size = MediaQuery.of(context).size;
+    height = size.height;
+    width = size.width;
     Color fontColor = const Color(0xFFFEFFD9);
     Color pageColor = const Color(0xFFF7A559);
     Color buttonColor = const Color(0xFFF7A559);
@@ -20,9 +27,26 @@ class SignupPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 50.0),
-            child: Text(
+          Expanded(
+            child: Stack(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    width: width,
+                    height: height * 0.3,
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: Image.asset('assets/login_page/star_login.png'),
+                    ),
+                  ),
+                ),
+                 Padding(
+            padding: const EdgeInsets.only(top: 20.0),
+            child: Align(
+              alignment:Alignment.topCenter,
+            child: 
+            Text(
               signUpTitle,
               textAlign: TextAlign.center,
               style: TextStyle(
@@ -30,23 +54,9 @@ class SignupPage extends StatelessWidget {
                 fontSize: 60,
                 fontFamily: 'Lilita One',
               ),
-            ),
+            ),),
           ),
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                Center(
-                  child: Transform.translate(
-                     offset: const Offset(0, 80),
-                     child: Transform.scale(
-                      scale:1.2,
-                     
-                    child: Image.asset(
-                      'assets/login_page/star_login.png',
-                     ),),
-                  ),
-                ),
-                              Positioned(
+                Positioned(
                   top: MediaQuery.of(context).size.height * 0.20,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
@@ -81,14 +91,16 @@ class SignupPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           hintText: 'Enter username:',
-                          hintStyle: TextStyle(color: textColor, fontFamily: 'Lilita One'),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                          hintStyle: TextStyle(
+                              color: textColor, fontFamily: 'Lilita One'),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
                         ),
                       ),
                     ),
                   ),
-                ),             
-                 Positioned(
+                ),
+                Positioned(
                   top: MediaQuery.of(context).size.height * 0.30,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
@@ -123,14 +135,16 @@ class SignupPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           hintText: 'Enter email:',
-                          hintStyle: TextStyle(color: textColor, fontFamily: 'Lilita One'),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                          hintStyle: TextStyle(
+                              color: textColor, fontFamily: 'Lilita One'),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
                         ),
                       ),
                     ),
                   ),
                 ),
-                                Positioned(
+                Positioned(
                   top: MediaQuery.of(context).size.height * 0.40,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
@@ -165,14 +179,16 @@ class SignupPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           hintText: 'Enter password:',
-                          hintStyle: TextStyle(color: textColor, fontFamily: 'Lilita One'),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                          hintStyle: TextStyle(
+                              color: textColor, fontFamily: 'Lilita One'),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
                         ),
                       ),
                     ),
                   ),
                 ),
-                                Positioned(
+                Positioned(
                   top: MediaQuery.of(context).size.height * 0.50,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
@@ -207,25 +223,30 @@ class SignupPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           hintText: 'Repeat password:',
-                          hintStyle: TextStyle(color: textColor, fontFamily: 'Lilita One'),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                          hintStyle: TextStyle(
+                              color: textColor, fontFamily: 'Lilita One'),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 15, horizontal: 20),
                         ),
                       ),
                     ),
                   ),
                 ),
-                                Positioned(
+                Positioned(
                   top: MediaQuery.of(context).size.height * 0.65,
                   width: MediaQuery.of(context).size.width,
                   child: Center(
                     child: ElevatedButton(
-                      onPressed: () { 
+                      onPressed: () {
                         Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {return const UserPage();}));
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return const UserPage();
+                        }));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: buttonColor,
-                        padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 37, vertical: 15),
                         textStyle: const TextStyle(
                             fontSize: 25,
                             fontFamily: 'Lilita One',
@@ -239,19 +260,22 @@ class SignupPage extends StatelessWidget {
                         'Sign up',
                         style: TextStyle(color: fontColor),
                       ),
-                    ),),),
-                
-                
-                ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
-           Align(
+          Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
               child: TextButton(
-                onPressed: () {Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {return const LoginPage();}));
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return const LoginPage();
+                  }));
                 },
                 child: Text(
                   toLogInString,
