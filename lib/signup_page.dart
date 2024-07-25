@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:animattio_mobile_app/login_page.dart';
 import 'package:animattio_mobile_app/user_page.dart';
 import 'package:flutter/material.dart';
@@ -10,22 +8,27 @@ class SignupPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dynamic size, height, width;
-    size = MediaQuery.of(context).size;
-    height = size.height;
-    width = size.width;
+    //Size
+    dynamic deviceSize, height, width;
+    deviceSize = MediaQuery.of(context).size;
+    height = deviceSize.height;
+    width = deviceSize.width;
+
+    //Colors
     Color fontColor = const Color(0xFFFEFFD9);
     Color pageColor = const Color(0xFFF7A559);
     Color buttonColor = const Color(0xFFF7A559);
     Color inputColor = const Color(0xFFFEFFD9);
     Color textColor = const Color(0xFF2A470C);
+
+    //Strings
     String signUpTitle = "Sign up";
     String toLogInString = "Already have an account? Sign in";
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: pageColor,
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Expanded(
             child: Stack(
@@ -57,19 +60,19 @@ class SignupPage extends StatelessWidget {
             ),),
           ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.20,
-                  width: MediaQuery.of(context).size.width,
+                  top: deviceSize.height * 0.3,
+                  width: deviceSize.width,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withOpacity(0.4),
                             spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
+                            blurRadius: 2,
+                            offset: const Offset(0,5),
                           ),
                         ],
                       ),
@@ -94,26 +97,26 @@ class SignupPage extends StatelessWidget {
                           hintStyle: TextStyle(
                               color: textColor, fontFamily: 'Lilita One'),
                           contentPadding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 20),
+                              vertical: 10, horizontal: 10),
                         ),
                       ),
                     ),
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.30,
-                  width: MediaQuery.of(context).size.width,
+                  top: deviceSize.height * 0.4,
+                  width: deviceSize.width,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withOpacity(0.4),
                             spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
+                            blurRadius: 2,
+                            offset: const Offset(0,5),
                           ),
                         ],
                       ),
@@ -138,26 +141,26 @@ class SignupPage extends StatelessWidget {
                           hintStyle: TextStyle(
                               color: textColor, fontFamily: 'Lilita One'),
                           contentPadding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 20),
+                              vertical: 10, horizontal: 10),
                         ),
                       ),
                     ),
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.40,
-                  width: MediaQuery.of(context).size.width,
+                  top: deviceSize.height * 0.5,
+                  width: deviceSize.width,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withOpacity(0.4),
                             spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
+                            blurRadius: 2,
+                            offset: const Offset(0,5),
                           ),
                         ],
                       ),
@@ -182,26 +185,26 @@ class SignupPage extends StatelessWidget {
                           hintStyle: TextStyle(
                               color: textColor, fontFamily: 'Lilita One'),
                           contentPadding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 20),
+                              vertical: 10, horizontal: 10),
                         ),
                       ),
                     ),
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.50,
-                  width: MediaQuery.of(context).size.width,
+                  top: deviceSize.height * 0.6,
+                  width: deviceSize.width,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withOpacity(0.4),
                             spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
+                            blurRadius: 2,
+                            offset: const Offset(0,5),
                           ),
                         ],
                       ),
@@ -226,15 +229,15 @@ class SignupPage extends StatelessWidget {
                           hintStyle: TextStyle(
                               color: textColor, fontFamily: 'Lilita One'),
                           contentPadding: const EdgeInsets.symmetric(
-                              vertical: 15, horizontal: 20),
+                              vertical: 10, horizontal: 10),
                         ),
                       ),
                     ),
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.65,
-                  width: MediaQuery.of(context).size.width,
+                  top: deviceSize.height * 0.75,
+                  width: deviceSize.width,
                   child: Center(
                     child: ElevatedButton(
                       onPressed: () {
@@ -246,7 +249,7 @@ class SignupPage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                         backgroundColor: buttonColor,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 37, vertical: 15),
+                            horizontal: 30, vertical: 10),
                         textStyle: const TextStyle(
                             fontSize: 25,
                             fontFamily: 'Lilita One',
@@ -257,7 +260,7 @@ class SignupPage extends StatelessWidget {
                         elevation: 10,
                       ),
                       child: Text(
-                        'Sign up',
+                        signUpTitle,
                         style: TextStyle(color: fontColor),
                       ),
                     ),

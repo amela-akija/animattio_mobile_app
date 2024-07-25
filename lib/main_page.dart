@@ -8,13 +8,21 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    dynamic size, height, width;
-    size = MediaQuery.of(context).size;
-    height = size.height;
-    width = size.width;
+    //Size
+    dynamic deviceSize, height, width;
+    deviceSize = MediaQuery.of(context).size;
+    height = deviceSize.height;
+    width = deviceSize.width;
+
+    //Colors
     Color pageColor = const Color(0xFFF7A559);
     Color buttonColor = const Color(0xFFF7A559);
     Color fontColor = const Color(0xFFFEFFD9);
+
+    //Strings
+    String buttonSign = "Sign up";
+    String buttonLogin = "Log in";
+
     return Scaffold(
       backgroundColor: pageColor,
       body: Stack(
@@ -24,7 +32,7 @@ class MainPage extends StatelessWidget {
             right: 0,
             child: Align(
               alignment: Alignment.topRight,
-              child: Container(
+              child: SizedBox(
                 width: width * 0.5,
                 height: height * 0.5,
                 child: FittedBox(
@@ -41,7 +49,7 @@ class MainPage extends StatelessWidget {
             right: 0,
             child: Align(
               alignment: Alignment.topRight,
-              child: Container(
+              child: SizedBox(
                 width: width * 0.4,
                 height: height * 0.4,
                 child: FittedBox(
@@ -58,7 +66,7 @@ class MainPage extends StatelessWidget {
             left: 0,
             child: Align(
               alignment: Alignment.bottomLeft,
-              child: Container(
+              child: SizedBox(
                 width: width * 0.45,
                 height: height * 0.45,
                 child: FittedBox(
@@ -75,7 +83,7 @@ class MainPage extends StatelessWidget {
             left: 0,
             child: Align(
               alignment: Alignment.bottomLeft,
-              child: Container(
+              child: SizedBox(
                 width: width * 0.35,
                 height: height * 0.35,
                 child: FittedBox(
@@ -88,8 +96,8 @@ class MainPage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.7,
-            width: MediaQuery.of(context).size.width,
+            top: deviceSize.height * 0.7,
+            width: deviceSize.width,
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -101,7 +109,7 @@ class MainPage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: buttonColor,
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 45, vertical: 15),
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   textStyle: const TextStyle(
                       fontSize: 25,
                       fontFamily: 'Lilita One',
@@ -112,15 +120,15 @@ class MainPage extends StatelessWidget {
                   elevation: 10,
                 ),
                 child: Text(
-                  'Log in',
+                  buttonLogin,
                   style: TextStyle(color: fontColor),
                 ),
               ),
             ),
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.8,
-            width: MediaQuery.of(context).size.width,
+            top: deviceSize.height * 0.8,
+            width: deviceSize.width,
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -132,7 +140,7 @@ class MainPage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: buttonColor,
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   textStyle: const TextStyle(
                       fontSize: 25,
                       fontFamily: 'Lilita One',
@@ -143,7 +151,7 @@ class MainPage extends StatelessWidget {
                   elevation: 10,
                 ),
                 child: Text(
-                  'Sign up',
+                  buttonSign,
                   style: TextStyle(color: fontColor),
                 ),
               ),
@@ -152,8 +160,8 @@ class MainPage extends StatelessWidget {
           Center(
             child: Image.asset(
               'assets/logos/logo.png',
-              height: height / 2,
-              width: width / 2,
+              height: height*0.5,
+              width: width*0.5,
             ),
           ),
         ],

@@ -5,36 +5,46 @@ class AvatarPage extends StatefulWidget {
   const AvatarPage({super.key});
 
   @override
-  _AvatarPageState createState() => _AvatarPageState();
+  _ChosenAvatarState createState() => _ChosenAvatarState();
 }
 
-class _AvatarPageState extends State<AvatarPage> {
-  final List<String> avatarImages = [
+class _ChosenAvatarState extends State<AvatarPage> {
+  final List<String> listOfAvatars = [
     'assets/avatar_page/avatars/avatar_1.png',
     'assets/avatar_page/avatars/avatar_2.png',
-    // TODO: Create custom avatars 
+    // TODO: Create custom avatars
   ];
-  int currentIndex = 0;
+  int currentAvatar = 0;
 
   void _showPreviousAvatar() {
     setState(() {
-      currentIndex = (currentIndex - 1) % avatarImages.length;
+      currentAvatar = (currentAvatar - 1) % listOfAvatars.length;
     });
   }
 
   void _showNextAvatar() {
     setState(() {
-      currentIndex = (currentIndex + 1) % avatarImages.length;
+      currentAvatar = (currentAvatar + 1) % listOfAvatars.length;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    //Strings
     String pageTitle = "Choose your avatar";
+    String chooseButton = "Choose";
+
+    //Colors
     Color buttonColor = const Color(0xFF2A470C);
     Color chooseColor = const Color(0xFFFEFFD9);
     Color pageColor = const Color(0xFF2A470C);
     Color fontColor = const Color(0xFFFEFFD9);
+
+    //Size
+    dynamic deviceSize, height, width;
+    deviceSize = MediaQuery.of(context).size;
+    height = deviceSize.height;
+    width = deviceSize.width;
 
     return Scaffold(
       backgroundColor: pageColor,
@@ -43,48 +53,98 @@ class _AvatarPageState extends State<AvatarPage> {
           Positioned(
             top: 0,
             right: 0,
-            child: Image.asset(
-              'assets/avatar_page/star_avatar_1.png',
+            child: SizedBox(
+              width: width * 0.1,
+              height: height * 0.2,
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: Image.asset(
+                  'assets/avatar_page/star_avatar_1.png',
+                ),
+              ),
             ),
           ),
           Positioned(
             left: 0,
             bottom: 0,
-            child: Transform.scale(
-              scale: 1,
-              child: Image.asset(
-                'assets/avatar_page/star_avatar_2.png',
+            child: SizedBox(
+              width: width * 0.6,
+              height: height * 0.5,
+              child: FittedBox(
+                fit: BoxFit.cover,
+                child: Image.asset(
+                  'assets/avatar_page/star_avatar_2.png',
+                ),
               ),
             ),
           ),
-          Center(
-            child: Transform.scale(
-              scale: 1.25,
-              child: Image.asset(
-                'assets/avatar_page/avatar_field.png',
+          Stack(
+            children: [
+              Center(
+                child: SizedBox(
+                  width: width * 0.3,
+                  height: height * 0.3,
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: Image.asset(
+                      'assets/avatar_page/avatar_field.png',
+                    ),
+                  ),
+                ),
               ),
-            ),
-          ),
-          Positioned(
-            top: 20, 
-            left: 0,
-            child: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              color: chooseColor,
-              iconSize: 30, 
-              onPressed: () {
-                   Navigator.of(context).push(
+              Positioned(
+                left: 0,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    color: chooseColor,
+                    iconSize: 30,
+                    onPressed: () {
+                      Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
                         return const UserPage();
                       }));
-              },
-            ),
+                    },
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_left),
+                  color: chooseColor,
+                  iconSize: 40,
+                  onPressed: _showPreviousAvatar,
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_right),
+                  color: chooseColor,
+                  iconSize: 40,
+                  onPressed: _showNextAvatar,
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: SizedBox(
+                  width: width * 0.25,
+                  height: height * 0.25,
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: Image.asset(listOfAvatars[currentAvatar]
+                    ),
+                  ),),
+              ),
+            ],
           ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                const SizedBox(height: 10),
+                const SizedBox(height: 30),
                 Text(
                   pageTitle,
                   textAlign: TextAlign.center,
@@ -94,41 +154,12 @@ class _AvatarPageState extends State<AvatarPage> {
                     fontFamily: 'Lilita One',
                   ),
                 ),
-                const SizedBox(height: 150),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    IconButton(
-                      icon: const Icon(Icons.arrow_left),
-                      color: buttonColor,
-                      iconSize: 50,
-                      onPressed: _showPreviousAvatar,
-                    ),
-                    Container(
-                      width: 200,
-                      height: 200,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                          image: AssetImage(avatarImages[currentIndex]),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    ),
-                    IconButton(
-                      icon: const Icon(Icons.arrow_right),
-                      color: buttonColor,
-                      iconSize: 50,
-                      onPressed: _showNextAvatar,
-                    ),
-                  ],
-                ),
               ],
             ),
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.85,
-            width: MediaQuery.of(context).size.width,
+            top: deviceSize.height * 0.8,
+            width: deviceSize.width,
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -142,7 +173,8 @@ class _AvatarPageState extends State<AvatarPage> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: buttonColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                   textStyle: const TextStyle(
                     fontSize: 25,
                     fontFamily: 'Lilita One',
@@ -151,10 +183,10 @@ class _AvatarPageState extends State<AvatarPage> {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(20),
                   ),
-                  elevation: 10,
+                  elevation: 15,
                 ),
                 child: Text(
-                  'Choose',
+                  chooseButton,
                   style: TextStyle(color: fontColor),
                 ),
               ),
@@ -165,8 +197,3 @@ class _AvatarPageState extends State<AvatarPage> {
     );
   }
 }
-
-void main() => runApp(const MaterialApp(
-  debugShowCheckedModeBanner: false,
-  home: AvatarPage(),
-));

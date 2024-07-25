@@ -1,66 +1,79 @@
 import 'package:animattio_mobile_app/user_page.dart';
 import 'package:flutter/material.dart';
 import 'signup_page.dart';
+
 //Page for login
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    //Colors
     Color fontColor = const Color(0xFFFEFFD9);
     Color pageColor = const Color(0xFFF7A559);
     Color buttonColor = const Color(0xFFF7A559);
     Color inputColor = const Color(0xFFFEFFD9);
     Color textColor = const Color(0xFF2A470C);
+
+    //Strings
     String loginTitle = "Log in";
     String toSignUpString = "Don't have an account yet? Sign up";
 
+    //Size
+    dynamic deviceSize, height, width;
+    deviceSize = MediaQuery.of(context).size;
+    height = deviceSize.height;
+    width = deviceSize.width;
+
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset:
+          false, // for images to not move when keyboard is active
       backgroundColor: pageColor,
       body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 50.0),
-            child: Text(
-              loginTitle,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: fontColor,
-                fontSize: 60,
-                fontFamily: 'Lilita One',
-              ),
-            ),
-          ),
           Expanded(
             child: Stack(
               children: <Widget>[
-                 Center(
-                  child: Transform.translate(
-                     offset: const Offset(0, 80),
-                     child: Transform.scale(
-                      scale:1.2,
-                     
-                    child: Image.asset(
-                      'assets/login_page/star_login.png',
-                     ),),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: SizedBox(
+                    width: width,
+                    height: height * 0.3,
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: Image.asset('assets/login_page/star_login.png'),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 20.0),
+                  child: Align(
+                    alignment: Alignment.topCenter,
+                    child: Text(
+                      loginTitle,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: fontColor,
+                        fontSize: 60,
+                        fontFamily: 'Lilita One',
+                      ),
+                    ),
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.25,
-                  width: MediaQuery.of(context).size.width,
+                  top: deviceSize.height * 0.35,
+                  width: deviceSize.width,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withOpacity(0.4),
                             spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
+                            blurRadius: 2,
+                            offset: const Offset(0, 5),
                           ),
                         ],
                       ),
@@ -82,27 +95,29 @@ class LoginPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           hintText: 'Enter username:',
-                          hintStyle: TextStyle(color: textColor, fontFamily: 'Lilita One'),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                          hintStyle: TextStyle(
+                              color: textColor, fontFamily: 'Lilita One'),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
                         ),
                       ),
                     ),
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.4,
-                  width: MediaQuery.of(context).size.width,
+                  top: deviceSize.height * 0.5,
+                  width: deviceSize.width,
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 50.0),
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.3),
+                            color: Colors.black.withOpacity(0.4),
                             spreadRadius: 1,
-                            blurRadius: 5,
-                            offset: const Offset(0, 3),
+                            blurRadius: 2,
+                            offset: const Offset(0, 5),
                           ),
                         ],
                       ),
@@ -125,25 +140,30 @@ class LoginPage extends StatelessWidget {
                             borderRadius: BorderRadius.circular(20),
                           ),
                           hintText: 'Enter password:',
-                          hintStyle: TextStyle(color: textColor, fontFamily: 'Lilita One'),
-                          contentPadding: const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
+                          hintStyle: TextStyle(
+                              color: textColor, fontFamily: 'Lilita One'),
+                          contentPadding: const EdgeInsets.symmetric(
+                              vertical: 10, horizontal: 10),
                         ),
                       ),
                     ),
                   ),
                 ),
                 Positioned(
-                  top: MediaQuery.of(context).size.height * 0.6,
-                  width: MediaQuery.of(context).size.width,
+                  top: deviceSize.height * 0.7,
+                  width: deviceSize.width,
                   child: Center(
                     child: ElevatedButton(
                       onPressed: () {
-                          Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {return const UserPage();}));
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return const UserPage();
+                        }));
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: buttonColor,
-                        padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 30, vertical: 10),
                         textStyle: const TextStyle(
                             fontSize: 25,
                             fontFamily: 'Lilita One',
@@ -168,8 +188,11 @@ class LoginPage extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
               child: TextButton(
-                onPressed: () {Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {return const SignupPage();}));
+                onPressed: () {
+                  Navigator.of(context)
+                      .push(MaterialPageRoute(builder: (BuildContext context) {
+                    return const SignupPage();
+                  }));
                 },
                 child: Text(
                   toSignUpString,

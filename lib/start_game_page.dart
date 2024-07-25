@@ -5,58 +5,81 @@ class StartGamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Strings
     String message = "Are you ready to start the game?";
+    String continueButton = "continue";
+
+    //Colors
     Color pageColor = const Color(0xffD4F8B0);
     Color buttonColor = const Color(0xFFF7A559);
     Color fontColor = const Color(0xFFF7A559);
     Color fontButtonColor = const Color(0xFFFEFFD9);
-   
+
+    //Size
+    dynamic deviceSize, height, width;
+    deviceSize = MediaQuery.of(context).size;
+    height = deviceSize.height;
+    width = deviceSize.width;
 
     return Scaffold(
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 100,
-            child: Transform.scale(
-              scale: 1.2,
-              child: Image.asset(
-                'assets/start_game_page/star_start_2.png',
-              ),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 200,
-            child: Transform.scale(
-              scale: 1.2,
-              child: Image.asset(
-                'assets/start_game_page/star_start_1.png',
-              ),
+          Expanded(
+            child: Stack(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: width,
+                    height: height,
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: Image.asset(
+                          'assets/start_game_page/star_start_2.png'),
+                    ),
+                  ),
+                ),
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: width,
+                    height: height * 0.85,
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: Image.asset(
+                          'assets/start_game_page/star_start_1.png'),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: Text(
-                message,
-                style: TextStyle(
-                  color: fontColor,
-                  fontSize: 50,
-                  fontFamily: "Lilita One",
-                  fontWeight: FontWeight.bold,
-                  height: 1.2,
-                ),
-                textAlign: TextAlign.center,
+              padding: const EdgeInsets.symmetric(horizontal: 27.0),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    message,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: fontColor,
+                      fontSize: 44,
+                      fontFamily: "Lilita One",
+                      height: 1,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 50),
+                ],
               ),
             ),
           ),
           Positioned(
-            top: MediaQuery.of(context).size.height * 0.6,
-            width: MediaQuery.of(context).size.width,
+            top: deviceSize.height * 0.6,
+            width: deviceSize.width,
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -68,18 +91,19 @@ class StartGamePage extends StatelessWidget {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: buttonColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                   textStyle: const TextStyle(
                       fontSize: 25,
                       fontFamily: 'Lilita One',
                       fontWeight: FontWeight.w900),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   elevation: 10,
                 ),
                 child: Text(
-                  'continue',
+                  continueButton,
                   style: TextStyle(color: fontButtonColor),
                 ),
               ),
@@ -90,4 +114,3 @@ class StartGamePage extends StatelessWidget {
     );
   }
 }
-

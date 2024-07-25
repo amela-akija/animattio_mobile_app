@@ -91,7 +91,7 @@ class _ModePageState extends State<ModePage> {
           ),
           Center(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 20),
               constraints: BoxConstraints(
                 maxWidth: MediaQuery.of(context).size.width * 0.6,
               ),

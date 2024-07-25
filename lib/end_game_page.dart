@@ -6,56 +6,71 @@ class EndGamePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //Strings
     String message = "You finished the game! Do you want to repeat the task?";
+    String yesButton = "yes";
+    String noButton = "no";
+
+    //Colors
     Color pageColor = const Color(0xffD4F8B0);
     Color buttonColor = const Color(0xFFF7A559);
     Color fontColor = const Color(0xFFF7A559);
     Color fontButtonColor = const Color(0xFFFEFFD9);
 
+    //Size
+    dynamic deviceSize, height, width;
+    deviceSize = MediaQuery.of(context).size;
+    height = deviceSize.height;
+    width = deviceSize.width;
+
     return Scaffold(
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 100,
-            child: Transform.scale(
-              scale: 1.2,
-              child: Image.asset(
-                'assets/start_game_page/star_start_2.png',
-              ),
-            ),
-          ),
-          Positioned(
-            left: 0,
-            right: 0,
-            top: 200,
-            child: Transform.scale(
-              scale: 1.2,
-              child: Image.asset(
-                'assets/start_game_page/star_start_1.png',
-              ),
-            ),
-          ),
+          Expanded(
+            child: Stack(
+              children: <Widget>[
+                Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: width,
+                    height: height ,
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: Image.asset('assets/start_game_page/star_start_2.png'),
+                    ),
+                  ),
+                ),
+                 Align(
+                  alignment: Alignment.center,
+                  child: SizedBox(
+                    width: width,
+                    height: height*0.85 ,
+                    child: FittedBox(
+                      fit: BoxFit.cover,
+                      child: Image.asset('assets/start_game_page/star_start_1.png'),
+                    ),
+                  ),
+                ),
+                ],),),
           Center(
             child: Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              padding: const EdgeInsets.symmetric(horizontal: 27.0),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
                     message,
                     style: TextStyle(
+                      fontWeight: FontWeight.bold,
                       color: fontColor,
                       fontSize: 44,
                       fontFamily: "Lilita One",
-                      fontWeight: FontWeight.bold,
-                      height: 1.2,
+                      height: 1,
                     ),
                     textAlign: TextAlign.center,
                   ),
-                  SizedBox(height: 25),
+                  const SizedBox(height: 20),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -69,22 +84,22 @@ class EndGamePage extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: buttonColor,
-                          padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           textStyle: const TextStyle(
                               fontSize: 25,
                               fontFamily: 'Lilita One',
                               fontWeight: FontWeight.w900),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(15),
                           ),
                           elevation: 10,
                         ),
                         child: Text(
-                          'yes',
+                          yesButton,
                           style: TextStyle(color: fontButtonColor),
                         ),
                       ),
-                      SizedBox(width: 30),
+                      const SizedBox(width: 30),
                       ElevatedButton(
                         onPressed: () {
                           Navigator.of(context).push(
@@ -95,18 +110,18 @@ class EndGamePage extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: buttonColor,
-                          padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
                           textStyle: const TextStyle(
                               fontSize: 25,
                               fontFamily: 'Lilita One',
                               fontWeight: FontWeight.w900),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(20),
+                            borderRadius: BorderRadius.circular(15),
                           ),
                           elevation: 10,
                         ),
                         child: Text(
-                          'no',
+                          noButton,
                           style: TextStyle(color: fontButtonColor),
                         ),
                       ),
