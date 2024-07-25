@@ -30,6 +30,7 @@ class _ChosenAvatarState extends State<AvatarPage> {
 
   @override
   Widget build(BuildContext context) {
+    
     //Strings
     String pageTitle = "Choose your avatar";
     String chooseButton = "Choose";
@@ -54,8 +55,8 @@ class _ChosenAvatarState extends State<AvatarPage> {
             top: 0,
             right: 0,
             child: SizedBox(
-              width: width * 0.1,
-              height: height * 0.2,
+              width: width * 0.5,
+              height: height * 0.5,
               child: FittedBox(
                 fit: BoxFit.cover,
                 child: Image.asset(

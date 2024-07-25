@@ -5,74 +5,84 @@ class ModePage extends StatefulWidget {
   const ModePage({super.key});
 
   @override
-  _ModePageState createState() => _ModePageState();
+  _ChooseModeState createState() => _ChooseModeState();
 }
 
-class _ModePageState extends State<ModePage> {
+class _ChooseModeState extends State<ModePage> {
   List<String> modes = [
     "Click on the screen only when given symbol is displayed",
     "Click on the screen only when given symbol is NOT displayed"
   ];
-  int currentIndex = 0;
+  int currentMode = 0;
 
   void _showNextMode() {
     setState(() {
-      currentIndex = (currentIndex + 1) % modes.length;
+      currentMode = (currentMode + 1) % modes.length;
     });
   }
 
   void _showPreviousMode() {
     setState(() {
-      currentIndex = (currentIndex - 1 + modes.length) % modes.length;
+      currentMode = (currentMode - 1 + modes.length) % modes.length;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    //Strings
     String themeTitle = "Choose mode:";
+
+    //Colors
     Color pageColor = const Color(0xFFF7A559);
     Color buttonColor = const Color(0xFFFEFFD9);
     Color fontColor = const Color(0xFFF7A559);
-    Color titleColor = const Color(0xFFFEFFD9);
+    Color arrowColor = const Color(0xFF2A470C);
+    Color titleColor = const Color(0xFF2A470C);
+
+    //Size
+    dynamic deviceSize, height, width;
+    deviceSize = MediaQuery.of(context).size;
+    height = deviceSize.height;
+    width = deviceSize.width;
 
     return Scaffold(
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
-          Center(
-            child: Transform.scale(
-              scale: 1.3,
-              child: Image.asset(
-                'assets/mode_page/mode_field.png',
-              ),
-            ),
-          ),
+         Stack( children: [
           Positioned(
             left: 0,
             bottom: 0,
-            child: Transform.translate(
-              offset: const Offset(0, 0),
-              child: Transform.scale(
-                scale: 1,
-                child: Image.asset(
-                  'assets/mode_page/star_mode_1.png',
-                ),
+            child: Align(
+              alignment: Alignment.bottomLeft,
+              child: Image.asset(
+                'assets/mode_page/star_mode_1.png',
               ),
             ),
           ),
+            Center(
+                child: SizedBox(
+                  width: width * 0.2,
+                  height: height * 0.2,
+                  child: FittedBox(
+                    fit: BoxFit.cover,
+                    child: Image.asset(
+                      'assets/mode_page/mode_field.png',
+                    ),
+                  ),
+                ),
+              ),
           Positioned(
             right: 0,
             top: 0,
-            child: Transform.translate(
-              offset: const Offset(5, 0),
-              child: Transform.scale(
-                scale: 1,
-                child: Image.asset(
-                  'assets/mode_page/star_mode_2.png',
-                ),
+            width: width * 0.2,
+            child: Align(
+              alignment: Alignment.topRight,
+              child: Image.asset(
+                'assets/mode_page/star_mode_2.png',
               ),
             ),
-          ),
+          ),],),
           Positioned(
             top: 50,
             left: 0,
@@ -82,7 +92,7 @@ class _ModePageState extends State<ModePage> {
                 themeTitle,
                 style: TextStyle(
                   color: titleColor,
-                  fontSize: 56,
+                  fontSize: 50,
                   fontFamily: "Lilita One",
                   fontWeight: FontWeight.bold,
                 ),
@@ -91,41 +101,43 @@ class _ModePageState extends State<ModePage> {
           ),
           Center(
             child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+              padding: const EdgeInsets.symmetric(horizontal: 15),
               constraints: BoxConstraints(
-                maxWidth: MediaQuery.of(context).size.width * 0.6,
+                maxWidth: deviceSize.width * 0.5,
               ),
               child: Text(
-                modes[currentIndex],
+                modes[currentMode],
                 style: TextStyle(
                   color: fontColor,
                   fontFamily: "Lilita One",
-                  fontSize: 24,
+                  fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
           ),
-          Positioned(
-            left: MediaQuery.of(context).size.width * 0.1,
-            top: MediaQuery.of(context).size.height * 0.47,
-            child: IconButton(
-              icon: Icon(Icons.arrow_left, color: fontColor, size: 50),
-              onPressed: _showPreviousMode,
-            ),
+          Stack(
+            children: [
+              Align(
+                alignment: Alignment.centerLeft,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_left, color: arrowColor, size: 50),
+                  onPressed: _showPreviousMode,
+                ),
+              ),
+              Align(
+                alignment: Alignment.centerRight,
+                child: IconButton(
+                  icon: Icon(Icons.arrow_right, color: arrowColor, size: 50),
+                  onPressed: _showNextMode,
+                ),
+              ),
+            ],
           ),
           Positioned(
-            right: MediaQuery.of(context).size.width * 0.1,
-            top: MediaQuery.of(context).size.height * 0.47,
-            child: IconButton(
-              icon: Icon(Icons.arrow_right, color: fontColor, size: 50),
-              onPressed: _showNextMode,
-            ),
-          ),
-          Positioned(
-            top: MediaQuery.of(context).size.height * 0.65,
-            width: MediaQuery.of(context).size.width,
+            top: deviceSize.height * 0.75,
+            width: deviceSize.width,
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
@@ -137,19 +149,20 @@ class _ModePageState extends State<ModePage> {
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: buttonColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
                   textStyle: const TextStyle(
                       fontSize: 25,
                       fontFamily: 'Lilita One',
                       fontWeight: FontWeight.w900),
                   shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+                    borderRadius: BorderRadius.circular(15),
                   ),
                   elevation: 10,
                 ),
                 child: Text(
                   'OK',
-                  style: TextStyle(color: fontColor),
+                  style: TextStyle(color: arrowColor),
                 ),
               ),
             ),
@@ -159,5 +172,3 @@ class _ModePageState extends State<ModePage> {
     );
   }
 }
-
-

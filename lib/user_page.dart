@@ -7,46 +7,60 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    //Strings
     String userTitle = "My profile";
+    String gameButton = "play game";
+    String settingsButton = "settings";
+    String avatarButton = "change avatar";
+    
+
+    //Colors
     Color pageColor = const Color(0xFFF7A559);
     Color buttonColor = const Color(0xFF2A470C);
     Color fontColor = const Color(0xFFFEFFD9);
     Color titleColor = const Color(0xFF2A470C);
 
-    double buttonWidth = MediaQuery.of(context).size.width * 0.8;
+    //Size
+    dynamic deviceSize, height, width;
+    deviceSize = MediaQuery.of(context).size;
+    height = deviceSize.height;
+    width = deviceSize.width;
+
 
     return Scaffold(
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
           Positioned(
-            top: 0,
-            left: 0,
-            child: Image.asset(
-              'assets/user_page/star_user_3.png',
-            ),
-          ),
-          Positioned(
-            left: 0,
-            child: Transform.translate(
-              offset: const Offset(0, 80),
-              child: Transform.scale(
-                scale: 1,
-                child: Image.asset(
-                  'assets/user_page/star_user_2.png',
-                ),
+            height: height,
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: Image.asset(
+                'assets/user_page/star_user_3.png',
               ),
             ),
           ),
           Positioned(
             left: 0,
-            child: Transform.translate(
-              offset: const Offset(0, 125),
-              child: Transform.scale(
-                scale: 1,
-                child: Image.asset(
-                  'assets/user_page/star_user_1.png',
-                ),
+            top: height * 0.2,
+            // height: height * 0.5,
+            width: width*0.5,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Image.asset(
+                'assets/user_page/star_user_2.png',
+              ),
+            ),
+          ),
+          Positioned(
+            left: 0,
+            top: height * 0.24,
+            width: width * 0.4,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Image.asset(
+                'assets/user_page/star_user_1.png',
               ),
             ),
           ),
@@ -54,7 +68,7 @@ class UserPage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                const SizedBox(height: 30), 
+                const SizedBox(height: 20),
                 Text(
                   userTitle,
                   textAlign: TextAlign.center,
@@ -64,9 +78,9 @@ class UserPage extends StatelessWidget {
                     fontFamily: 'Lilita One',
                   ),
                 ),
-                SizedBox(height: MediaQuery.of(context).size.height * 0.5), 
+                SizedBox(height: height * 0.55), // in the middle of page
                 SizedBox(
-                  width: buttonWidth,
+                  width: width*0.5,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
@@ -76,9 +90,10 @@ class UserPage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: buttonColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
                       textStyle: const TextStyle(
-                          fontSize: 25,
+                          fontSize: 20,
                           fontFamily: 'Lilita One',
                           fontWeight: FontWeight.w900),
                       shape: RoundedRectangleBorder(
@@ -87,14 +102,14 @@ class UserPage extends StatelessWidget {
                       elevation: 10,
                     ),
                     child: Text(
-                      'change avatar',
+                      avatarButton,
                       style: TextStyle(color: fontColor),
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height:5 ),
                 SizedBox(
-                  width: buttonWidth,
+                  width: width*0.5,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
@@ -104,9 +119,10 @@ class UserPage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: buttonColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
                       textStyle: const TextStyle(
-                          fontSize: 25,
+                          fontSize: 20,
                           fontFamily: 'Lilita One',
                           fontWeight: FontWeight.w900),
                       shape: RoundedRectangleBorder(
@@ -115,14 +131,14 @@ class UserPage extends StatelessWidget {
                       elevation: 10,
                     ),
                     child: Text(
-                      'play game',
+                      gameButton,
                       style: TextStyle(color: fontColor),
                     ),
                   ),
                 ),
-                const SizedBox(height: 20),
+                const SizedBox(height: 5),
                 SizedBox(
-                  width: buttonWidth,
+                  width: width*0.5,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
@@ -132,9 +148,10 @@ class UserPage extends StatelessWidget {
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: buttonColor,
-                      padding: const EdgeInsets.symmetric(horizontal: 37, vertical: 15),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
                       textStyle: const TextStyle(
-                          fontSize: 25,
+                          fontSize: 20,
                           fontFamily: 'Lilita One',
                           fontWeight: FontWeight.w900),
                       shape: RoundedRectangleBorder(
@@ -143,7 +160,7 @@ class UserPage extends StatelessWidget {
                       elevation: 10,
                     ),
                     child: Text(
-                      'settings',
+                      settingsButton,
                       style: TextStyle(color: fontColor),
                     ),
                   ),
