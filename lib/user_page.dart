@@ -3,7 +3,8 @@ import 'package:animattio_mobile_app/theme_page.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
-  const UserPage({super.key});
+ final String? userAvatar;
+ const UserPage({super.key, this.userAvatar});
 
   @override
   Widget build(BuildContext context) {
@@ -13,10 +14,13 @@ class UserPage extends StatelessWidget {
     String gameButton = "play game";
     String settingsButton = "settings";
     String avatarButton = "change avatar";
+    String avatarMessage = "No avatar\n selected";
     
 
     //Colors
     Color pageColor = const Color(0xFFF7A559);
+        Color messageColor = const Color(0xFFF7A559);
+
     Color buttonColor = const Color(0xFF2A470C);
     Color fontColor = const Color(0xFFFEFFD9);
     Color titleColor = const Color(0xFF2A470C);
@@ -61,6 +65,40 @@ class UserPage extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Image.asset(
                 'assets/user_page/star_user_1.png',
+              ),
+            ),
+          ),
+          //TODO: message when avatar not selected?
+
+          // if (userAvatar == null)
+          //   Positioned(
+          //      top: height * 0.35,
+          //      child: 
+          //     Padding(
+          //     padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+          //     child: Align(
+          //       alignment: Alignment.center,
+          //       child: Text(
+          //         avatarMessage,
+          //         textAlign: TextAlign.center,
+          //         style: TextStyle(
+          //           color: messageColor,
+          //           fontSize: 20,
+          //           fontFamily: 'Lilita One',
+          //         ),
+
+
+          //       ),
+          //     ),),
+          //   ),
+          if(userAvatar !=null)
+          Positioned(
+          left: 0,
+            top: height * 0.35,
+            width: width * 0.3,
+            child: Align(
+              alignment: Alignment.center,
+              child: Image.asset(userAvatar!, //null check operator
               ),
             ),
           ),

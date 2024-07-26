@@ -16,6 +16,7 @@ class _ChosenAvatarState extends State<AvatarPage> {
   ];
   int currentAvatar = 0;
 
+
   void _showPreviousAvatar() {
     setState(() {
       currentAvatar = (currentAvatar - 1) % listOfAvatars.length;
@@ -34,6 +35,8 @@ class _ChosenAvatarState extends State<AvatarPage> {
     //Strings
     String pageTitle = "Choose your avatar";
     String chooseButton = "Choose";
+    String avatar = listOfAvatars[currentAvatar];
+
 
     //Colors
     Color buttonColor = const Color(0xFF2A470C);
@@ -105,7 +108,7 @@ class _ChosenAvatarState extends State<AvatarPage> {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
                         return const UserPage();
-                      }));
+                      },));
                     },
                   ),
                 ),
@@ -166,9 +169,8 @@ class _ChosenAvatarState extends State<AvatarPage> {
                 onPressed: () {
                   Navigator.of(context).push(
                     MaterialPageRoute(
-                      builder: (BuildContext context) {
-                        return const UserPage();
-                      },
+                      builder: (context) => UserPage(userAvatar: avatar),
+                      
                     ),
                   );
                 },
