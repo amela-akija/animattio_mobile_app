@@ -1,4 +1,5 @@
 import 'package:animattio_mobile_app/start_game_page.dart';
+import 'package:animattio_mobile_app/user_page.dart';
 import 'package:flutter/material.dart';
 
 class ModePage extends StatefulWidget {
@@ -49,21 +50,40 @@ class _ChooseModeState extends State<ModePage> {
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
-         Stack( children: [
+          Stack(
+            children: [
           Positioned(
-            left: 0,
-            bottom: 0,
-            child: Align(
-              alignment: Alignment.bottomLeft,
-              child: Image.asset(
-                'assets/mode_page/star_mode_1.png',
+                left: 0,
+                top: height*0.01,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    color: buttonColor,
+                    iconSize: 30,
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return const UserPage();
+                      }));
+                    },
+                  ),
+                ),
               ),
-            ),
-          ),
-            Center(
+              Positioned(
+                left: 0,
+                bottom: 0,
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: Image.asset(
+                    'assets/mode_page/star_mode_1.png',
+                  ),
+                ),
+              ),
+              Center(
                 child: SizedBox(
                   width: width * 0.2,
-                  height: height * 0.2,
+                  height: height * 0.25,
                   child: FittedBox(
                     fit: BoxFit.cover,
                     child: Image.asset(
@@ -72,17 +92,19 @@ class _ChooseModeState extends State<ModePage> {
                   ),
                 ),
               ),
-          Positioned(
-            right: 0,
-            top: 0,
-            width: width * 0.2,
-            child: Align(
-              alignment: Alignment.topRight,
-              child: Image.asset(
-                'assets/mode_page/star_mode_2.png',
+              Positioned(
+                right: 0,
+                top: 0,
+                width: width ,
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Image.asset(
+                    'assets/mode_page/star_mode_2.png',
+                  ),
+                ),
               ),
-            ),
-          ),],),
+            ],
+          ),
           Positioned(
             top: 50,
             left: 0,
