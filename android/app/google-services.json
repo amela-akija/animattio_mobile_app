@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "202556353541",
+    "project_id": "animattio-mobile-app",
+    "storage_bucket": "animattio-mobile-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:202556353541:android:570cba7ff5864930bcc06c",
+        "android_client_info": {
+          "package_name": "com.example.animattio_mobile_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAEsDukjUwjo2s6CEXYFajMcaHx-fjfmww"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

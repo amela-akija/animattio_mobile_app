@@ -1,4 +1,4 @@
-import 'package:animattio_mobile_app/user_page.dart';
+import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:flutter/material.dart';
 
 class EndGamePage extends StatelessWidget {

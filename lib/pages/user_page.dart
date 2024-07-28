@@ -1,5 +1,5 @@
-import 'package:animattio_mobile_app/avatar_page.dart';
-import 'package:animattio_mobile_app/theme_page.dart';
+import 'package:animattio_mobile_app/pages/avatar_page.dart';
+import 'package:animattio_mobile_app/pages/theme_page.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
@@ -14,12 +14,12 @@ class UserPage extends StatelessWidget {
     String gameButton = "play game";
     String settingsButton = "settings";
     String avatarButton = "change avatar";
-    String avatarMessage = "No avatar\n selected";
+    //String avatarMessage = "No avatar\n selected";
     
 
     //Colors
     Color pageColor = const Color(0xFFF7A559);
-        Color messageColor = const Color(0xFFF7A559);
+    //Color messageColor = const Color(0xFFF7A559);
 
     Color buttonColor = const Color(0xFF2A470C);
     Color fontColor = const Color(0xFFFEFFD9);

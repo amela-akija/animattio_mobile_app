@@ -1,21 +1,13 @@
-//import 'package:animattio_mobile_app/login_page.dart';
-//import 'package:animattio_mobile_app/main_page.dart';
-//import 'package:animattio_mobile_app/signup_page.dart';
-//import 'end_game_page.dart';
-//import 'package:animattio_mobile_app/avatar_page.dart';
-//import 'package:animattio_mobile_app/main_page.dart';
-//import 'package:animattio_mobile_app/avatar_page.dart';
-//import 'package:animattio_mobile_app/theme_page.dart';
-import 'package:animattio_mobile_app/main_page.dart';
-import 'package:animattio_mobile_app/theme_page.dart';
-import 'package:animattio_mobile_app/user_page.dart';
-//import 'package:animattio_mobile_app/start_game_page.dart'
-//import 'package:animattio_mobile_app/mode_page.dart';
+
+import 'package:animattio_mobile_app/firebase_options.dart';
+import 'package:animattio_mobile_app/pages/signup_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'firebase_options.dart';
 
-//import 'main_page.dart';
-
-void main() {
+void main()  async{
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform,);
   runApp(const MyApp());
 }
 
@@ -28,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:UserPage(),
+      home:SignupPage(),
     );
   }
 }
