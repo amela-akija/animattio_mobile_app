@@ -86,7 +86,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   Positioned(
-                    top: deviceSize.height * 0.3,
+                    top: deviceSize.height * 0.2,
                     width: deviceSize.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -95,7 +95,7 @@ class _SignupPageState extends State<SignupPage> {
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
+                              color: Colors.black.withOpacity(0.2),
                               spreadRadius: 1,
                               blurRadius: 2,
                               offset: const Offset(0, 5),
@@ -138,7 +138,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   Positioned(
-                    top: deviceSize.height * 0.4,
+                    top: deviceSize.height * 0.35,
                     width: deviceSize.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -147,7 +147,7 @@ class _SignupPageState extends State<SignupPage> {
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
+                              color: Colors.black.withOpacity(0.2),
                               spreadRadius: 1,
                               blurRadius: 2,
                               offset: const Offset(0, 5),
@@ -192,7 +192,7 @@ class _SignupPageState extends State<SignupPage> {
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
+                              color: Colors.black.withOpacity(0.2),
                               spreadRadius: 1,
                               blurRadius: 2,
                               offset: const Offset(0, 5),
@@ -242,7 +242,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   Positioned(
-                    top: deviceSize.height * 0.6,
+                    top: deviceSize.height * 0.65,
                     width: deviceSize.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -251,7 +251,7 @@ class _SignupPageState extends State<SignupPage> {
                           borderRadius: BorderRadius.circular(20),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black.withOpacity(0.4),
+                              color: Colors.black.withOpacity(0.2),
                               spreadRadius: 1,
                               blurRadius: 2,
                               offset: const Offset(0, 5),
@@ -296,7 +296,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   Positioned(
-                    top: deviceSize.height * 0.75,
+                    top: deviceSize.height * 0.8,
                     width: deviceSize.width,
                     child: Center(
                       child: ElevatedButton(
@@ -319,27 +319,7 @@ class _SignupPageState extends State<SignupPage> {
                               return const UserPage();
                             }));
                           }
-                          // if(emailController.text.isEmpty || passwordController.text.isEmpty || usernameController.text.isEmpty || repeatPasswordController.text.isEmpty){
-                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Fill in the fields first')));
-                          // }
-                          // if(passwordController.text != repeatPasswordController){
-                          //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Passwords are not the same')));
-                          // }
-                          // else{
-                          // setState(() {
-                          //   showLoading = true;
-                          // });
-                          // await AuthServices().registerUser(emailController.text, passwordController.text, context);
-                          // emailController.clear();
-                          // passwordController.clear();
-                          // setState(() {
-                          //   showLoading=false;
-                          // });
-                          // Navigator.of(context).push(
-                          //     MaterialPageRoute(builder: (BuildContext context) {
-                          //   return const UserPage();
-                          // }));
-                          // }
+
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: buttonColor,
@@ -355,7 +335,7 @@ class _SignupPageState extends State<SignupPage> {
                           elevation: 10,
                         ),
                         child: showLoading
-                            ? SizedBox(
+                            ? const SizedBox(
                                 height: 15,
                                 width: 15,
                                 child: CircularProgressIndicator())
