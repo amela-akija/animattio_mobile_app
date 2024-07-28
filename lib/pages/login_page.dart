@@ -1,10 +1,32 @@
-import 'package:animattio_mobile_app/pages/user_page.dart';
+
+import 'package:animattio_mobile_app/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'signup_page.dart';
 
 //Page for login
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+
+   //Login controllers
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+
+  bool showLoading = false;
+
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +92,7 @@ class LoginPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.4),
+                            color: Colors.black.withOpacity(0.2),
                             spreadRadius: 1,
                             blurRadius: 2,
                             offset: const Offset(0, 5),
@@ -78,6 +100,7 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                       child: TextField(
+                        controller: emailController,
                         style: TextStyle(color: textColor),
                         decoration: InputDecoration(
                           filled: true,
@@ -94,7 +117,7 @@ class LoginPage extends StatelessWidget {
                             borderSide: BorderSide(color: inputColor),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          hintText: 'Enter username:',
+                          hintText: 'Enter email:',
                           hintStyle: TextStyle(
                               color: textColor, fontFamily: 'Lilita One'),
                           contentPadding: const EdgeInsets.symmetric(
@@ -105,7 +128,7 @@ class LoginPage extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: deviceSize.height * 0.5,
+                  top: deviceSize.height * 0.55,
                   width: deviceSize.width,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -114,7 +137,7 @@ class LoginPage extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.4),
+                            color: Colors.black.withOpacity(0.2),
                             spreadRadius: 1,
                             blurRadius: 2,
                             offset: const Offset(0, 5),
@@ -122,6 +145,7 @@ class LoginPage extends StatelessWidget {
                         ],
                       ),
                       child: TextField(
+                        controller: passwordController,
                         style: TextStyle(color: textColor),
                         obscureText: true,
                         decoration: InputDecoration(
@@ -154,12 +178,26 @@ class LoginPage extends StatelessWidget {
                   width: deviceSize.width,
                   child: Center(
                     child: ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return const UserPage();
-                        }));
-                      },
+                      onPressed: () async{
+                  if(emailController.text.isEmpty || passwordController.text.isEmpty){
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please fill in the fields")));
+                  }else{
+                    showLoading = true;
+                    setState(() {
+                      
+                    });
+                    await AuthServices().loginUser(emailController.text, passwordController.text, context);
+                      showLoading = false;
+                    setState(() {
+                      
+                    });
+                  }
+
+                  // Navigator.of(context)
+                  //     .push(MaterialPageRoute(builder: (BuildContext context) {
+                  //   return const SignupPage();
+                  // }));
+                },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: buttonColor,
                         padding: const EdgeInsets.symmetric(

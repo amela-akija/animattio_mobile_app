@@ -1,6 +1,6 @@
 
 import 'package:animattio_mobile_app/firebase_options.dart';
-import 'package:animattio_mobile_app/pages/signup_page.dart';
+import 'package:animattio_mobile_app/pages/login_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart';
@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:SignupPage(),
+      home:LoginPage(),
     );
   }
 }
