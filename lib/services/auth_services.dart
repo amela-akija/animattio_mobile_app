@@ -8,9 +8,10 @@ class AuthServices{
   registerUser(email, password, context)async{
     try{
     await auth.createUserWithEmailAndPassword(email: email, password: password).then((value){
-          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('User registered successfully')));
 
     });
+    return ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('User registered successfully')));
+
 
     }
     catch(e){
@@ -19,23 +20,23 @@ class AuthServices{
 
   }
 
-  loginUser(email,password,context)async{
-    try{
-      UserCredential? userCredential = await auth.signInWithEmailAndPassword(email: email, password: password);
-      User user = userCredential.user!;
-
-      if(user !=null){
-        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>UserPage()));
-
-      }else{
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("User not found. Please register")));
+Future<String?> loginUser({
+    required String email,
+    required String password,
+  }) async {
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return 'User logged in successfully!';
+    } on FirebaseAuthException catch (e) {
+      if(email.isEmpty || password.isEmpty){
+        return "Please fill in all the fields";
+      }else {
+        return "Wrong credentials";
       }
-
-    }catch(e){
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
-
+    } catch (e) {
+      return e.toString();
     }
-    
-  }
-
-}
+  }}

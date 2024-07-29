@@ -1,4 +1,4 @@
-
+import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:animattio_mobile_app/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'signup_page.dart';
@@ -12,11 +12,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-
-   //Login controllers
+  //Login controllers
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
-
 
   bool showLoading = false;
 
@@ -178,26 +176,41 @@ class _LoginPageState extends State<LoginPage> {
                   width: deviceSize.width,
                   child: Center(
                     child: ElevatedButton(
-                      onPressed: () async{
-                  if(emailController.text.isEmpty || passwordController.text.isEmpty){
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please fill in the fields")));
-                  }else{
-                    showLoading = true;
-                    setState(() {
+                      onPressed: () async {
                       
-                    });
-                    await AuthServices().loginUser(emailController.text, passwordController.text, context);
-                      showLoading = false;
-                    setState(() {
-                      
-                    });
-                  }
 
-                  // Navigator.of(context)
-                  //     .push(MaterialPageRoute(builder: (BuildContext context) {
-                  //   return const SignupPage();
-                  // }));
-                },
+                        final message = await AuthServices().loginUser(
+                            email: emailController.text,
+                            password: passwordController.text,);
+                        if (message!.contains('User logged in successfully!')) {
+                          Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(
+                                  builder: (context) => const UserPage()));
+                        }
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(message),
+                          ),
+                        );
+                        // if(emailController.text.isEmpty || passwordController.text.isEmpty){
+                        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please fill in the fields")));
+                        // }else{
+                        //   showLoading = true;
+                        //   setState(() {
+
+                        //   });
+                        //   await AuthServices().loginUser(emailController.text, passwordController.text, context);
+                        //     showLoading = false;
+                        //   setState(() {
+
+                        //   });
+                        // }
+
+                        // Navigator.of(context)
+                        //     .push(MaterialPageRoute(builder: (BuildContext context) {
+                        //   return const SignupPage();
+                        // }));
+                      },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: buttonColor,
                         padding: const EdgeInsets.symmetric(

@@ -178,6 +178,14 @@ class _SignupPageState extends State<SignupPage> {
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
                           ),
+                          validator: (value) {
+                                                        if (value!.isEmpty) {
+                              return "Please fill in email field";
+                            }else if(!value.contains("@")){
+                              return "Wrong format of email";
+                            }
+                            
+                          },
                         ),
                       ),
                     ),
