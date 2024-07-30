@@ -322,7 +322,7 @@ class _SignupPageState extends State<SignupPage> {
                             setState(() {
                               showLoading = false;
                             });
-                            final user = User(username: usernameController.text, email: emailController.text, password: passwordController.text);
+                            final user = User(username: usernameController.text, email: emailController.text);
                             dbService.createUser(user);
                             emailController.clear();
                             passwordController.clear();
@@ -393,8 +393,7 @@ class _SignupPageState extends State<SignupPage> {
 class User{
   final String username;
   final String email;
-  final String password;
 
-  User({required this.username, required this.email, required this.password});
-  Map<String, dynamic> toMap()=>{"username":username, "email": email, "password": password};
+  User({required this.username, required this.email});
+  Map<String, dynamic> toMap()=>{"username":username, "email": email};
   }
