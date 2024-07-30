@@ -1,4 +1,3 @@
-import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +29,7 @@ Future<String?> loginUser({
         password: password,
       );
       return 'User logged in successfully!';
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException {
       if(email.isEmpty || password.isEmpty){
         return "Please fill in all the fields";
       }else {

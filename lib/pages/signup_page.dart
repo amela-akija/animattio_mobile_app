@@ -1,6 +1,7 @@
 import 'package:animattio_mobile_app/pages/login_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
-import 'package:animattio_mobile_app/services/auth_services.dart';
+import 'package:animattio_mobile_app/services/auth_service.dart';
+import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 
 class SignupPage extends StatefulWidget {
@@ -11,13 +12,14 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  final dbService = DatabaseService();
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   //Registration controllers
-  TextEditingController emailController = TextEditingController();
-  TextEditingController passwordController = TextEditingController();
-  TextEditingController usernameController = TextEditingController();
-  TextEditingController repeatPasswordController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
+  final repeatPasswordController = TextEditingController();
 
   bool showLoading = false;
 
@@ -317,11 +319,13 @@ class _SignupPageState extends State<SignupPage> {
                                 emailController.text,
                                 passwordController.text,
                                 context);
-                            emailController.clear();
-                            passwordController.clear();
                             setState(() {
                               showLoading = false;
                             });
+                            final user = User(username: usernameController.text, email: emailController.text, password: passwordController.text);
+                            dbService.createUser(user);
+                            emailController.clear();
+                            passwordController.clear();
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (BuildContext context) {
                               return const UserPage();
@@ -386,3 +390,11 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 }
+class User{
+  final String username;
+  final String email;
+  final String password;
+
+  User({required this.username, required this.email, required this.password});
+  Map<String, dynamic> toMap()=>{"username":username, "email": email, "password": password};
+  }

@@ -1,5 +1,5 @@
 import 'package:animattio_mobile_app/pages/user_page.dart';
-import 'package:animattio_mobile_app/services/auth_services.dart';
+import 'package:animattio_mobile_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'signup_page.dart';
 
@@ -192,24 +192,7 @@ class _LoginPageState extends State<LoginPage> {
                             content: Text(message),
                           ),
                         );
-                        // if(emailController.text.isEmpty || passwordController.text.isEmpty){
-                        //   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please fill in the fields")));
-                        // }else{
-                        //   showLoading = true;
-                        //   setState(() {
-
-                        //   });
-                        //   await AuthServices().loginUser(emailController.text, passwordController.text, context);
-                        //     showLoading = false;
-                        //   setState(() {
-
-                        //   });
-                        // }
-
-                        // Navigator.of(context)
-                        //     .push(MaterialPageRoute(builder: (BuildContext context) {
-                        //   return const SignupPage();
-                        // }));
+                       
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: buttonColor,
