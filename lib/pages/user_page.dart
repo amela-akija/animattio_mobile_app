@@ -1,21 +1,22 @@
 import 'package:animattio_mobile_app/pages/avatar_page.dart';
 import 'package:animattio_mobile_app/pages/theme_page.dart';
+import 'package:animattio_mobile_app/services/database_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
- final String? userAvatar;
- const UserPage({super.key, this.userAvatar});
+//  final String? userAvatar;
+  const UserPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-
     //Strings
     String userTitle = "My profile";
     String gameButton = "play game";
     String settingsButton = "settings";
     String avatarButton = "change avatar";
+    Future<String> currentAvatar = DatabaseService().getAvatar();
     //String avatarMessage = "No avatar\n selected";
-    
 
     //Colors
     Color pageColor = const Color(0xFFF7A559);
@@ -30,7 +31,6 @@ class UserPage extends StatelessWidget {
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
-
 
     return Scaffold(
       backgroundColor: pageColor,
@@ -49,7 +49,7 @@ class UserPage extends StatelessWidget {
             left: 0,
             top: height * 0.2,
             // height: height * 0.5,
-            width: width*0.5,
+            width: width * 0.5,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Image.asset(
@@ -68,12 +68,13 @@ class UserPage extends StatelessWidget {
               ),
             ),
           ),
+
           //TODO: message when avatar not selected?
 
           // if (userAvatar == null)
           //   Positioned(
           //      top: height * 0.35,
-          //      child: 
+          //      child:
           //     Padding(
           //     padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
           //     child: Align(
@@ -87,21 +88,33 @@ class UserPage extends StatelessWidget {
           //           fontFamily: 'Lilita One',
           //         ),
 
-
           //       ),
           //     ),),
           //   ),
-          if(userAvatar !=null)
-          Positioned(
+          FutureBuilder<String>(
+            future: currentAvatar,
+            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+              if (snapshot.hasData) {
+                return  Positioned(
           left: 0,
             top: height * 0.35,
             width: width * 0.3,
-            child: Align(
-              alignment: Alignment.center,
-              child: Image.asset(userAvatar!, //null check operator
+            child: Padding(
+              
+              padding: const EdgeInsets.only(left: 10),
+              child: Align(
+                alignment: Alignment.center,
+                child: Image.asset(snapshot.data.toString(), //null check operator
+                ),
               ),
             ),
+          );
+              }
+              return const CircularProgressIndicator(); //While awaiting show the loading indicator
+            },
           ),
+
+         
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -118,7 +131,7 @@ class UserPage extends StatelessWidget {
                 ),
                 SizedBox(height: height * 0.55), // in the middle of page
                 SizedBox(
-                  width: width*0.5,
+                  width: width * 0.5,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
@@ -145,9 +158,9 @@ class UserPage extends StatelessWidget {
                     ),
                   ),
                 ),
-                const SizedBox(height:5 ),
+                const SizedBox(height: 5),
                 SizedBox(
-                  width: width*0.5,
+                  width: width * 0.5,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
@@ -176,7 +189,7 @@ class UserPage extends StatelessWidget {
                 ),
                 const SizedBox(height: 5),
                 SizedBox(
-                  width: width*0.5,
+                  width: width * 0.5,
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(

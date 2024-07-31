@@ -1,4 +1,5 @@
 import 'package:animattio_mobile_app/pages/user_page.dart';
+import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 
 class AvatarPage extends StatefulWidget {
@@ -9,6 +10,8 @@ class AvatarPage extends StatefulWidget {
 }
 
 class _ChosenAvatarState extends State<AvatarPage> {
+  final dbService = DatabaseService();
+
   final List<String> listOfAvatars = [
     'assets/avatar_page/avatars/avatar_1.png',
     'assets/avatar_page/avatars/avatar_2.png',
@@ -167,12 +170,11 @@ class _ChosenAvatarState extends State<AvatarPage> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
+                  dbService.addAvatar(avatar);
                   Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => UserPage(userAvatar: avatar),
-                      
-                    ),
-                  );
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return const UserPage();
+                    }));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: buttonColor,

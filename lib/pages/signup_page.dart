@@ -20,6 +20,7 @@ class _SignupPageState extends State<SignupPage> {
   final passwordController = TextEditingController();
   final usernameController = TextEditingController();
   final repeatPasswordController = TextEditingController();
+  final String avatar = "";
 
   bool showLoading = false;
 
@@ -300,7 +301,8 @@ class _SignupPageState extends State<SignupPage> {
                             } else {
                               return null;
                             }
-                          },
+                          },                          obscureText: true,
+
                         ),
                       ),
                     ),
@@ -317,13 +319,13 @@ class _SignupPageState extends State<SignupPage> {
                             });
                             await AuthServices().registerUser(
                                 emailController.text,
-                                passwordController.text,
+                                passwordController.text, usernameController.text, avatar,
                                 context);
                             setState(() {
                               showLoading = false;
                             });
-                            final user = User(username: usernameController.text, email: emailController.text);
-                            dbService.createUser(user);
+                            // final user = RegisteredUser(username: usernameController.text, email: emailController.text);
+                            // dbService.createUser(user);
                             emailController.clear();
                             passwordController.clear();
                             Navigator.of(context).push(MaterialPageRoute(
@@ -390,10 +392,11 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 }
-class User{
+class RegisteredUser{
   final String username;
   final String email;
+  final String avatar;
 
-  User({required this.username, required this.email});
-  Map<String, dynamic> toMap()=>{"username":username, "email": email};
+  RegisteredUser({required this.username, required this.email, required this.avatar});
+  Map<String, dynamic> toMap()=>{"username":username, "email": email, "avatar": avatar};
   }
