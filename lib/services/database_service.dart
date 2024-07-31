@@ -1,4 +1,6 @@
 import 'dart:developer';
+import 'package:animattio_mobile_app/pages/mode_page.dart';
+import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -18,20 +20,29 @@ class DatabaseService {
     }
   }
 
-  Future<String> getAvatar() async{
+  Future<String> getAvatar() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
       var userCollection = FirebaseFirestore.instance.collection("users");
       var currentUserData = await userCollection.doc(currentUser?.uid).get();
-      if(currentUserData.exists){
+      if (currentUserData.exists) {
         return currentUserData.data()?['avatar'] ?? "no_avatar.png";
-      }
-      else{
+      } else {
         return "User doesn't exists";
       }
     } catch (e) {
       log(e.toString());
       rethrow;
+    }
+  }
+
+  addGame(String userId, String mode, String theme) async {
+    try {
+      ChosenGame chosenGame =
+          ChosenGame(userId: userId, mode: mode, theme: theme);
+      await fireStore.collection('games').add(chosenGame.toMap());
+    } catch (e) {
+      log(e.toString());
     }
   }
 }

@@ -58,7 +58,7 @@ class ThemePage extends StatelessWidget {
           Positioned(
              left: 0,
             right: 0,
-            top: height * 0.3,
+            top: height * 0.5,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -89,7 +89,7 @@ class ThemePage extends StatelessWidget {
           Positioned(
              left: 0,
             right: 0,
-            top: height * 0.5,
+            top: height * 0.7,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -106,36 +106,6 @@ class ThemePage extends StatelessWidget {
                 ), SizedBox(width: width*0.05,),
                 IconButton(
                   icon: Image.asset('assets/theme_page/icons/car_icon.png'),
-                  iconSize: 50,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return const ModePage();
-                    }));
-                  },
-                ),
-              ],
-            ),
-          ),
-          Positioned(
-             left: 0,
-            right: 0,
-            top: height * 0.7,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                IconButton(
-                  icon: Image.asset('assets/theme_page/icons/shape_icon.png'),
-                  iconSize: 50,
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return const ModePage();
-                    }));
-                  },
-                ), SizedBox(width: width*0.05,),
-                IconButton(
-                  icon: Image.asset('assets/theme_page/icons/candy_icon.png'),
                   iconSize: 50,
                   onPressed: () {
                     Navigator.of(context).push(

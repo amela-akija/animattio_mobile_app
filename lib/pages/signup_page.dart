@@ -324,8 +324,7 @@ class _SignupPageState extends State<SignupPage> {
                             setState(() {
                               showLoading = false;
                             });
-                            // final user = RegisteredUser(username: usernameController.text, email: emailController.text);
-                            // dbService.createUser(user);
+                            
                             emailController.clear();
                             passwordController.clear();
                             Navigator.of(context).push(MaterialPageRoute(

@@ -5,22 +5,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
-//  final String? userAvatar;
   const UserPage({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final dbService = DatabaseService();
     //Strings
     String userTitle = "My profile";
     String gameButton = "play game";
     String settingsButton = "settings";
     String avatarButton = "change avatar";
+    String mode = "";
+    String theme = "";
     Future<String> currentAvatar = DatabaseService().getAvatar();
-    //String avatarMessage = "No avatar\n selected";
 
     //Colors
     Color pageColor = const Color(0xFFF7A559);
-    //Color messageColor = const Color(0xFFF7A559);
 
     Color buttonColor = const Color(0xFF2A470C);
     Color fontColor = const Color(0xFFFEFFD9);
@@ -31,6 +31,9 @@ class UserPage extends StatelessWidget {
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
+
+     User? currentUser = FirebaseAuth.instance.currentUser;
+    String uid = currentUser!.uid;
 
     return Scaffold(
       backgroundColor: pageColor,
@@ -68,53 +71,28 @@ class UserPage extends StatelessWidget {
               ),
             ),
           ),
-
-          //TODO: message when avatar not selected?
-
-          // if (userAvatar == null)
-          //   Positioned(
-          //      top: height * 0.35,
-          //      child:
-          //     Padding(
-          //     padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-          //     child: Align(
-          //       alignment: Alignment.center,
-          //       child: Text(
-          //         avatarMessage,
-          //         textAlign: TextAlign.center,
-          //         style: TextStyle(
-          //           color: messageColor,
-          //           fontSize: 20,
-          //           fontFamily: 'Lilita One',
-          //         ),
-
-          //       ),
-          //     ),),
-          //   ),
           FutureBuilder<String>(
             future: currentAvatar,
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (snapshot.hasData) {
-                return  Positioned(
-          left: 0,
-            top: height * 0.35,
-            width: width * 0.3,
-            child: Padding(
-              
-              padding: const EdgeInsets.only(left: 10),
-              child: Align(
-                alignment: Alignment.center,
-                child: Image.asset(snapshot.data.toString(), //null check operator
-                ),
-              ),
-            ),
-          );
+                return Positioned(
+                  left: 0,
+                  top: height * 0.35,
+                  width: width * 0.3,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Image.asset(
+                        snapshot.data.toString(), //null check operator
+                      ),
+                    ),
+                  ),
+                );
               }
               return const CircularProgressIndicator(); //While awaiting show the loading indicator
             },
           ),
-
-         
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
@@ -163,6 +141,8 @@ class UserPage extends StatelessWidget {
                   width: width * 0.5,
                   child: ElevatedButton(
                     onPressed: () {
+                      dbService.addGame(uid,mode, theme);
+
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
                         return const ThemePage();
@@ -223,4 +203,14 @@ class UserPage extends StatelessWidget {
       ),
     );
   }
+}
+
+class ChosenGame {
+  final String userId;
+  final String mode;
+  final String theme;
+  
+
+  ChosenGame({required this.userId, required this.mode, required this.theme});
+  Map<String, dynamic> toMap() => {"id":userId,"mode": mode, "theme": theme};
 }
