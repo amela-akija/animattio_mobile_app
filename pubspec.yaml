@@ -74,6 +74,13 @@ flutter:
    - assets/theme_page/icons/
    - assets/mode_page/
    - assets/start_game_page/
+   - assets/themes/dinosaur_theme/
+   - assets/themes/car_theme/
+   - assets/themes/flower_theme/
+   - assets/themes/animal_theme/
+   - assets/game_page/
+
+
 
 
 
