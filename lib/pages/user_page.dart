@@ -1,7 +1,6 @@
 import 'package:animattio_mobile_app/pages/avatar_page.dart';
 import 'package:animattio_mobile_app/pages/theme_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class UserPage extends StatelessWidget {
@@ -9,14 +8,13 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final dbService = DatabaseService();
+
     //Strings
     String userTitle = "My profile";
     String gameButton = "play game";
     String settingsButton = "settings";
     String avatarButton = "change avatar";
-    String mode = "";
-    String theme = "";
+ 
     Future<String> currentAvatar = DatabaseService().getAvatar();
 
     //Colors
@@ -31,9 +29,6 @@ class UserPage extends StatelessWidget {
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
-
-     User? currentUser = FirebaseAuth.instance.currentUser;
-    String uid = currentUser!.uid;
 
     return Scaffold(
       backgroundColor: pageColor,
@@ -51,7 +46,6 @@ class UserPage extends StatelessWidget {
           Positioned(
             left: 0,
             top: height * 0.2,
-            // height: height * 0.5,
             width: width * 0.5,
             child: Align(
               alignment: Alignment.centerLeft,
@@ -84,13 +78,13 @@ class UserPage extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.center,
                       child: Image.asset(
-                        snapshot.data.toString(), //null check operator
+                        snapshot.data.toString(), 
                       ),
                     ),
                   ),
                 );
               }
-              return const CircularProgressIndicator(); //While awaiting show the loading indicator
+              return const CircularProgressIndicator(strokeAlign: CircularProgressIndicator.strokeAlignCenter,); 
             },
           ),
           Center(
@@ -141,8 +135,6 @@ class UserPage extends StatelessWidget {
                   width: width * 0.5,
                   child: ElevatedButton(
                     onPressed: () {
-                      dbService.addGame(uid,mode, theme);
-
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
                         return const ThemePage();
@@ -203,14 +195,4 @@ class UserPage extends StatelessWidget {
       ),
     );
   }
-}
-
-class ChosenGame {
-  final String userId;
-  final String mode;
-  final String theme;
-  
-
-  ChosenGame({required this.userId, required this.mode, required this.theme});
-  Map<String, dynamic> toMap() => {"id":userId,"mode": mode, "theme": theme};
 }

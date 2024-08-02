@@ -20,7 +20,7 @@ class _SignupPageState extends State<SignupPage> {
   final passwordController = TextEditingController();
   final usernameController = TextEditingController();
   final repeatPasswordController = TextEditingController();
-  final String avatar = "";
+  final String avatar = 'assets/user_page/no_avatar.png';
 
   bool showLoading = false;
 
@@ -329,7 +329,7 @@ class _SignupPageState extends State<SignupPage> {
                             passwordController.clear();
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (BuildContext context) {
-                              return const UserPage();
+                              return const LoginPage();
                             }));
                           }
 

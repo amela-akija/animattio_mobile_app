@@ -95,8 +95,8 @@ class MainPage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: deviceSize.height * 0.7,
+         Positioned(
+            top: deviceSize.height * 0.75,
             width: deviceSize.width,
             child: Center(
               child: ElevatedButton(
@@ -127,7 +127,7 @@ class MainPage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: deviceSize.height * 0.8,
+            top: deviceSize.height * 0.85,
             width: deviceSize.width,
             child: Center(
               child: ElevatedButton(

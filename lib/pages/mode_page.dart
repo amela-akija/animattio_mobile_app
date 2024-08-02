@@ -1,9 +1,13 @@
 import 'package:animattio_mobile_app/pages/start_game_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
+import 'package:animattio_mobile_app/services/database_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ModePage extends StatefulWidget {
-  const ModePage({super.key});
+  final String chosenTheme;
+  const ModePage({super.key, required this.chosenTheme});
 
   @override
   _ChooseModeState createState() => _ChooseModeState();
@@ -32,6 +36,7 @@ class _ChooseModeState extends State<ModePage> {
   Widget build(BuildContext context) {
     //Strings
     String themeTitle = "Choose mode:";
+    String chosenMode = modes[currentMode];
 
     //Colors
     Color pageColor = const Color(0xFFF7A559);
@@ -45,6 +50,11 @@ class _ChooseModeState extends State<ModePage> {
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
+
+    final dbService = DatabaseService();
+
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    String uid = currentUser!.uid;
 
     return Scaffold(
       backgroundColor: pageColor,
@@ -163,6 +173,7 @@ class _ChooseModeState extends State<ModePage> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
+                  dbService.addGame(uid,chosenMode, widget.chosenTheme);
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (BuildContext context) {
                       return const StartGamePage();
@@ -194,3 +205,13 @@ class _ChooseModeState extends State<ModePage> {
     );
   }
 }
+class ChosenGame {
+  final String userId;
+  final String mode;
+  final String theme;
+  
+
+  ChosenGame({required this.userId, required this.mode, required this.theme});
+  Map<String, dynamic> toMap() => {"id":userId,"mode": mode, "theme": theme, "timmestamp": FieldValue.serverTimestamp()};
+}
+

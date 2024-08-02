@@ -9,6 +9,7 @@ class ThemePage extends StatelessWidget {
   Widget build(BuildContext context) {
     //Strings
     String themeTitle = "Choose theme";
+    String chosenTheme = "";
 
     //Colors
     Color pageColor = const Color(0xFFF7A559);
@@ -58,7 +59,7 @@ class ThemePage extends StatelessWidget {
           Positioned(
              left: 0,
             right: 0,
-            top: height * 0.5,
+            top: height * 0.4,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -66,10 +67,11 @@ class ThemePage extends StatelessWidget {
                   icon: Image.asset('assets/theme_page/icons/flower_icon.png'),
                   iconSize: 50,
                   onPressed: () {
+                    chosenTheme = "flower";
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return const ModePage();
-                    }));
+                        MaterialPageRoute(
+                          builder: (context)=> ModePage(chosenTheme: chosenTheme,)
+                        ));
                   },
                 ),
                 SizedBox(width: width*0.05,),
@@ -77,10 +79,11 @@ class ThemePage extends StatelessWidget {
                   icon: Image.asset('assets/theme_page/icons/animal_icon.png'),
                   iconSize: 50,
                   onPressed: () {
+                    chosenTheme = "animal";
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return const ModePage();
-                    }));
+                        MaterialPageRoute(
+                          builder: (context)=> ModePage(chosenTheme: chosenTheme,)
+                        ));
                   },
                 ),
               ],
@@ -89,7 +92,7 @@ class ThemePage extends StatelessWidget {
           Positioned(
              left: 0,
             right: 0,
-            top: height * 0.7,
+            top: height * 0.6,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -98,20 +101,22 @@ class ThemePage extends StatelessWidget {
                       Image.asset('assets/theme_page/icons/dinosaur_icon.png'),
                   iconSize: 50,
                   onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return const ModePage();
-                    }));
+                    chosenTheme = "dinosaur";
+                   Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context)=> ModePage(chosenTheme: chosenTheme,)
+                        ));
                   },
                 ), SizedBox(width: width*0.05,),
                 IconButton(
                   icon: Image.asset('assets/theme_page/icons/car_icon.png'),
                   iconSize: 50,
                   onPressed: () {
+                    chosenTheme = "car";
                     Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return const ModePage();
-                    }));
+                        MaterialPageRoute(
+                          builder: (context)=> ModePage(chosenTheme: chosenTheme,)
+                        ));
                   },
                 ),
               ],

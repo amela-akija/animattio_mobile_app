@@ -126,7 +126,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 Positioned(
-                  top: deviceSize.height * 0.55,
+                  top: deviceSize.height * 0.50,
                   width: deviceSize.width,
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -143,6 +143,7 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       child: TextField(
+                       
                         controller: passwordController,
                         style: TextStyle(color: textColor),
                         obscureText: true,

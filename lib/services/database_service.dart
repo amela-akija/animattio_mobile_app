@@ -1,6 +1,5 @@
 import 'dart:developer';
 import 'package:animattio_mobile_app/pages/mode_page.dart';
-import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
@@ -26,7 +25,7 @@ class DatabaseService {
       var userCollection = FirebaseFirestore.instance.collection("users");
       var currentUserData = await userCollection.doc(currentUser?.uid).get();
       if (currentUserData.exists) {
-        return currentUserData.data()?['avatar'] ?? "no_avatar.png";
+        return currentUserData.data()?['avatar'] ?? 'assets/user_page/no_avatar.png';
       } else {
         return "User doesn't exists";
       }
