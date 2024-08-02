@@ -1,3 +1,5 @@
+import 'package:animattio_mobile_app/pages/user_page.dart';
+import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 
 class StartGamePage extends StatelessWidget {
@@ -7,53 +9,78 @@ class StartGamePage extends StatelessWidget {
   Widget build(BuildContext context) {
     //Strings
     String message = "Are you ready to start the game?";
-    String continueButton = "continue";
+      String yesButton = "yes";
+    String noButton = "no";
 
     //Colors
     Color pageColor = const Color(0xffD4F8B0);
     Color buttonColor = const Color(0xFFF7A559);
     Color fontColor = const Color(0xFFF7A559);
     Color fontButtonColor = const Color(0xFFFEFFD9);
+    Color arrowButton = const Color(0xFF2A470C);
 
     //Size
     dynamic deviceSize, height, width;
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
+    final dbService = DatabaseService();
 
     return Scaffold(
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: width,
-                    height: height,
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Image.asset(
-                          'assets/start_game_page/star_start_2.png'),
+                Padding(
+                  padding: const EdgeInsets.only(top:28.0),
+                  child: Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      color: arrowButton,
+                      iconSize: 30,
+                      onPressed: () {
+                         dbService.deleteGame();
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return const UserPage();
+                        }));
+                      },
                     ),
                   ),
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: width,
-                    height: height * 0.85,
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Image.asset(
-                          'assets/start_game_page/star_start_1.png'),
+          Column(
+            children: [
+              Expanded(
+                child: Stack(
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: width,
+                        height: height,
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: Image.asset(
+                              'assets/start_game_page/star_start_2.png'),
+                        ),
+                      ),
                     ),
-                  ),
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: width,
+                        height: height * 0.85,
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: Image.asset(
+                              'assets/start_game_page/star_start_1.png'),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
           Center(
             child: Padding(
@@ -77,38 +104,66 @@ class StartGamePage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            top: deviceSize.height * 0.6,
-            width: deviceSize.width,
-            child: Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (BuildContext context) {
-                      return const StartGamePage();
-                    }),
-                  );
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: buttonColor,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-                  textStyle: const TextStyle(
-                      fontSize: 25,
-                      fontFamily: 'Lilita One',
-                      fontWeight: FontWeight.w900),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  elevation: 10,
-                ),
-                child: Text(
-                  continueButton,
-                  style: TextStyle(color: fontButtonColor),
-                ),
-              ),
-            ),
-          ),
+           Padding(
+             padding: EdgeInsets.only(top: height * 0.6),
+             child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        ElevatedButton(
+                          onPressed: () {
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (BuildContext context) {
+                                return const UserPage();
+                              }),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: buttonColor,
+                            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                            textStyle: const TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'Lilita One',
+                                fontWeight: FontWeight.w900),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            elevation: 10,
+                          ),
+                          child: Text(
+                            yesButton,
+                            style: TextStyle(color: fontButtonColor),
+                          ),
+                        ),
+                        const SizedBox(width: 30),
+                        ElevatedButton(
+                          onPressed: () {
+                            dbService.deleteGame();
+                            Navigator.of(context).push(
+                              MaterialPageRoute(builder: (BuildContext context) {
+                                return const UserPage();
+                              }),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: buttonColor,
+                            padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                            textStyle: const TextStyle(
+                                fontSize: 25,
+                                fontFamily: 'Lilita One',
+                                fontWeight: FontWeight.w900),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(15),
+                            ),
+                            elevation: 10,
+                          ),
+                          child: Text(
+                            noButton,
+                            style: TextStyle(color: fontButtonColor),
+                          ),
+                        ),
+                      ],
+                    ),
+           ),
         ],
       ),
     );

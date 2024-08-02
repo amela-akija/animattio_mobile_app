@@ -9,7 +9,7 @@ class DatabaseService {
   addAvatar(String avatar) {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
-      var userCollection = FirebaseFirestore.instance.collection("users");
+      var userCollection = fireStore.collection("users");
       userCollection
           .doc(currentUser?.uid)
           .update({'avatar': avatar}).catchError(
@@ -22,7 +22,7 @@ class DatabaseService {
   Future<String> getAvatar() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
-      var userCollection = FirebaseFirestore.instance.collection("users");
+      var userCollection = fireStore.collection("users");
       var currentUserData = await userCollection.doc(currentUser?.uid).get();
       if (currentUserData.exists) {
         return currentUserData.data()?['avatar'] ?? 'assets/user_page/no_avatar.png';
@@ -42,6 +42,19 @@ class DatabaseService {
       await fireStore.collection('games').add(chosenGame.toMap());
     } catch (e) {
       log(e.toString());
+    }
+  }
+
+  deleteGame(){
+    try{
+      fireStore.collection("games").orderBy('timestamp', descending: true)
+      .get().then((value){
+        value.docs.first.reference.delete();
+      }
+      );
+    }catch(e){
+      log(e.toString());
+
     }
   }
 }

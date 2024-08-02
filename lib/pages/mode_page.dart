@@ -212,6 +212,6 @@ class ChosenGame {
   
 
   ChosenGame({required this.userId, required this.mode, required this.theme});
-  Map<String, dynamic> toMap() => {"id":userId,"mode": mode, "theme": theme, "timmestamp": FieldValue.serverTimestamp()};
+  Map<String, dynamic> toMap() => {"id":userId,"mode": mode, "theme": theme, "timestamp": FieldValue.serverTimestamp()};
 }
 
