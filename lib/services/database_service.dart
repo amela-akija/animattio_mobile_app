@@ -1,5 +1,6 @@
 import 'dart:developer';
-import 'package:animattio_mobile_app/pages/mode_page.dart';
+
+import 'package:animattio_mobile_app/pages/start_game_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 

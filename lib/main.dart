@@ -1,6 +1,6 @@
 
 import 'package:animattio_mobile_app/firebase_options.dart';
-import 'package:animattio_mobile_app/pages/game_page.dart';
+import 'package:animattio_mobile_app/pages/game_page_1.dart';
 import 'package:animattio_mobile_app/pages/login_page.dart';
 import 'package:animattio_mobile_app/pages/start_game_page.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home:GamePage(),
+      home:LoginPage(),
     );
   }
 }

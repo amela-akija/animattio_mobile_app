@@ -51,10 +51,10 @@ class _ChooseModeState extends State<ModePage> {
     height = deviceSize.height;
     width = deviceSize.width;
 
-    final dbService = DatabaseService();
+    // final dbService = DatabaseService();
 
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    String uid = currentUser!.uid;
+    // User? currentUser = FirebaseAuth.instance.currentUser;
+    // String uid = currentUser!.uid;
 
     return Scaffold(
       backgroundColor: pageColor,
@@ -173,12 +173,11 @@ class _ChooseModeState extends State<ModePage> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
-                  dbService.addGame(uid,chosenMode, widget.chosenTheme);
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (BuildContext context) {
-                      return const StartGamePage();
-                    }),
-                  );
+                  // dbService.addGame(uid,chosenMode, widget.chosenTheme);
+                 Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context)=> StartGamePage(chosenTheme: widget.chosenTheme, chosenMode: chosenMode,)
+                        ));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: buttonColor,
@@ -205,13 +204,13 @@ class _ChooseModeState extends State<ModePage> {
     );
   }
 }
-class ChosenGame {
-  final String userId;
-  final String mode;
-  final String theme;
+// class ChosenGame {
+//   final String userId;
+//   final String mode;
+//   final String theme;
   
 
-  ChosenGame({required this.userId, required this.mode, required this.theme});
-  Map<String, dynamic> toMap() => {"id":userId,"mode": mode, "theme": theme, "timestamp": FieldValue.serverTimestamp()};
-}
+//   ChosenGame({required this.userId, required this.mode, required this.theme});
+//   Map<String, dynamic> toMap() => {"id":userId,"mode": mode, "theme": theme, "timestamp": FieldValue.serverTimestamp()};
+// }
 
