@@ -36,16 +36,17 @@ class DatabaseService {
     }
   }
 
-  addGame(String userId, String mode, String theme) async {
+  Future<String?> addGame(String userId, String mode, String theme) async {
     try {
       ChosenGame chosenGame =
           ChosenGame(userId: userId, mode: mode, theme: theme);
-      // DocumentReference chosenGameReference = 
-      await fireStore.collection('games').add(chosenGame.toMap());
-      // String chosenGameId = chosenGameReference.id;
+
+      DocumentReference newGame = await fireStore.collection('games').add(chosenGame.toMap()); 
+      return newGame.id;
 
     } catch (e) {
       log(e.toString());
+      return null;
     }
   }
 

@@ -1,9 +1,5 @@
 import 'package:animattio_mobile_app/pages/start_game_page.dart';
 import 'package:animattio_mobile_app/pages/theme_page.dart';
-import 'package:animattio_mobile_app/pages/user_page.dart';
-import 'package:animattio_mobile_app/services/database_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class ModePage extends StatefulWidget {

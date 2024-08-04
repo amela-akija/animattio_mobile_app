@@ -1,5 +1,4 @@
 import 'package:animattio_mobile_app/pages/login_page.dart';
-import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:animattio_mobile_app/services/auth_service.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
@@ -187,6 +186,7 @@ class _SignupPageState extends State<SignupPage> {
                             }else if(!value.contains("@")){
                               return "Wrong format of email";
                             }
+                                                        return null; //zmiana
                             
                           },
                         ),

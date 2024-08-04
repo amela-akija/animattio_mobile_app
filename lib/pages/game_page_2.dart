@@ -1,5 +1,3 @@
-import 'dart:async';
-
 import 'package:flutter/material.dart';
 
 class GamePage2 extends StatefulWidget {
@@ -92,12 +90,6 @@ class _GamePage2State extends State<GamePage2> {
   Widget build(BuildContext context) {
     //Colors
     Color pageColor = const Color(0xFFFEFFD9);
-
-    //Size
-    dynamic deviceSize, height, width;
-    deviceSize = MediaQuery.of(context).size;
-    height = deviceSize.height;
-    width = deviceSize.width;
 
     return Scaffold(
       backgroundColor: pageColor,

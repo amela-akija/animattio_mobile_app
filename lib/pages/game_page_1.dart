@@ -93,12 +93,6 @@ class _GamePage1State extends State<GamePage1> {
     //Colors
     Color pageColor = const Color(0xFFFEFFD9);
 
-    //Size
-    dynamic deviceSize, height, width;
-    deviceSize = MediaQuery.of(context).size;
-    height = deviceSize.height;
-    width = deviceSize.width;
-
     return GestureDetector(
       onTap: _tapScreen,
       child: Scaffold(

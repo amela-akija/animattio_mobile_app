@@ -1,6 +1,5 @@
-import 'package:animattio_mobile_app/pages/game_page_2.dart';
-import 'package:animattio_mobile_app/pages/game_page_1.dart';
 import 'package:animattio_mobile_app/pages/instruction_page.dart';
+import 'package:animattio_mobile_app/pages/mode_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -42,24 +41,6 @@ class StartGamePage extends StatelessWidget {
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.only(top: 28.0),
-            child: Align(
-              alignment: Alignment.topLeft,
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back),
-                color: arrowButton,
-                iconSize: 30,
-                onPressed: () {
-                  dbService.deleteGame();
-                  Navigator.of(context)
-                      .push(MaterialPageRoute(builder: (BuildContext context) {
-                    return const UserPage();
-                  }));
-                },
-              ),
-            ),
-          ),
           Column(
             children: [
               Expanded(
@@ -123,10 +104,7 @@ class StartGamePage extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    // ChosenGame newGame = ChosenGame(userId: uid, mode: chosenMode, theme: chosenTheme);
-                    dbService.addGame(uid, chosenMode, chosenTheme);
-                    // var gameId = newGame.id;
-                   
+                    dbService.addGame(uid, chosenMode, chosenTheme);                   
                       Navigator.of(context).push(
                       MaterialPageRoute(builder: (BuildContext context) {
                         return  InstructionPage(chosenMode: chosenMode, chosenTheme: chosenTheme,);
@@ -154,7 +132,7 @@ class StartGamePage extends StatelessWidget {
                 const SizedBox(width: 30),
                 ElevatedButton(
                   onPressed: () {
-                    dbService.deleteGame();
+                    // dbService.deleteGame();
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (BuildContext context) {
                         return const UserPage();
@@ -180,6 +158,24 @@ class StartGamePage extends StatelessWidget {
                   ),
                 ),
               ],
+            ),
+          ),
+           Padding(
+            padding: const EdgeInsets.only(top: 28.0),
+            child: Align(
+              alignment: Alignment.topLeft,
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                color: arrowButton,
+                iconSize: 30,
+                onPressed: () {
+                  // dbService.deleteGame();
+                 Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context)=> ModePage(chosenTheme: chosenTheme,)
+                        ));
+                },
+              ),
             ),
           ),
         ],
