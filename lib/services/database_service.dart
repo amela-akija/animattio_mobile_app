@@ -40,7 +40,10 @@ class DatabaseService {
     try {
       ChosenGame chosenGame =
           ChosenGame(userId: userId, mode: mode, theme: theme);
+      // DocumentReference chosenGameReference = 
       await fireStore.collection('games').add(chosenGame.toMap());
+      // String chosenGameId = chosenGameReference.id;
+
     } catch (e) {
       log(e.toString());
     }

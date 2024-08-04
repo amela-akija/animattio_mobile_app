@@ -1,8 +1,12 @@
 
 import 'package:animattio_mobile_app/firebase_options.dart';
 import 'package:animattio_mobile_app/pages/game_page_1.dart';
+import 'package:animattio_mobile_app/pages/instruction_page.dart';
 import 'package:animattio_mobile_app/pages/login_page.dart';
+import 'package:animattio_mobile_app/pages/main_page.dart';
 import 'package:animattio_mobile_app/pages/start_game_page.dart';
+import 'package:animattio_mobile_app/pages/user_page.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 

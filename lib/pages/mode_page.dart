@@ -1,4 +1,5 @@
 import 'package:animattio_mobile_app/pages/start_game_page.dart';
+import 'package:animattio_mobile_app/pages/theme_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -74,7 +75,7 @@ class _ChooseModeState extends State<ModePage> {
                     onPressed: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
-                        return const UserPage();
+                        return const ThemePage();
                       }));
                     },
                   ),
