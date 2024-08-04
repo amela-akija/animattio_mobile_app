@@ -1,8 +1,7 @@
 import 'dart:math';
-
-import 'package:animattio_mobile_app/pages/start_game_page.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class InstructionPage extends StatefulWidget {
   String chosenMode;
   String chosenTheme;
@@ -55,19 +54,12 @@ class _InstructionPageState extends State<InstructionPage> {
   Widget build(BuildContext context) {
 
      //Strings
-    String themeTitle = "Choose mode:";
     String instructionMode1 = "React by clicking on the screen only when this symbol is displayed";
     String instructionMode2 = "React by clicking on the screen only when this symbol is NOT displayed";
 
     //Colors
     Color pageColor = const Color(0xFFFEFFD9);
     Color textColor = const Color(0xFFF7A559);
-
-    //Size
-    dynamic deviceSize, height, width;
-    deviceSize = MediaQuery.of(context).size;
-    height = deviceSize.height;
-    width = deviceSize.width;
 
     Random random = Random();
     int randomIndex = random.nextInt(listOfAnimals.length);
