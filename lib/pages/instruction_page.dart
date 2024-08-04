@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:animattio_mobile_app/pages/start_game_page.dart';
 import 'package:flutter/material.dart';
 
@@ -11,6 +13,43 @@ class InstructionPage extends StatefulWidget {
 }
 
 class _InstructionPageState extends State<InstructionPage> {
+
+   final List<String> listOfAnimals = [
+    'assets/themes/animal_theme/animal1.png',
+    'assets/themes/animal_theme/animal2.png',
+    'assets/themes/animal_theme/animal3.png',
+    'assets/themes/animal_theme/animal4.png',
+    'assets/themes/animal_theme/animal5.png',
+    'assets/themes/animal_theme/animal6.avif',
+    // 'assets/themes/animal_theme/animal7.png',
+    'assets/themes/animal_theme/animal8.png',
+    'assets/themes/animal_theme/animal9.png',
+    'assets/themes/animal_theme/animal10.png',
+  ];
+   final List<String> listOfFlowers = [
+    'assets/themes/flower_theme/flower1.png',
+    'assets/themes/flower_theme/flower2.png',
+    'assets/themes/flower_theme/flower3.png',
+    'assets/themes/flower_theme/flower4.png',
+    'assets/themes/flower_theme/flower5.png',
+  ];
+   final List<String> listOfCars = [
+    'assets/themes/car_theme/car1.png',
+    'assets/themes/car_theme/car2.png',
+    'assets/themes/car_theme/car3.png',
+    'assets/themes/car_theme/car4.png',
+    'assets/themes/car_theme/car5.png',
+  ];
+
+    final List<String> listOfDinosaurs = [
+    'assets/themes/dinosaur_theme/dinosaur1.png',
+    'assets/themes/dinosaur_theme/dinosaur2.png',
+    'assets/themes/dinosaur_theme/dinosaur3.png',
+    'assets/themes/dinosaur_theme/dinosaur4.png',
+    'assets/themes/dinosaur_theme/dinosaur5.png',
+  ];
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,38 +68,50 @@ class _InstructionPageState extends State<InstructionPage> {
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
+
+    Random random = Random();
+    int randomIndex = random.nextInt(listOfAnimals.length);
+    String stimuli = listOfAnimals[randomIndex];
+
     return Scaffold(
       backgroundColor: pageColor,
-      body:  Container(
-        child: Builder(builder: (context){
-          if(widget.chosenMode == "xxx"){
-            return    Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                    instructionMode1,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize: 32,
-                      fontFamily: 'Lilita One',
+      body:  Column(
+        children: [
+          Builder(builder: (context){
+            if(widget.chosenMode == "Click on the screen only when given symbol is displayed"){
+              return    Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                      instructionMode1,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 32,
+                        fontFamily: 'Lilita One',
+                      ),
                     ),
-                  ),
-            );
-          }else{
-            return  Padding(
-              padding: const EdgeInsets.all(20),
-              child: Text(
-                    instructionMode2,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: textColor,
-                      fontSize: 32,
-                      fontFamily: 'Lilita One',
+              );
+            }else{
+              return  Padding(
+                padding: const EdgeInsets.all(20),
+                child: Text(
+                      instructionMode2,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: textColor,
+                        fontSize: 32,
+                        fontFamily: 'Lilita One',
+                      ),
                     ),
-                  ),
-            );
-          }
-        }),),
+              );
+            }
+          }),
+          Center(
+             child: Image.asset(stimuli,
+              ),
+          )
+        ],
+      ),
 
       );
 

@@ -1,4 +1,4 @@
-import 'package:animattio_mobile_app/pages/game_page2.dart';
+import 'package:animattio_mobile_app/pages/game_page_2.dart';
 import 'package:animattio_mobile_app/pages/game_page_1.dart';
 import 'package:animattio_mobile_app/pages/instruction_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
