@@ -20,28 +20,29 @@ class _GamePage2State extends State<GamePage2> {
     'assets/themes/animal_theme/animal9.png',
     'assets/themes/animal_theme/animal10.png',
   ];
-   final List<String> listOfFlowers = [
+  final List<String> listOfFlowers = [
     'assets/themes/flower_theme/flower1.png',
     'assets/themes/flower_theme/flower2.png',
     'assets/themes/flower_theme/flower3.png',
     'assets/themes/flower_theme/flower4.png',
     'assets/themes/flower_theme/flower5.png',
   ];
-   final List<String> listOfCars = [
+  final List<String> listOfCars = [
     'assets/themes/car_theme/car1.png',
     'assets/themes/car_theme/car2.png',
-    'assets/themes/car_theme/car3.png',
-    'assets/themes/car_theme/car4.png',
-    'assets/themes/car_theme/car5.png',
+    'assets/themes/car_theme/car3.jpg',
+    'assets/themes/car_theme/car4.webp',
+    'assets/themes/car_theme/car5.webp',
   ];
 
-    final List<String> listOfDinosaurs = [
+  final List<String> listOfDinosaurs = [
     'assets/themes/dinosaur_theme/dinosaur1.png',
     'assets/themes/dinosaur_theme/dinosaur2.png',
     'assets/themes/dinosaur_theme/dinosaur3.png',
     'assets/themes/dinosaur_theme/dinosaur4.png',
-    'assets/themes/dinosaur_theme/dinosaur5.png',
+    'assets/themes/dinosaur_theme/dinosaur5.jpg',
   ];
+
 
   // int currentImage = 0;
   // Timer? timer;

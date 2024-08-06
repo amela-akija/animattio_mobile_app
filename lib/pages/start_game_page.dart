@@ -107,7 +107,7 @@ class StartGamePage extends StatelessWidget {
                     dbService.addGame(uid, chosenMode, chosenTheme);                   
                       Navigator.of(context).push(
                       MaterialPageRoute(builder: (BuildContext context) {
-                        return  InstructionPage(chosenMode: chosenMode, chosenTheme: chosenTheme,);
+                        return  InstructionPage(chosenMode: chosenMode, chosenThemeList: chosenTheme,);
                       }),
                     );
                   },

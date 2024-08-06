@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 class GamePage1 extends StatefulWidget {
-  const GamePage1({super.key});
+  final String stimuli;
+  final List<String> listOfImages;
+  const GamePage1({super.key,required this. stimuli, required this.listOfImages});
 
   @override
   _GamePage1State createState() => _GamePage1State();
@@ -22,28 +24,29 @@ class _GamePage1State extends State<GamePage1> {
     'assets/themes/animal_theme/animal9.png',
     'assets/themes/animal_theme/animal10.png',
   ];
-   final List<String> listOfFlowers = [
+  final List<String> listOfFlowers = [
     'assets/themes/flower_theme/flower1.png',
     'assets/themes/flower_theme/flower2.png',
     'assets/themes/flower_theme/flower3.png',
     'assets/themes/flower_theme/flower4.png',
     'assets/themes/flower_theme/flower5.png',
   ];
-   final List<String> listOfCars = [
+  final List<String> listOfCars = [
     'assets/themes/car_theme/car1.png',
     'assets/themes/car_theme/car2.png',
-    'assets/themes/car_theme/car3.png',
-    'assets/themes/car_theme/car4.png',
-    'assets/themes/car_theme/car5.png',
+    'assets/themes/car_theme/car3.jpg',
+    'assets/themes/car_theme/car4.webp',
+    'assets/themes/car_theme/car5.webp',
   ];
 
-    final List<String> listOfDinosaurs = [
+  final List<String> listOfDinosaurs = [
     'assets/themes/dinosaur_theme/dinosaur1.png',
     'assets/themes/dinosaur_theme/dinosaur2.png',
     'assets/themes/dinosaur_theme/dinosaur3.png',
     'assets/themes/dinosaur_theme/dinosaur4.png',
-    'assets/themes/dinosaur_theme/dinosaur5.png',
+    'assets/themes/dinosaur_theme/dinosaur5.jpg',
   ];
+
 
   int currentImage = 0;
   Timer? timer;
@@ -78,7 +81,7 @@ class _GamePage1State extends State<GamePage1> {
     //show random images
     setState(() {
       currentImage = (currentImage + 1) %
-          listOfAnimals.length; // TODO: make the list general
+          widget.listOfImages.length; 
     });
   }
 
@@ -98,7 +101,9 @@ class _GamePage1State extends State<GamePage1> {
       child: Scaffold(
         backgroundColor: pageColor,
         body: Center(
-          child: Image.asset(listOfAnimals[currentImage]),
+          child: 
+          Image.asset(widget.listOfImages[currentImage]),
+
         ),
       ),
     );
