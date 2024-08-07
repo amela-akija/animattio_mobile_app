@@ -1,8 +1,10 @@
-import 'package:animattio_mobile_app/localization/localization_service.dart';
+import 'package:animattio_mobile_app/services/localization_service.dart';
 import 'package:get/get.dart';
 
-class LocaleController extends GetxController {
+class LanguageController extends GetxController {
   var currentLocale = LocalizationService().getCurrentLocale().obs;
+  
+  //allows chosen language on all of the pages
 
   void swapLanguages() {
     var currentLanguage = LocalizationService().getCurrentLanguage();

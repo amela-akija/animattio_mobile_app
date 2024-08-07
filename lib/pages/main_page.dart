@@ -1,5 +1,5 @@
 import 'package:animattio_mobile_app/controllers/locale_controller.dart';
-import 'package:animattio_mobile_app/localization/localization_service.dart';
+import 'package:animattio_mobile_app/services/localization_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'login_page.dart';
@@ -7,7 +7,7 @@ import 'signup_page.dart';
 
 // Main page from which user can choose either to log in or to sign up
 class MainPage extends StatelessWidget {
-  final LocaleController localeController = Get.put(LocaleController());
+  final LanguageController localeController = Get.put(LanguageController());
   MainPage({super.key});
 
   @override

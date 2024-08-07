@@ -2,6 +2,7 @@ import 'package:animattio_mobile_app/pages/login_page.dart';
 import 'package:animattio_mobile_app/services/auth_service.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class SignupPage extends StatefulWidget {
   const SignupPage({super.key});
@@ -48,8 +49,8 @@ class _SignupPageState extends State<SignupPage> {
     Color textColor = const Color(0xFF2A470C);
 
     //Strings
-    String signUpTitle = "Sign up";
-    String toLogInString = "Already have an account? Sign in";
+    String signUpTitle = "sign_up".tr;
+    String toLogInString = "sign_to_log".tr;
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -122,15 +123,15 @@ class _SignupPageState extends State<SignupPage> {
                               borderSide: BorderSide(color: inputColor),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            hintText: 'Enter username:',
+                            hintText: 'enter_username'.tr,
                             hintStyle: TextStyle(
-                                color: textColor, fontFamily: 'Lilita One'),
+                                color: textColor, fontFamily: 'Fredoka'),
                             contentPadding: const EdgeInsets.symmetric(
                                 vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Please fill in username field";
+                              return "fields".tr;
                             } else {
                               return null;
                             }
@@ -174,7 +175,7 @@ class _SignupPageState extends State<SignupPage> {
                               borderSide: BorderSide(color: inputColor),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            hintText: 'Enter email:',
+                            hintText: 'enter_email'.tr,
                             hintStyle: TextStyle(
                                 color: textColor, fontFamily: 'Lilita One'),
                             contentPadding: const EdgeInsets.symmetric(
@@ -182,9 +183,9 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           validator: (value) {
                                                         if (value!.isEmpty) {
-                              return "Please fill in email field";
+                              return "fields".tr;
                             }else if(!value.contains("@")){
-                              return "Wrong format of email";
+                              return "email_format".tr;
                             }
                                                         return null; //zmiana
                             
@@ -228,7 +229,7 @@ class _SignupPageState extends State<SignupPage> {
                               borderSide: BorderSide(color: inputColor),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            hintText: 'Enter password:',
+                            hintText: 'enter_password'.tr,
                             hintStyle: TextStyle(
                                 color: textColor, fontFamily: 'Lilita One'),
                             contentPadding: const EdgeInsets.symmetric(
@@ -236,13 +237,13 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Please fill in password field";
+                              return "fields".tr;
                             } else if (value.length < 8) {
-                              return "Password is too short";
+                              return "short_password".tr;
                             } else if (!value.contains(RegExp(r'[A-Z]'))) {
-                              return "Password must contain at least one uppercase letter";
+                              return "uppercase".tr;
                             } else if (!value.contains(RegExp(r'[0-9]'))) {
-                              return "Password must contain at least one number";
+                              return "numerical".tr;
                             } else {
                               return null;
                             }
@@ -287,7 +288,7 @@ class _SignupPageState extends State<SignupPage> {
                               borderSide: BorderSide(color: inputColor),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            hintText: 'Repeat password:',
+                            hintText: 'repeat_password'.tr,
                             hintStyle: TextStyle(
                                 color: textColor, fontFamily: 'Lilita One'),
                             contentPadding: const EdgeInsets.symmetric(
@@ -295,9 +296,9 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Please fill in the field";
+                              return "fields".tr;
                             } else if (value != passwordController.text) {
-                              return "Password does not match";
+                              return "password_match".tr;
                             } else {
                               return null;
                             }
@@ -379,7 +380,7 @@ class _SignupPageState extends State<SignupPage> {
                     style: TextStyle(
                       color: textColor,
                       fontSize: 18,
-                      fontFamily: 'Lilita One',
+                      fontFamily: 'Fredoka',
                     ),
                   ),
                 ),

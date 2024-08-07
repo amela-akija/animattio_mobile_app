@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class SettingsPage extends StatefulWidget {
-  final LocaleController localeController = Get.put(LocaleController());
+  final LanguageController localeController = Get.put(LanguageController());
 
    SettingsPage({super.key});
 
