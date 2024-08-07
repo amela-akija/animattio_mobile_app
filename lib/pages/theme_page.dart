@@ -1,6 +1,7 @@
 import 'package:animattio_mobile_app/pages/mode_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ThemePage extends StatelessWidget {
   const ThemePage({super.key});
@@ -8,7 +9,7 @@ class ThemePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Strings
-    String themeTitle = "Choose theme";
+    String themeTitle = "choose_theme".tr;
     String chosenTheme = "";
 
     //Colors

@@ -1,6 +1,7 @@
 import 'package:animattio_mobile_app/pages/start_game_page.dart';
 import 'package:animattio_mobile_app/pages/theme_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class ModePage extends StatefulWidget {
   final String chosenTheme;
@@ -12,9 +13,8 @@ class ModePage extends StatefulWidget {
 
 class _ChooseModeState extends State<ModePage> {
   List<String> modes = [
-    "Click on the screen only when given symbol is displayed",
-    "Click on the screen only when given symbol is NOT displayed"
-  ];
+    "mode1".tr,
+    "mode2".tr  ];
   int currentMode = 0;
 
   void _showNextMode() {
@@ -32,7 +32,7 @@ class _ChooseModeState extends State<ModePage> {
   @override
   Widget build(BuildContext context) {
     //Strings
-    String themeTitle = "Choose mode:";
+    String themeTitle = "choose_mode".tr;
     String chosenMode = modes[currentMode];
 
     //Colors
@@ -47,11 +47,6 @@ class _ChooseModeState extends State<ModePage> {
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
-
-    // final dbService = DatabaseService();
-
-    // User? currentUser = FirebaseAuth.instance.currentUser;
-    // String uid = currentUser!.uid;
 
     return Scaffold(
       backgroundColor: pageColor,
@@ -138,7 +133,7 @@ class _ChooseModeState extends State<ModePage> {
                 modes[currentMode],
                 style: TextStyle(
                   color: fontColor,
-                  fontFamily: "Lilita One",
+                  fontFamily: "Fredoka",
                   fontSize: 22,
                   fontWeight: FontWeight.bold,
                 ),
@@ -170,7 +165,6 @@ class _ChooseModeState extends State<ModePage> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // dbService.addGame(uid,chosenMode, widget.chosenTheme);
                  Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context)=> StartGamePage(chosenTheme: widget.chosenTheme, chosenMode: chosenMode,)
@@ -201,13 +195,4 @@ class _ChooseModeState extends State<ModePage> {
     );
   }
 }
-// class ChosenGame {
-//   final String userId;
-//   final String mode;
-//   final String theme;
-  
-
-//   ChosenGame({required this.userId, required this.mode, required this.theme});
-//   Map<String, dynamic> toMap() => {"id":userId,"mode": mode, "theme": theme, "timestamp": FieldValue.serverTimestamp()};
-// }
 

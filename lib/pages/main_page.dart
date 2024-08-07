@@ -1,5 +1,4 @@
 import 'package:animattio_mobile_app/controllers/locale_controller.dart';
-import 'package:animattio_mobile_app/services/localization_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'login_page.dart';

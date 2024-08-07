@@ -5,6 +5,7 @@ import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class StartGamePage extends StatelessWidget {
   final String chosenTheme;
@@ -15,9 +16,9 @@ class StartGamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Strings
-    String message = "Are you ready to start the game?";
-    String yesButton = "yes";
-    String noButton = "no";
+    String message = "start_game".tr;
+    String yesButton = "yes".tr;
+    String noButton = "no".tr;
 
     //Colors
     Color pageColor = const Color(0xffD4F8B0);
@@ -87,7 +88,7 @@ class StartGamePage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: fontColor,
                       fontSize: 44,
-                      fontFamily: "Lilita One",
+                      fontFamily: "Fredoka",
                       height: 1,
                     ),
                     textAlign: TextAlign.center,
@@ -132,7 +133,6 @@ class StartGamePage extends StatelessWidget {
                 const SizedBox(width: 30),
                 ElevatedButton(
                   onPressed: () {
-                    // dbService.deleteGame();
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (BuildContext context) {
                         return const UserPage();
@@ -169,7 +169,6 @@ class StartGamePage extends StatelessWidget {
                 color: arrowButton,
                 iconSize: 30,
                 onPressed: () {
-                  // dbService.deleteGame();
                  Navigator.of(context).push(
                         MaterialPageRoute(
                           builder: (context)=> ModePage(chosenTheme: chosenTheme,)

@@ -3,6 +3,7 @@ import 'package:animattio_mobile_app/pages/game_page_1.dart';
 import 'package:animattio_mobile_app/pages/game_page_2.dart';
 import 'package:animattio_mobile_app/poviders/images_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:provider/provider.dart';
 
 // ignore: must_be_immutable
@@ -27,11 +28,9 @@ class _InstructionPageState extends State<InstructionPage> {
     String stimuli = listOfImages[randomIndex];
 
     //Strings
-    String instructionMode1 =
-        "React by clicking on the screen only when this symbol is displayed";
-    String instructionMode2 =
-        "React by clicking on the screen only when this symbol is NOT displayed";
-    String message = "Click on the screen to begin the game";
+    String instructionMode1 ="instructionMode1".tr;
+        String instructionMode2 = "instructionMode2".tr;
+    String message = "message".tr;
 
     //Colors
     Color pageColor = const Color(0xFFFEFFD9);
@@ -49,7 +48,7 @@ class _InstructionPageState extends State<InstructionPage> {
           children: [
             Builder(builder: (context) {
               if (widget.chosenMode ==
-                  "Click on the screen only when given symbol is displayed") {
+                  "mode1".tr) {
                 return Padding(
                   padding: const EdgeInsets.all(20),
                   child: Text(
@@ -58,7 +57,7 @@ class _InstructionPageState extends State<InstructionPage> {
                     style: TextStyle(
                       color: textColor,
                       fontSize: 32,
-                      fontFamily: 'Lilita One',
+                      fontFamily: 'Fredoka',
                     ),
                   ),
                 );
@@ -71,7 +70,7 @@ class _InstructionPageState extends State<InstructionPage> {
                     style: TextStyle(
                       color: textColor,
                       fontSize: 32,
-                      fontFamily: 'Lilita One',
+                      fontFamily: 'Fredoka',
                     ),
                   ),
                 );
@@ -87,7 +86,7 @@ class _InstructionPageState extends State<InstructionPage> {
                   style: TextStyle(
                     color: textColor,
                     fontSize: 12,
-                    fontFamily: 'Lilita One',
+                    fontFamily: 'Fredoka',
                   ),
                 ),
               ),
@@ -105,8 +104,7 @@ class _InstructionPageState extends State<InstructionPage> {
         ),
         //TODO: all of the parameters
         onTap: () {
-          if (widget.chosenMode ==
-              "Click on the screen only when given symbol is displayed") {
+          if (widget.chosenMode == "mode1".tr) {
              Navigator.of(context).push(
                       MaterialPageRoute(builder: (BuildContext context) {
                         return  GamePage2(stimuli: stimuli, listOfImages: listOfImages,);
