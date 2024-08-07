@@ -2,10 +2,13 @@ import 'package:animattio_mobile_app/pages/signup_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class AuthServices {
   FirebaseAuth auth = FirebaseAuth.instance;
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
+  String successfullRegister = 'registered_successfully';
+   String successfullLogin = 'login_successfull';
 
   registerUser(email, password, String username, String avatar, context) async {
     try {
@@ -16,7 +19,7 @@ class AuthServices {
           RegisteredUser(username: username, email: email, avatar: avatar);
       await fireStore.collection('users').doc(uid).set(registeredUser.toMap());
       return ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('User registered successfully')));
+          SnackBar(content: Text(successfullRegister.tr)));
     } catch (e) {
       ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(e.toString())));
@@ -32,12 +35,12 @@ class AuthServices {
         email: email,
         password: password,
       );
-      return 'User logged in successfully!';
+      return 'login_successfull'.tr;
     } on FirebaseAuthException {
       if (email.isEmpty || password.isEmpty) {
-        return "Please fill in all the fields";
+        return "fields".tr;
       } else {
-        return "Wrong credentials";
+        return "credentials".tr;
       }
     } catch (e) {
       return e.toString();

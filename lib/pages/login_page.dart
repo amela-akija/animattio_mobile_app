@@ -1,6 +1,7 @@
 import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:animattio_mobile_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'signup_page.dart';
 
 //Page for login
@@ -36,8 +37,8 @@ class _LoginPageState extends State<LoginPage> {
     Color textColor = const Color(0xFF2A470C);
 
     //Strings
-    String loginTitle = "Log in";
-    String toSignUpString = "Don't have an account yet? Sign up";
+    String loginTitle = "log_in".tr;
+    String toSignUpString = "log_to_sign".tr;
 
     //Size
     dynamic deviceSize, height, width;
@@ -115,7 +116,7 @@ class _LoginPageState extends State<LoginPage> {
                             borderSide: BorderSide(color: inputColor),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          hintText: 'Enter email:',
+                          hintText: 'enter_email'.tr,
                           hintStyle: TextStyle(
                               color: textColor, fontFamily: 'Lilita One'),
                           contentPadding: const EdgeInsets.symmetric(
@@ -162,7 +163,7 @@ class _LoginPageState extends State<LoginPage> {
                             borderSide: BorderSide(color: inputColor),
                             borderRadius: BorderRadius.circular(20),
                           ),
-                          hintText: 'Enter password:',
+                          hintText: 'enter_password'.tr,
                           hintStyle: TextStyle(
                               color: textColor, fontFamily: 'Lilita One'),
                           contentPadding: const EdgeInsets.symmetric(
@@ -183,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
                         final message = await AuthServices().loginUser(
                             email: emailController.text,
                             password: passwordController.text,);
-                        if (message!.contains('User logged in successfully!')) {
+                        if (message!.contains('login_successfull'.tr)) {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) => const UserPage()));
@@ -209,7 +210,7 @@ class _LoginPageState extends State<LoginPage> {
                         elevation: 10,
                       ),
                       child: Text(
-                        'Log in',
+                        'Log_in'.tr,
                         style: TextStyle(color: fontColor),
                       ),
                     ),
@@ -235,7 +236,9 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(
                     color: textColor,
                     fontSize: 18,
-                    fontFamily: 'Lilita One',
+                    fontFamily: 'Fredoka',
+                    fontWeight: FontWeight.w800,
+                    
                   ),
                 ),
               ),

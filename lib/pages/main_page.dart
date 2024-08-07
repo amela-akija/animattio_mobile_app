@@ -1,10 +1,14 @@
+import 'package:animattio_mobile_app/controllers/locale_controller.dart';
+import 'package:animattio_mobile_app/localization/localization_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'login_page.dart';
 import 'signup_page.dart';
 
 // Main page from which user can choose either to log in or to sign up
 class MainPage extends StatelessWidget {
-  const MainPage({super.key});
+  final LocaleController localeController = Get.put(LocaleController());
+  MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,8 +24,8 @@ class MainPage extends StatelessWidget {
     Color fontColor = const Color(0xFFFEFFD9);
 
     //Strings
-    String buttonSign = "Sign up";
-    String buttonLogin = "Log in";
+    String buttonSign = "sign_up".tr;
+    String buttonLogin = "log_in".tr;
 
     return Scaffold(
       backgroundColor: pageColor,
@@ -162,6 +166,37 @@ class MainPage extends StatelessWidget {
               'assets/logos/logo.png',
               height: height*0.5,
               width: width*0.5,
+            ),
+          ),
+           Positioned(
+            width: deviceSize.width,
+            child: Padding(
+              padding: const EdgeInsets.only(top: 20.0),
+              child: Align(
+                alignment: Alignment.topRight,
+                child: TextButton(
+                   onPressed: () {
+                     localeController.swapLanguages();
+          },
+
+                  style: TextButton.styleFrom(
+                    backgroundColor: fontColor,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    textStyle: const TextStyle(
+                        fontSize: 25,
+                        fontFamily: 'Lilita One',
+                        fontWeight: FontWeight.w900),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                  ),
+                  child: Text(
+                   localeController.currentLocale.value.languageCode == 'en' ? 'PL' : 'EN',
+                style: TextStyle(color: buttonColor),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
