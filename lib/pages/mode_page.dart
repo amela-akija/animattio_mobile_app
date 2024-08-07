@@ -12,9 +12,7 @@ class ModePage extends StatefulWidget {
 }
 
 class _ChooseModeState extends State<ModePage> {
-  List<String> modes = [
-    "mode1".tr,
-    "mode2".tr  ];
+  List<String> modes = ["mode1".tr, "mode2".tr];
   int currentMode = 0;
 
   void _showNextMode() {
@@ -54,9 +52,9 @@ class _ChooseModeState extends State<ModePage> {
         children: <Widget>[
           Stack(
             children: [
-          Positioned(
+              Positioned(
                 left: 0,
-                top: height*0.01,
+                top: height * 0.01,
                 child: Align(
                   alignment: Alignment.center,
                   child: IconButton(
@@ -97,7 +95,7 @@ class _ChooseModeState extends State<ModePage> {
               Positioned(
                 right: 0,
                 top: 0,
-                width: width ,
+                width: width,
                 child: Align(
                   alignment: Alignment.topRight,
                   child: Image.asset(
@@ -165,10 +163,11 @@ class _ChooseModeState extends State<ModePage> {
             child: Center(
               child: ElevatedButton(
                 onPressed: () {
-                 Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=> StartGamePage(chosenTheme: widget.chosenTheme, chosenMode: chosenMode,)
-                        ));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => StartGamePage(
+                            chosenTheme: widget.chosenTheme,
+                            chosenMode: chosenMode,
+                          )));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: buttonColor,
@@ -195,4 +194,3 @@ class _ChooseModeState extends State<ModePage> {
     );
   }
 }
-

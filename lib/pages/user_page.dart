@@ -10,13 +10,12 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     //Strings
     String userTitle = "my_profile".tr;
     String gameButton = "play_game".tr;
     String settingsButton = "settings".tr;
     String avatarButton = "change_avatar".tr;
- 
+
     Future<String> currentAvatar = DatabaseService().getAvatar();
 
     //Colors
@@ -80,13 +79,15 @@ class UserPage extends StatelessWidget {
                     child: Align(
                       alignment: Alignment.center,
                       child: Image.asset(
-                        snapshot.data.toString(), 
+                        snapshot.data.toString(),
                       ),
                     ),
                   ),
                 );
               }
-              return const CircularProgressIndicator(strokeAlign: CircularProgressIndicator.strokeAlignCenter,); 
+              return const CircularProgressIndicator(
+                strokeAlign: CircularProgressIndicator.strokeAlignCenter,
+              );
             },
           ),
           Center(

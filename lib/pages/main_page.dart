@@ -98,7 +98,7 @@ class MainPage extends StatelessWidget {
               ),
             ),
           ),
-         Positioned(
+          Positioned(
             top: deviceSize.height * 0.75,
             width: deviceSize.width,
             child: Center(
@@ -163,25 +163,24 @@ class MainPage extends StatelessWidget {
           Center(
             child: Image.asset(
               'assets/logos/logo.png',
-              height: height*0.5,
-              width: width*0.5,
+              height: height * 0.5,
+              width: width * 0.5,
             ),
           ),
-           Positioned(
+          Positioned(
             width: deviceSize.width,
             child: Padding(
               padding: const EdgeInsets.only(top: 20.0),
               child: Align(
                 alignment: Alignment.topRight,
                 child: TextButton(
-                   onPressed: () {
-                     localeController.swapLanguages();
-          },
-
+                  onPressed: () {
+                    localeController.swapLanguages();
+                  },
                   style: TextButton.styleFrom(
                     backgroundColor: fontColor,
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 10),
                     textStyle: const TextStyle(
                         fontSize: 25,
                         fontFamily: 'Lilita One',
@@ -191,8 +190,10 @@ class MainPage extends StatelessWidget {
                     ),
                   ),
                   child: Text(
-                   localeController.currentLocale.value.languageCode == 'en' ? 'PL' : 'EN',
-                style: TextStyle(color: buttonColor),
+                    localeController.currentLocale.value.languageCode == 'en'
+                        ? 'PL'
+                        : 'EN',
+                    style: TextStyle(color: buttonColor),
                   ),
                 ),
               ),

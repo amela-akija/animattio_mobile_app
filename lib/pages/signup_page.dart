@@ -182,13 +182,12 @@ class _SignupPageState extends State<SignupPage> {
                                 vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
-                                                        if (value!.isEmpty) {
+                            if (value!.isEmpty) {
                               return "fields".tr;
-                            }else if(!value.contains("@")){
+                            } else if (!value.contains("@")) {
                               return "email_format".tr;
                             }
-                                                        return null; //zmiana
-                            
+                            return null; //zmiana
                           },
                         ),
                       ),
@@ -302,8 +301,8 @@ class _SignupPageState extends State<SignupPage> {
                             } else {
                               return null;
                             }
-                          },                          obscureText: true,
-
+                          },
+                          obscureText: true,
                         ),
                       ),
                     ),
@@ -320,12 +319,14 @@ class _SignupPageState extends State<SignupPage> {
                             });
                             await AuthServices().registerUser(
                                 emailController.text,
-                                passwordController.text, usernameController.text, avatar,
+                                passwordController.text,
+                                usernameController.text,
+                                avatar,
                                 context);
                             setState(() {
                               showLoading = false;
                             });
-                            
+
                             emailController.clear();
                             passwordController.clear();
                             Navigator.of(context).push(MaterialPageRoute(
@@ -333,7 +334,6 @@ class _SignupPageState extends State<SignupPage> {
                               return const LoginPage();
                             }));
                           }
-
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: buttonColor,
@@ -392,11 +392,14 @@ class _SignupPageState extends State<SignupPage> {
     );
   }
 }
-class RegisteredUser{
+
+class RegisteredUser {
   final String username;
   final String email;
   final String avatar;
 
-  RegisteredUser({required this.username, required this.email, required this.avatar});
-  Map<String, dynamic> toMap()=>{"username":username, "email": email, "avatar": avatar};
-  }
+  RegisteredUser(
+      {required this.username, required this.email, required this.avatar});
+  Map<String, dynamic> toMap() =>
+      {"username": username, "email": email, "avatar": avatar};
+}

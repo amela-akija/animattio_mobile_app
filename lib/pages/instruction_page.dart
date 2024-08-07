@@ -20,7 +20,7 @@ class InstructionPage extends StatefulWidget {
 class _InstructionPageState extends State<InstructionPage> {
   @override
   Widget build(BuildContext context) {
-     final listProvider = Provider.of<ImagesProvider>(context);
+    final listProvider = Provider.of<ImagesProvider>(context);
     List<String> listOfImages = listProvider.getList(widget.chosenThemeList);
 
     Random random = Random();
@@ -28,8 +28,8 @@ class _InstructionPageState extends State<InstructionPage> {
     String stimuli = listOfImages[randomIndex];
 
     //Strings
-    String instructionMode1 ="instructionMode1".tr;
-        String instructionMode2 = "instructionMode2".tr;
+    String instructionMode1 = "instructionMode1".tr;
+    String instructionMode2 = "instructionMode2".tr;
     String message = "message".tr;
 
     //Colors
@@ -47,8 +47,7 @@ class _InstructionPageState extends State<InstructionPage> {
         child: Column(
           children: [
             Builder(builder: (context) {
-              if (widget.chosenMode ==
-                  "mode1".tr) {
+              if (widget.chosenMode == "mode1".tr) {
                 return Padding(
                   padding: const EdgeInsets.all(20),
                   child: Text(
@@ -105,17 +104,23 @@ class _InstructionPageState extends State<InstructionPage> {
         //TODO: all of the parameters
         onTap: () {
           if (widget.chosenMode == "mode1".tr) {
-             Navigator.of(context).push(
-                      MaterialPageRoute(builder: (BuildContext context) {
-                        return  GamePage2(stimuli: stimuli, listOfImages: listOfImages,);
-                      }),
-                    );
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (BuildContext context) {
+                return GamePage2(
+                  stimuli: stimuli,
+                  listOfImages: listOfImages,
+                );
+              }),
+            );
           } else {
             Navigator.of(context).push(
-                      MaterialPageRoute(builder: (BuildContext context) {
-                        return  GamePage2(stimuli: stimuli, listOfImages: listOfImages,);
-                      }),
-                    );
+              MaterialPageRoute(builder: (BuildContext context) {
+                return GamePage2(
+                  stimuli: stimuli,
+                  listOfImages: listOfImages,
+                );
+              }),
+            );
           }
         },
       ),

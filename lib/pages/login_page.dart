@@ -144,7 +144,6 @@ class _LoginPageState extends State<LoginPage> {
                         ],
                       ),
                       child: TextField(
-                       
                         controller: passwordController,
                         style: TextStyle(color: textColor),
                         obscureText: true,
@@ -179,11 +178,10 @@ class _LoginPageState extends State<LoginPage> {
                   child: Center(
                     child: ElevatedButton(
                       onPressed: () async {
-                      
-
                         final message = await AuthServices().loginUser(
-                            email: emailController.text,
-                            password: passwordController.text,);
+                          email: emailController.text,
+                          password: passwordController.text,
+                        );
                         if (message!.contains('login_successfull'.tr)) {
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
@@ -194,7 +192,6 @@ class _LoginPageState extends State<LoginPage> {
                             content: Text(message),
                           ),
                         );
-                       
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: buttonColor,
@@ -238,7 +235,6 @@ class _LoginPageState extends State<LoginPage> {
                     fontSize: 18,
                     fontFamily: 'Fredoka',
                     fontWeight: FontWeight.w800,
-                    
                   ),
                 ),
               ),

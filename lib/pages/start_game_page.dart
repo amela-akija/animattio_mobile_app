@@ -105,10 +105,13 @@ class StartGamePage extends StatelessWidget {
               children: [
                 ElevatedButton(
                   onPressed: () {
-                    dbService.addGame(uid, chosenMode, chosenTheme);                   
-                      Navigator.of(context).push(
+                    dbService.addGame(uid, chosenMode, chosenTheme);
+                    Navigator.of(context).push(
                       MaterialPageRoute(builder: (BuildContext context) {
-                        return  InstructionPage(chosenMode: chosenMode, chosenThemeList: chosenTheme,);
+                        return InstructionPage(
+                          chosenMode: chosenMode,
+                          chosenThemeList: chosenTheme,
+                        );
                       }),
                     );
                   },
@@ -160,7 +163,7 @@ class StartGamePage extends StatelessWidget {
               ],
             ),
           ),
-           Padding(
+          Padding(
             padding: const EdgeInsets.only(top: 28.0),
             child: Align(
               alignment: Alignment.topLeft,
@@ -169,10 +172,10 @@ class StartGamePage extends StatelessWidget {
                 color: arrowButton,
                 iconSize: 30,
                 onPressed: () {
-                 Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=> ModePage(chosenTheme: chosenTheme,)
-                        ));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ModePage(
+                            chosenTheme: chosenTheme,
+                          )));
                 },
               ),
             ),

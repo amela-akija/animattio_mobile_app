@@ -58,7 +58,7 @@ class ThemePage extends StatelessWidget {
             ),
           ),
           Positioned(
-             left: 0,
+            left: 0,
             right: 0,
             top: height * 0.4,
             child: Row(
@@ -69,29 +69,31 @@ class ThemePage extends StatelessWidget {
                   iconSize: 50,
                   onPressed: () {
                     chosenTheme = "flower";
-                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=> ModePage(chosenTheme: chosenTheme,)
-                        ));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ModePage(
+                              chosenTheme: chosenTheme,
+                            )));
                   },
                 ),
-                SizedBox(width: width*0.05,),
+                SizedBox(
+                  width: width * 0.05,
+                ),
                 IconButton(
                   icon: Image.asset('assets/theme_page/icons/animal_icon.png'),
                   iconSize: 50,
                   onPressed: () {
                     chosenTheme = "animal";
-                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=> ModePage(chosenTheme: chosenTheme,)
-                        ));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ModePage(
+                              chosenTheme: chosenTheme,
+                            )));
                   },
                 ),
               ],
             ),
           ),
           Positioned(
-             left: 0,
+            left: 0,
             right: 0,
             top: height * 0.6,
             child: Row(
@@ -103,21 +105,24 @@ class ThemePage extends StatelessWidget {
                   iconSize: 50,
                   onPressed: () {
                     chosenTheme = "dinosaur";
-                   Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=> ModePage(chosenTheme: chosenTheme,)
-                        ));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ModePage(
+                              chosenTheme: chosenTheme,
+                            )));
                   },
-                ), SizedBox(width: width*0.05,),
+                ),
+                SizedBox(
+                  width: width * 0.05,
+                ),
                 IconButton(
                   icon: Image.asset('assets/theme_page/icons/car_icon.png'),
                   iconSize: 50,
                   onPressed: () {
                     chosenTheme = "car";
-                    Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context)=> ModePage(chosenTheme: chosenTheme,)
-                        ));
+                    Navigator.of(context).push(MaterialPageRoute(
+                        builder: (context) => ModePage(
+                              chosenTheme: chosenTheme,
+                            )));
                   },
                 ),
               ],
