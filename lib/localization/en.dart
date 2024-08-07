@@ -35,5 +35,6 @@ const Map<String, String> en = {
       "React by clicking on the screen only when this symbol is displayed",
   "instructionMode2":
       "React by clicking on the screen only when this symbol is NOT displayed",
-  "message": "Click on the screen to begin the game",
+  "message": "Click on the screen to begin the game","delete":"delete account", "account_deletion": "Account deletion",
+  "delete_info":"Are you sure you want to delete the account?", "log_out":"Log out",
 };

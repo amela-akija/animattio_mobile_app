@@ -35,5 +35,7 @@ const Map<String, String> pl = {
       "Reaguj klikając na ekran tylko wtedy, gdy wyświetli się ten symbol",
   "instructionMode2":
       "Reaguj klikając na ekran tylko wtedy, gdy ten symbol NIE jest wyświetlany",
-  "message": "Kliknij na ekran, aby rozpocząć grę"
+  "message": "Kliknij na ekran, aby rozpocząć grę", "delete":"usuń konto", "account_deletion": "Usunięcie konta",
+  "delete_info":"Czy na pewno chcesz usunąć konto?", "log_out":"Wyloguj się",
 };
+

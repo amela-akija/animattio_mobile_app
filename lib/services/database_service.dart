@@ -6,10 +6,11 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 class DatabaseService {
   final fireStore = FirebaseFirestore.instance;
+  User? currentUser = FirebaseAuth.instance.currentUser;
 
   addAvatar(String avatar) {
     try {
-      User? currentUser = FirebaseAuth.instance.currentUser;
+      
       var userCollection = fireStore.collection("users");
       userCollection
           .doc(currentUser?.uid)
@@ -22,7 +23,6 @@ class DatabaseService {
 
   Future<String> getAvatar() async {
     try {
-      User? currentUser = FirebaseAuth.instance.currentUser;
       var userCollection = fireStore.collection("users");
       var currentUserData = await userCollection.doc(currentUser?.uid).get();
       if (currentUserData.exists) {
@@ -60,6 +60,23 @@ class DatabaseService {
     }catch(e){
       log(e.toString());
 
+    }
+  }
+
+  Future<void> moveUserData() async {
+    try {
+      DocumentSnapshot userData = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(currentUser?.uid)
+          .get();
+
+        await FirebaseFirestore.instance
+            .collection('deleted users')
+            .doc(currentUser?.uid)
+            .set(userData.data()as Map<String, dynamic>);
+
+    } catch (e) {
+      log(e.toString());
     }
   }
 }
