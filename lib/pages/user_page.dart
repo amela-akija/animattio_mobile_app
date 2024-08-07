@@ -1,7 +1,9 @@
 import 'package:animattio_mobile_app/pages/avatar_page.dart';
+import 'package:animattio_mobile_app/pages/settings_page.dart';
 import 'package:animattio_mobile_app/pages/theme_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({super.key});
@@ -10,10 +12,10 @@ class UserPage extends StatelessWidget {
   Widget build(BuildContext context) {
 
     //Strings
-    String userTitle = "My profile";
-    String gameButton = "play game";
-    String settingsButton = "settings";
-    String avatarButton = "change avatar";
+    String userTitle = "my_profile".tr;
+    String gameButton = "play_game".tr;
+    String settingsButton = "settings".tr;
+    String avatarButton = "change_avatar".tr;
  
     Future<String> currentAvatar = DatabaseService().getAvatar();
 
@@ -166,7 +168,7 @@ class UserPage extends StatelessWidget {
                     onPressed: () {
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
-                        return const UserPage();
+                        return SettingsPage();
                       }));
                     },
                     style: ElevatedButton.styleFrom(
