@@ -1,4 +1,5 @@
 import 'package:animattio_mobile_app/controllers/locale_controller.dart';
+import 'package:animattio_mobile_app/pages/edit_profile_page.dart';
 import 'package:animattio_mobile_app/pages/main_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
@@ -156,6 +157,41 @@ class _SettingsPageState extends State<SettingsPage> {
               child: Align(
                 alignment: Alignment.center,
                 child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (BuildContext context) {
+                      return const EditProfilePage();
+                    }));
+                  },
+                  style: TextButton.styleFrom(
+                    backgroundColor: fontColor,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 30, vertical: 10),
+                    textStyle: const TextStyle(
+                        fontSize: 25,
+                        fontFamily: 'Lilita One',
+                        fontWeight: FontWeight.w900),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    elevation: 10,
+                  ),
+                  child: Text(
+                    "update".tr,
+                    style: TextStyle(color: buttonColor),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Positioned(
+            top: height * 0.5,
+            width: deviceSize.width,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 20.0),
+              child: Align(
+                alignment: Alignment.center,
+                child: ElevatedButton(
                   onPressed: () async {
                     await FirebaseAuth.instance.signOut();
                     Navigator.of(context).push(
@@ -185,7 +221,7 @@ class _SettingsPageState extends State<SettingsPage> {
             ),
           ),
           Positioned(
-            top: height * 0.5,
+            top: height * 0.75,
             width: deviceSize.width,
             child: Padding(
               padding: const EdgeInsets.only(bottom: 20.0),
@@ -193,7 +229,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 alignment: Alignment.center,
                 child: ElevatedButton(
                   onPressed: () async {
-                    showAlertDialog(context);
+                    showAlertDeleteDialog(context);
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: fontColor,
@@ -222,7 +258,7 @@ class _SettingsPageState extends State<SettingsPage> {
   }
 }
 
-showAlertDialog(BuildContext context) {
+showAlertDeleteDialog(BuildContext context) {
   Widget noButton = TextButton(
     child: Text("no".tr),
     onPressed: () {

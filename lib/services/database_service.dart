@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:developer';
 
 import 'package:animattio_mobile_app/pages/start_game_page.dart';
@@ -8,18 +9,49 @@ class DatabaseService {
   final fireStore = FirebaseFirestore.instance;
   User? currentUser = FirebaseAuth.instance.currentUser;
 
+
   addAvatar(String avatar) {
     try {
       
       var userCollection = fireStore.collection("users");
       userCollection
           .doc(currentUser?.uid)
-          .update({'avatar': avatar}).catchError(
-              (error) => print('Update failed: $error'));
+          .update({'avatar': avatar});
+
     } catch (e) {
       log(e.toString());
     }
   }
+
+    updateUserData(String username, String email) {
+    try {
+      
+      var userCollection = fireStore.collection("users");
+      userCollection
+          .doc(currentUser?.uid)
+          .update({'username': username, "email":email});
+    } catch (e) {
+      log(e.toString());
+    }
+  }
+
+  Future<Map<String, String>> getUserData() async {
+  User? currentUser = FirebaseAuth.instance.currentUser;
+  
+  if (currentUser != null) {
+    DocumentSnapshot userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(currentUser.uid)
+        .get();
+
+    String username = userData['username'];
+    String email = userData['email'];
+
+    return {'username': username, 'email': email};
+  }
+  
+  return {'username': '', 'email': ''};
+}
 
   Future<String> getAvatar() async {
     try {
@@ -35,6 +67,9 @@ class DatabaseService {
       rethrow;
     }
   }
+
+
+
 
   Future<String?> addGame(String userId, String mode, String theme) async {
     try {

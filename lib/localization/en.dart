@@ -3,7 +3,7 @@ const Map<String, String> en = {
   "sign_up": "Sign up",
   "log_to_sign": "Don't have an account yet? Sign up",
   "Log_in": "Log in",
-  "enter_password": "Enter password:",
+  "enter_password": "Enter password:", "enter_new_password": "Enter new password:",
   "enter_email": "Enter email:",
   "registered_successfully": "User registered successfully",
   "login_successfull": "User logged in successfully",
@@ -36,5 +36,5 @@ const Map<String, String> en = {
   "instructionMode2":
       "React by clicking on the screen only when this symbol is NOT displayed",
   "message": "Click on the screen to begin the game","delete":"delete account", "account_deletion": "Account deletion",
-  "delete_info":"Are you sure you want to delete the account?", "log_out":"Log out",
+  "delete_info":"Are you sure you want to delete the account?", "log_out":"Log out", "update":"edit profile",
 };
