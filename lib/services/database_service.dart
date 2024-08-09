@@ -60,7 +60,7 @@ class DatabaseService {
       if (currentUserData.exists) {
         return currentUserData.data()?['avatar'] ?? 'assets/user_page/no_avatar.png';
       } else {
-        return "User doesn't exists";
+        return "User doesn't exists"; //!!!
       }
     } catch (e) {
       log(e.toString());

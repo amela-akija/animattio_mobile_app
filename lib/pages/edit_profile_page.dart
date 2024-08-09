@@ -1,7 +1,6 @@
 import 'package:animattio_mobile_app/pages/main_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -53,7 +52,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
+    
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: pageColor,
       body: Form(
         key: _formKey,
@@ -91,7 +92,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
+                    padding: const EdgeInsets.only(top: 25.0),
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: Text(
@@ -106,19 +107,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                     ),
                   ),
                   Positioned(
-                    top: deviceSize.height * 0.18,
+                    top: deviceSize.height * 0.22,
+                    left: 0,
+                    right: 0,
                     child: Text(
-                      "enter_username".tr,
+                      "enter_new_username".tr,
                       textAlign: TextAlign.center,
                       style: TextStyle(
                         color: fontColor,
                         fontSize: 12,
-                        fontFamily: 'Lilita One',
+                        fontFamily: 'Fredoka',
                       ),
                     ),
                   ),
                   Positioned(
-                    top: deviceSize.height * 0.2,
+                    top: deviceSize.height * 0.25,
                     width: deviceSize.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -164,8 +167,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
+                   Positioned(
+                    top: deviceSize.height * 0.37,
+                    left: 0,
+                    right: 0,
+                    child: Text(
+                      "enter_new_email".tr,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: fontColor,
+                        fontSize: 12,
+                        fontFamily: 'Fredoka',
+                      ),
+                    ),
+                  ),
                   Positioned(
-                    top: deviceSize.height * 0.35,
+                    top: deviceSize.height * 0.40,
                     width: deviceSize.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -199,11 +216,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               borderSide: BorderSide(color: inputColor),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            // hintText: "xxx",
-                            // hintStyle: TextStyle(
-                            //     color: textColor, fontFamily: 'Lilita One'),
-                            // contentPadding: const EdgeInsets.symmetric(
-                            //     vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {
@@ -217,8 +229,22 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
+                   Positioned(
+                    top: deviceSize.height * 0.52,
+                    left: 0,
+                    right: 0,
+                    child: Text(
+                      "enter_new_password".tr,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: fontColor,
+                        fontSize: 12,
+                        fontFamily: 'Fredoka',
+                      ),
+                    ),
+                  ),
                   Positioned(
-                    top: deviceSize.height * 0.5,
+                    top: deviceSize.height * 0.55,
                     width: deviceSize.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -252,11 +278,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
                               borderSide: BorderSide(color: inputColor),
                               borderRadius: BorderRadius.circular(20),
                             ),
-                            hintText: 'enter_new_password'.tr,
-                            hintStyle: TextStyle(
-                                color: textColor, fontFamily: 'Lilita One'),
-                            contentPadding: const EdgeInsets.symmetric(
-                                vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
                             if (value!.isEmpty) {

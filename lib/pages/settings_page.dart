@@ -67,51 +67,147 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
-          Align(
-            alignment: Alignment.topCenter,
-            child: Text(
-              pageTitle,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: chooseColor,
-                fontSize: 56,
-                fontFamily: 'Lilita One',
+          Padding(
+            padding: const EdgeInsets.only(top:30),
+            child: Align(
+              alignment: Alignment.topCenter,
+              child: Text(
+                pageTitle,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                  color: chooseColor,
+                  fontSize: 56,
+                  fontFamily: 'Lilita One',
+                ),
               ),
             ),
           ),
-          Positioned(
-            top: height * 0.2,
-            width: deviceSize.width,
-            child: Padding(
-              padding: const EdgeInsets.only(top: 20.0),
-              child: Align(
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  onPressed: () {
-                    widget.localeController.swapLanguages();
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: fontColor,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 10),
-                    textStyle: const TextStyle(
-                        fontSize: 25,
-                        fontFamily: 'Fredoka',
-                        fontWeight: FontWeight.w900),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                const SizedBox(height: 225),
+                SizedBox(
+                  width: width * 0.75,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      widget.localeController.swapLanguages();
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: fontColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 10),
+                      textStyle: const TextStyle(
+                          fontSize: 25,
+                          fontFamily: 'Fredoka',
+                          fontWeight: FontWeight.w900),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 10,
                     ),
-                    elevation: 10,
-                  ),
-                  child: Text(
-                    widget.localeController.currentLocale.value.languageCode ==
-                            'en'
-                        ? 'PL_switch'.tr
-                        : 'EN_switch'.tr,
-                    style: TextStyle(color: buttonColor),
+                    child: Text(
+                      widget.localeController.currentLocale.value
+                                  .languageCode ==
+                              'en'
+                          ? 'PL_switch'.tr
+                          : 'EN_switch'.tr,
+                      style: TextStyle(color: buttonColor),
+                    ),
                   ),
                 ),
-              ),
+                const SizedBox(
+                  height: 50,
+                ),
+                SizedBox(
+                  width: width * 0.75,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return const EditProfilePage();
+                      }));
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: fontColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 10),
+                      textStyle: const TextStyle(
+                          fontSize: 25,
+                          fontFamily: 'Lilita One',
+                          fontWeight: FontWeight.w900),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 10,
+                    ),
+                    child: Text(
+                      "update".tr,
+                      style: TextStyle(color: buttonColor),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                SizedBox(
+                  width: width * 0.75,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      await FirebaseAuth.instance.signOut();
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return MainPage();
+                      }));
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: fontColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 10),
+                      textStyle: const TextStyle(
+                          fontSize: 25,
+                          fontFamily: 'Fredoka',
+                          fontWeight: FontWeight.w900),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 10,
+                    ),
+                    child: Text(
+                      "log_out".tr,
+                      style: TextStyle(color: buttonColor),
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                SizedBox(
+                  width: width * 0.75,
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      showAlertDeleteDialog(context);
+                    },
+                    style: TextButton.styleFrom(
+                      backgroundColor: fontColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 30, vertical: 10),
+                      textStyle: const TextStyle(
+                          fontSize: 25,
+                          fontFamily: 'Fredoka',
+                          fontWeight: FontWeight.w900),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 10,
+                    ),
+                    child: Text(
+                      "delete".tr,
+                      style: TextStyle(color: buttonColor),
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
           Positioned(
@@ -143,109 +239,6 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   child: Text(
                     "save".tr,
-                    style: TextStyle(color: buttonColor),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: height * 0.35,
-            width: deviceSize.width,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: Align(
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return const EditProfilePage();
-                    }));
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: fontColor,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 10),
-                    textStyle: const TextStyle(
-                        fontSize: 25,
-                        fontFamily: 'Lilita One',
-                        fontWeight: FontWeight.w900),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    elevation: 10,
-                  ),
-                  child: Text(
-                    "update".tr,
-                    style: TextStyle(color: buttonColor),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: height * 0.5,
-            width: deviceSize.width,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: Align(
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    await FirebaseAuth.instance.signOut();
-                    Navigator.of(context).push(
-                        MaterialPageRoute(builder: (BuildContext context) {
-                      return MainPage();
-                    }));
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: fontColor,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 10),
-                    textStyle: const TextStyle(
-                        fontSize: 25,
-                        fontFamily: 'Fredoka',
-                        fontWeight: FontWeight.w900),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    elevation: 10,
-                  ),
-                  child: Text(
-                    "log_out".tr,
-                    style: TextStyle(color: buttonColor),
-                  ),
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            top: height * 0.75,
-            width: deviceSize.width,
-            child: Padding(
-              padding: const EdgeInsets.only(bottom: 20.0),
-              child: Align(
-                alignment: Alignment.center,
-                child: ElevatedButton(
-                  onPressed: () async {
-                    showAlertDeleteDialog(context);
-                  },
-                  style: TextButton.styleFrom(
-                    backgroundColor: fontColor,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 30, vertical: 10),
-                    textStyle: const TextStyle(
-                        fontSize: 25,
-                        fontFamily: 'Fredoka',
-                        fontWeight: FontWeight.w900),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(20),
-                    ),
-                    elevation: 10,
-                  ),
-                  child: Text(
-                    "delete".tr,
                     style: TextStyle(color: buttonColor),
                   ),
                 ),

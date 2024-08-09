@@ -141,7 +141,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   Positioned(
-                    top: deviceSize.height * 0.35,
+                    top: deviceSize.height * 0.32,
                     width: deviceSize.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -194,7 +194,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   Positioned(
-                    top: deviceSize.height * 0.5,
+                    top: deviceSize.height * 0.44,
                     width: deviceSize.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -253,7 +253,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   Positioned(
-                    top: deviceSize.height * 0.65,
+                    top: deviceSize.height * 0.56,
                     width: deviceSize.width,
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 50.0),
@@ -308,7 +308,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   Positioned(
-                    top: deviceSize.height * 0.8,
+                    top: deviceSize.height * 0.75,
                     width: deviceSize.width,
                     child: Center(
                       child: ElevatedButton(

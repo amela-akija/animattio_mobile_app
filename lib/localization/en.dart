@@ -3,7 +3,7 @@ const Map<String, String> en = {
   "sign_up": "Sign up",
   "log_to_sign": "Don't have an account yet? Sign up",
   "Log_in": "Log in",
-  "enter_password": "Enter password:", "enter_new_password": "Enter new password:",
+  "enter_password": "Enter password:", "enter_new_password": "Enter new password:",  "enter_new_email": "Enter new email:", "enter_new_username": "Enter new username:",
   "enter_email": "Enter email:",
   "registered_successfully": "User registered successfully",
   "login_successfull": "User logged in successfully",

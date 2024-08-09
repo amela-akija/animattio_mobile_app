@@ -27,6 +27,7 @@ class MainPage extends StatelessWidget {
     String buttonLogin = "log_in".tr;
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
