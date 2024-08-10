@@ -24,8 +24,8 @@ class _InstructionPageState extends State<InstructionPage> {
     List<String> listOfImages = listProvider.getList(widget.chosenThemeList);
 
     Random random = Random();
-    int randomIndex = random.nextInt(listOfImages.length);
-    String stimuli = listOfImages[randomIndex];
+    int stimuliIndex = random.nextInt(listOfImages.length);
+    String stimuli = listOfImages[stimuliIndex];
 
     //Strings
     String instructionMode1 = "instructionMode1".tr;
@@ -107,7 +107,7 @@ class _InstructionPageState extends State<InstructionPage> {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (BuildContext context) {
                 return GamePage2(
-                  stimuli: stimuli,
+                  stimuliIndex: stimuliIndex,
                   listOfImages: listOfImages,
                 );
               }),
@@ -116,7 +116,7 @@ class _InstructionPageState extends State<InstructionPage> {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (BuildContext context) {
                 return GamePage2(
-                  stimuli: stimuli,
+                 stimuliIndex: stimuliIndex,
                   listOfImages: listOfImages,
                 );
               }),

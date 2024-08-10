@@ -1,5 +1,6 @@
 import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class EndGamePage extends StatelessWidget {
   const EndGamePage({super.key});
@@ -7,9 +8,9 @@ class EndGamePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     //Strings
-    String message = "You finished the game! Do you want to repeat the task?";
-    String yesButton = "yes";
-    String noButton = "no";
+    String endMessage = "end_message".tr;
+    String yesButton = "yes".tr;
+    String noButton = "no".tr;
 
     //Colors
     Color pageColor = const Color(0xffD4F8B0);
@@ -60,7 +61,7 @@ class EndGamePage extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    message,
+                    endMessage,
                     style: TextStyle(
                       fontWeight: FontWeight.bold,
                       color: fontColor,

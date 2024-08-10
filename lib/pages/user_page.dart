@@ -20,7 +20,6 @@ class UserPage extends StatelessWidget {
 
     //Colors
     Color pageColor = const Color(0xFFF7A559);
-
     Color buttonColor = const Color(0xFF2A470C);
     Color fontColor = const Color(0xFFFEFFD9);
     Color titleColor = const Color(0xFF2A470C);
