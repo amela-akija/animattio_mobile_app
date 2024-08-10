@@ -55,24 +55,25 @@ class UserPage extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-            left: 0,
-            top: height * 0.24,
-            width: width * 0.4,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: Image.asset(
-                'assets/user_page/star_user_1.png',
+          Stack(
+            children: [Positioned(
+              left: 0,
+              top: height * 0.24,
+              width: width * 0.4,
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Image.asset(
+                  'assets/user_page/star_user_1.png',
+                ),
               ),
             ),
-          ),
-          FutureBuilder<String>(
+            FutureBuilder<String>(
             future: currentAvatar,
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (snapshot.hasData) {
                 return Positioned(
                   left: 0,
-                  top: height * 0.35,
+                  top: height * 0.3,
                   width: width * 0.3,
                   child: Padding(
                     padding: const EdgeInsets.only(left: 10),
@@ -89,6 +90,7 @@ class UserPage extends StatelessWidget {
                 strokeAlign: CircularProgressIndicator.strokeAlignCenter,
               );
             },
+          ),],
           ),
           Center(
             child: Column(

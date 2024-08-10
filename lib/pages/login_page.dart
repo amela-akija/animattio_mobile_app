@@ -179,8 +179,8 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       onPressed: () async {
                         final message = await AuthServices().loginUser(
-                          email: emailController.text,
-                          password: passwordController.text,
+                          email: "test@game.com",//emailController.text,
+                          password: "Test1234" //passwordController.text,
                         );
                         if (message!.contains('login_successfull'.tr)) {
                           Navigator.of(context).pushReplacement(
