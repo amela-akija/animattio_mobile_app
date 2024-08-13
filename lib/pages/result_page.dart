@@ -47,7 +47,6 @@ class _ResultPageState extends State<ResultPage> {
     height = deviceSize.height;
     width = deviceSize.width;
 
-    // final result = Map.fromIterables(widget.shownImages, widget.tappedImages);
 
     return Scaffold(
       backgroundColor: pageColor,

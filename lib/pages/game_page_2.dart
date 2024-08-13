@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-
-import 'package:animattio_mobile_app/pages/end_game_page.dart';
-import 'package:animattio_mobile_app/pages/result_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class GamePage2 extends StatefulWidget {
@@ -11,7 +9,6 @@ class GamePage2 extends StatefulWidget {
   const GamePage2(
       {super.key, required this.stimuliIndex, required this.listOfImages});
   @override
-  // ignore: library_private_types_in_public_api
   _GamePage2State createState() => _GamePage2State();
 }
 
@@ -19,8 +16,8 @@ class _GamePage2State extends State<GamePage2> {
   //images
   int currentImageIndex = 0;
   int previousImageIndex = 0;
+  int countImages = 0;
 
-  List<int> shownImagesIndexes = [];
   List<bool> tappedImages = [];
 
 //timers
@@ -47,24 +44,21 @@ class _GamePage2State extends State<GamePage2> {
   }
 
   void showRandomImage() {
-    // showImageTimer = Timer.periodic(const Duration(milliseconds: 250), (timer) {
     Random random = Random();
     setState(() {
       currentImageIndex = random.nextInt(widget.listOfImages.length);
-      shownImagesIndexes.add(currentImageIndex);
+      
       isVisible = false;
+
     });
-    // });
   }
 
   void hideRandomImage() {
-    // Future.delayed(const Duration(seconds: 2), () {
-    if (this.mounted) {
+    if (mounted) {
       setState(() {
         isVisible = true;
       });
     }
-    // });
   }
 
   @override
@@ -74,11 +68,6 @@ class _GamePage2State extends State<GamePage2> {
     super.dispose();
   }
 
-  // void screenTap(int currentIndex) {
-  //   setState(() {
-  //     tappedImages[currentIndex] = true;
-  //   });
-  // }
   void screenTap(){
     
   }
@@ -99,6 +88,7 @@ class _GamePage2State extends State<GamePage2> {
           visible: isVisible,
           child: Center(
             child: Image.asset(widget.listOfImages[currentImageIndex]),
+            
           ),
         ),
       ),

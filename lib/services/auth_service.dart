@@ -9,6 +9,7 @@ class AuthServices {
   FirebaseFirestore fireStore = FirebaseFirestore.instance;
   String successfullRegister = 'registered_successfully';
    String successfullLogin = 'login_successfull';
+   String emailRepeat = 'email_repeat';
 
   registerUser(email, password, String username, String avatar, context) async {
     try {
@@ -21,8 +22,15 @@ class AuthServices {
       return ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(content: Text(successfullRegister.tr)));
     } catch (e) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(e.toString())));
+      if (e is FirebaseAuthException) {
+    if (e.code == "email-already-in-use") {
+     return ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(emailRepeat.tr)));
+    }
+  } else {
+    return ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("error")));
+  }
     }
   }
 
