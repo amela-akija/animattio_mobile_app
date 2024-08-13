@@ -106,9 +106,7 @@ class _InstructionPageState extends State<InstructionPage> {
           if (widget.chosenMode == "mode1".tr) {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (BuildContext context) {
-                return GamePage2(
-                  stimuliIndex: stimuliIndex,
-                  listOfImages: listOfImages,
+                return GamePage1(stimuli: stimuli, listOfImages: listOfImages,
                 );
               }),
             );

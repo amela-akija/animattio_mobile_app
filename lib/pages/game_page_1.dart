@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'dart:math';
 
+import 'package:animattio_mobile_app/pages/result_page.dart';
 import 'package:flutter/material.dart';
 
 class GamePage1 extends StatefulWidget {
@@ -12,33 +14,54 @@ class GamePage1 extends StatefulWidget {
 }
 
 class _GamePage1State extends State<GamePage1> {
-  int currentImage = 0;
-  Timer? timer;
+  Random random = Random();
+  String? currentImage;
+  List<String> shownImages = [];
+  int count = 0;
 
-  @override
+   Timer? displayTimer;
+  Timer? hideTimer;
+
+
+   @override
   void initState() {
     super.initState();
-    timer = Timer.periodic(const Duration(milliseconds: 250), (timer) {
-      setState(() {
-        _shuffleImages();
-      });
+    startGame();
+  }
+
+    void startGame() {
+    displayTimer = Timer.periodic(Duration(milliseconds: 2250), (timer) {
+      if (count >= 20) {
+        timer.cancel();
+         Navigator.of(context).push(
+              MaterialPageRoute(builder: (BuildContext context) {
+                return ResultPage(shownImages: [], tappedImages: const [],
+                );
+              }),
+            );
+      } else {
+        setState(() {
+          currentImage = widget.listOfImages[random.nextInt(widget.listOfImages.length)];
+          shownImages.add(currentImage!);
+          // ignore: avoid_print
+          print("Images shown ${shownImages.length}");
+          count++;
+        });
+
+        hideTimer = Timer(Duration(milliseconds: 250), () {
+          setState(() {
+            currentImage = null;
+          });
+        });
+      }
     });
   }
 
-  @override
+   @override
   void dispose() {
-    timer?.cancel();
+    displayTimer?.cancel();
+    hideTimer?.cancel();
     super.dispose();
-  }
-
-
-
-  void _shuffleImages() {
-    //show random images
-    setState(() {
-      currentImage = (currentImage + 1) %
-          widget.listOfImages.length; 
-    });
   }
 
  
@@ -52,10 +75,10 @@ class _GamePage1State extends State<GamePage1> {
       child: Scaffold(
         backgroundColor: pageColor,
         body: Center(
-          child: 
-          Image.asset(widget.listOfImages[currentImage]),
-
-        ),
+        child: currentImage != null
+            ? Image.asset(currentImage!)
+            : const SizedBox(),
+      ),
       ),
     );
   }

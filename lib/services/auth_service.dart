@@ -10,6 +10,7 @@ class AuthServices {
   String successfullRegister = 'registered_successfully';
    String successfullLogin = 'login_successfull';
    String emailRepeat = 'email_repeat';
+   String unknownError = 'unknown_error';
 
   registerUser(email, password, String username, String avatar, context) async {
     try {
@@ -29,7 +30,7 @@ class AuthServices {
     }
   } else {
     return ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("error")));
+          SnackBar(content: Text(unknownError.tr)));
   }
     }
   }
