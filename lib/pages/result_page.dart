@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 
 class ResultPage extends StatefulWidget {
   final List<bool> tappedImages;
-  final List<int> shownImages;
+  final List<String> shownImages;
   const ResultPage({super.key, required this.shownImages,required this.tappedImages});
 
   @override
@@ -12,19 +12,7 @@ class ResultPage extends StatefulWidget {
 
 class _ResultPageState extends State<ResultPage> {
 
-  final ScrollController shownImagesController = ScrollController();
-  final ScrollController tappedImagesController = ScrollController();
- @override
- //two list scroll at the same time
-  void initState() {
-    super.initState();
-
-    shownImagesController.addListener(() {
-      if (shownImagesController.hasClients && tappedImagesController.hasClients) {
-        tappedImagesController.jumpTo(shownImagesController.offset);
-      }
-    });
-  }
+ 
 
 
   @override
@@ -32,6 +20,7 @@ class _ResultPageState extends State<ResultPage> {
     //Strings
     String userTitle = "your_result".tr;
     String gameButton = "continue".tr;
+    String result = 'your_result';
   
 
 
@@ -50,21 +39,30 @@ class _ResultPageState extends State<ResultPage> {
 
     return Scaffold(
       backgroundColor: pageColor,
-      body: Row(
-      children: [
-        Expanded(
-          child: ListView.builder(
-            controller:shownImagesController ,
-            itemBuilder: (context, index) => Text("main $index"),
-          ),
-        ),
-        Expanded(
-          child: ListView.builder(
-            controller: tappedImagesController,
-            itemBuilder: (context, index) => Text("listener $index"),
-          ),
-        ),
-      ],
-    ));
+      body:  Stack(
+        children: [Text(
+                  result,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: fontColor,
+                    fontSize: 36,
+                    fontFamily: 'Lilita One',
+                  ),
+                ),
+                ListView.builder(
+        itemCount: widget.tappedImages.length,
+        itemBuilder: (context, index) {
+          return ListTile(
+            title: Text('Item $index: ${widget.tappedImages[index]}', style: TextStyle(
+                    color: fontColor,
+                    fontSize: 24,
+                    fontFamily: 'Lilita One',
+                  ),),
+          );
+        },
+      ),
+                ],
+            ),
+      );
   }
 }

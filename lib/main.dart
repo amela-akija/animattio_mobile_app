@@ -1,5 +1,6 @@
 
 import 'package:animattio_mobile_app/firebase_options.dart';
+import 'package:animattio_mobile_app/pages/login_page.dart';
 import 'package:animattio_mobile_app/services/localization_service.dart';
 import 'package:animattio_mobile_app/pages/main_page.dart';
 import 'package:animattio_mobile_app/poviders/images_provider.dart';
@@ -31,7 +32,7 @@ class MyApp extends StatelessWidget {
       translations:LocalizationService(),
       locale: LocalizationService().getCurrentLocale(),
       fallbackLocale: Locale('en', ''),
-      home:MainPage(),
+      home:LoginPage(),
     );
   }
 }

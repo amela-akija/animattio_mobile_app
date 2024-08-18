@@ -16,40 +16,48 @@ class GamePage1 extends StatefulWidget {
 class _GamePage1State extends State<GamePage1> {
   Random random = Random();
   String? currentImage;
+  String? previousImage;
   List<String> shownImages = [];
+  List<bool> tappedImages = [];
   int count = 0;
+  int imageIndex = 0;
+  int previousImageIndex = 0;
+  int lastIndex = 0;
 
-   Timer? displayTimer;
+   Timer? showTimer;
   Timer? hideTimer;
 
 
    @override
   void initState() {
     super.initState();
+    tappedImages = List.filled(21, false); //TODO: check length
     startGame();
   }
 
     void startGame() {
-    displayTimer = Timer.periodic(Duration(milliseconds: 2250), (timer) {
+    showTimer = Timer.periodic(const Duration(milliseconds: 2250), (timer) { //TODO: add different intervals
       if (count >= 20) {
         timer.cancel();
          Navigator.of(context).push(
               MaterialPageRoute(builder: (BuildContext context) {
-                return ResultPage(shownImages: [], tappedImages: const [],
+                return ResultPage(shownImages: shownImages, tappedImages: tappedImages,
                 );
               }),
             );
       } else {
         setState(() {
           currentImage = widget.listOfImages[random.nextInt(widget.listOfImages.length)];
+
           shownImages.add(currentImage!);
-          // ignore: avoid_print
+          lastIndex++;
           print("Images shown ${shownImages.length}");
           count++;
         });
 
-        hideTimer = Timer(Duration(milliseconds: 250), () {
+        hideTimer = Timer(const Duration(milliseconds: 250), () {
           setState(() {
+            previousImage = currentImage;
             currentImage = null;
           });
         });
@@ -57,9 +65,16 @@ class _GamePage1State extends State<GamePage1> {
     });
   }
 
+  void tappedImage(){
+            tappedImages[lastIndex] = true;
+            // ignore: avoid_print
+            print("Tapped image $lastIndex");
+  }
+
+
    @override
   void dispose() {
-    displayTimer?.cancel();
+    showTimer?.cancel();
     hideTimer?.cancel();
     super.dispose();
   }
@@ -71,14 +86,19 @@ class _GamePage1State extends State<GamePage1> {
     //Colors
     Color pageColor = const Color(0xFFFEFFD9);
 
-    return GestureDetector(
-      child: Scaffold(
-        backgroundColor: pageColor,
-        body: Center(
+    return Scaffold(
+      backgroundColor: pageColor,
+      body: GestureDetector(
+         onTap: () => tappedImage(),
+        child: Center(
         child: currentImage != null
             ? Image.asset(currentImage!)
-            : const SizedBox(),
-      ),
+             : Container(
+                color: Colors.transparent,
+                width: double.infinity,
+                height: double.infinity,
+              ),
+              ),
       ),
     );
   }
