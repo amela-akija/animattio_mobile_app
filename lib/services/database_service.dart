@@ -96,6 +96,31 @@ class DatabaseService {
 
     }
   }
+  updateGameWithResult(List<bool> result, List<String> images){
+    try{
+      fireStore.collection("games").orderBy('timestamp', descending: true)
+      .get().then((value){
+        value.docs.first.reference.update({'result': result, 'shown images': images});
+      }
+      );
+    }catch(e){
+      log(e.toString());
+
+    }
+  }
+
+    updateGameWithStimuli(String stimuli){
+    try{
+      fireStore.collection("games").orderBy('timestamp', descending: true)
+      .get().then((value){
+        value.docs.first.reference.update({'stimuli':stimuli});
+      }
+      );
+    }catch(e){
+      log(e.toString());
+
+    }
+  }
 
   Future<void> moveUserData() async {
     try {

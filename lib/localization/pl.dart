@@ -28,7 +28,7 @@ const Map<String, String> pl = {
   "choose_theme": "Wybierz motyw",
   "mode1": "Kliknij na ekran tylko wtedy, gdy wyświetlony jest dany symbol",
   "mode2": "Kliknij na ekran tylko wtedy, gdy dany symbol NIE jest wyświetlany",
-  "yes": "tak",
+  "yes": "tak", "continue":"kontynuuj",
   "no": "nie",
   "start_game": "Czy chcesz zacząć grę?",
   "instructionMode1":
@@ -38,6 +38,6 @@ const Map<String, String> pl = {
   "message": "Kliknij na ekran, aby rozpocząć grę", "delete":"usuń konto", "account_deletion": "Usunięcie konta",
   "delete_info":"Czy na pewno chcesz usunąć konto?", "log_out":"Wyloguj się", "update":"edytuj profil",
   "end_message":"Gra zakończona! Czy chcesz powtórzyć?", "email_repeat": "Użytkownik o danym adresie mailowym już istnieje",
-  "unknown_error":"Nieznany error"
+  "unknown_error":"Nieznany error", "your_result": "Twój wynik", "tapped":"Kliknięto", "not_tapped":"Nie kliknięto",
 };
 

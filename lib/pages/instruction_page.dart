@@ -2,6 +2,7 @@ import 'dart:math';
 import 'package:animattio_mobile_app/pages/game_page_1.dart';
 import 'package:animattio_mobile_app/pages/game_page_2.dart';
 import 'package:animattio_mobile_app/poviders/images_provider.dart';
+import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:provider/provider.dart';
@@ -40,6 +41,9 @@ class _InstructionPageState extends State<InstructionPage> {
     dynamic deviceSize, height;
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
+
+    final dbService = DatabaseService();
+
 
     return Scaffold(
       backgroundColor: pageColor,
@@ -103,6 +107,7 @@ class _InstructionPageState extends State<InstructionPage> {
         ),
         //TODO: all of the parameters
         onTap: () {
+          dbService.updateGameWithStimuli(stimuli);
           if (widget.chosenMode == "mode1".tr) {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (BuildContext context) {

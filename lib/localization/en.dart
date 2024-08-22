@@ -5,7 +5,7 @@ const Map<String, String> en = {
   "Log_in": "Log in",
   "enter_password": "Enter password:", "enter_new_password": "Enter new password:",  "enter_new_email": "Enter new email:", "enter_new_username": "Enter new username:",
   "enter_email": "Enter email:",
-  "registered_successfully": "User registered successfully",
+  "registered_successfully": "User registered successfully", "continue":"continue",
   "login_successfull": "User logged in successfully",
   "fields": "Please fill in all the fields",
   "credentials": "Wrong credentials",
@@ -29,8 +29,8 @@ const Map<String, String> en = {
   "mode1": "Click on the screen only when given symbol is displayed",
   "mode2": "Click on the screen only when given symbol is NOT displayed",
   "yes": "yes",
-  "no": "no",
-  "start_game": "Are you ready to start the game?",
+  "no": "no", "your_result": "Your result",
+  "start_game": "Are you ready to start the game?", "tapped":"Tapped", "not_tapped":"Not tapped", 
   "instructionMode1":
       "React by clicking on the screen only when this symbol is displayed",
   "instructionMode2":
