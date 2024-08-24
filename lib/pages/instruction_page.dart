@@ -88,7 +88,7 @@ class _InstructionPageState extends State<InstructionPage> {
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: textColor,
-                    fontSize: 12,
+                    fontSize: 18,
                     fontFamily: 'Fredoka',
                   ),
                 ),

@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math';
 
 import 'package:animattio_mobile_app/pages/result_page.dart';
+import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 
 class GamePage1 extends StatefulWidget {
@@ -16,17 +17,14 @@ class GamePage1 extends StatefulWidget {
 class _GamePage1State extends State<GamePage1> {
   Random random = Random();
   String? currentImage;
-  String? previousImage;
   List<String> shownImages = [];
   List<bool> tappedImages = [];
   int count = 0;
   int imageIndex = 0;
-  int previousImageIndex = 0;
   int lastIndex = 0;
 
-   Timer? showTimer;
+  Timer? showTimer;
   Timer? hideTimer;
-
 
    @override
   void initState() {
@@ -41,7 +39,7 @@ class _GamePage1State extends State<GamePage1> {
         timer.cancel();
          Navigator.of(context).push(
               MaterialPageRoute(builder: (BuildContext context) {
-                return ResultPage(shownImages: shownImages, tappedImages: tappedImages,
+                return ResultPage(shownImages: shownImages, tappedImages: tappedImages, stimuli: widget.stimuli,
                 );
               }),
             );
@@ -51,13 +49,13 @@ class _GamePage1State extends State<GamePage1> {
 
           shownImages.add(currentImage!);
           lastIndex++;
+          // ignore: avoid_print
           print("Images shown ${shownImages.length}");
           count++;
         });
 
         hideTimer = Timer(const Duration(milliseconds: 250), () {
           setState(() {
-            previousImage = currentImage;
             currentImage = null;
           });
         });

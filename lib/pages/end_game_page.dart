@@ -1,4 +1,7 @@
+import 'package:animattio_mobile_app/pages/instruction_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
+import 'package:animattio_mobile_app/services/database_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -24,36 +27,46 @@ class EndGamePage extends StatelessWidget {
     height = deviceSize.height;
     width = deviceSize.width;
 
+    final dbService = DatabaseService();
+
     return Scaffold(
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
-          Expanded(
-            child: Stack(
-              children: <Widget>[
-                Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: width,
-                    height: height ,
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Image.asset('assets/start_game_page/star_start_2.png'),
+          Column(
+            children: [
+              Expanded(
+                child: Stack(
+                  children: <Widget>[
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: width,
+                        height: height,
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: Image.asset(
+                              'assets/start_game_page/star_start_2.png'),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-                 Align(
-                  alignment: Alignment.center,
-                  child: SizedBox(
-                    width: width,
-                    height: height*0.85 ,
-                    child: FittedBox(
-                      fit: BoxFit.cover,
-                      child: Image.asset('assets/start_game_page/star_start_1.png'),
+                    Align(
+                      alignment: Alignment.center,
+                      child: SizedBox(
+                        width: width,
+                        height: height * 0.85,
+                        child: FittedBox(
+                          fit: BoxFit.cover,
+                          child: Image.asset(
+                              'assets/start_game_page/star_start_1.png'),
+                        ),
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                ],),),
+              ),
+            ],
+          ),
           Center(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 27.0),
@@ -66,7 +79,7 @@ class EndGamePage extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                       color: fontColor,
                       fontSize: 44,
-                      fontFamily: "Lilita One",
+                      fontFamily: "Fredoka",
                       height: 1,
                     ),
                     textAlign: TextAlign.center,
@@ -76,16 +89,38 @@ class EndGamePage extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       ElevatedButton(
-                        onPressed: () {
-                          Navigator.of(context).push(
-                            MaterialPageRoute(builder: (BuildContext context) {
-                              return const UserPage();
-                            }),
-                          );
+                        onPressed: () async {
+                          String? repeatedGameId = await dbService.repeatGame();
+                          if (repeatedGameId != null) {
+                            DocumentSnapshot newGameDoc =
+                                await FirebaseFirestore.instance
+                                    .collection('games')
+                                    .doc(repeatedGameId)
+                                    .get();
+
+                            var mode = newGameDoc["mode"];
+                            var theme = newGameDoc["theme"];
+
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) {
+                                return InstructionPage(
+                                  chosenMode: mode,
+                                  chosenThemeList: theme,
+                                );
+                              }),
+                            );
+                          } else {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                  content: Text('Failed to repeat the game')),
+                            );
+                          }
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: buttonColor,
-                          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 10),
                           textStyle: const TextStyle(
                               fontSize: 25,
                               fontFamily: 'Lilita One',
@@ -111,7 +146,8 @@ class EndGamePage extends StatelessWidget {
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: buttonColor,
-                          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 25, vertical: 10),
                           textStyle: const TextStyle(
                               fontSize: 25,
                               fontFamily: 'Lilita One',
@@ -137,4 +173,3 @@ class EndGamePage extends StatelessWidget {
     );
   }
 }
-
