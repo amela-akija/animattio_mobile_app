@@ -71,13 +71,12 @@ class UserPage extends StatelessWidget {
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (snapshot.hasData) {
                 return Positioned(
-                  left: 0,
                   top: height * 0.3,
-                  width: width * 0.3,
+                  width: width * 0.45,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10),
+                    padding: const EdgeInsets.only(right:50.0),
                     child: Align(
-                      alignment: Alignment.center,
+                      alignment: Alignment.centerLeft,
                       child: Image.asset(
                         snapshot.data.toString(),
                       ),

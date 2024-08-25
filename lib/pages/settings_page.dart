@@ -245,6 +245,26 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+           Positioned(
+                left: 0,
+                child: Padding(
+                  padding: const EdgeInsets.only(top:15),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      color: chooseColor,
+                      iconSize: 30,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return const UserPage();
+                        },));
+                      },
+                    ),
+                  ),
+                ),
+              ),
         ],
       ),
     );

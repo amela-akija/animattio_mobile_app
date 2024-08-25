@@ -13,8 +13,17 @@ class _ChosenAvatarState extends State<AvatarPage> {
   final dbService = DatabaseService();
 
   final List<String> listOfAvatars = [
-    'assets/avatar_page/avatars/avatar_1.png',
-    'assets/avatar_page/avatars/avatar_2.png',
+     'assets/themes/animal_theme/animal1.png',
+      'assets/themes/animal_theme/animal2.png',
+      'assets/themes/animal_theme/animal3.png',
+      'assets/themes/animal_theme/animal10.png',
+      'assets/themes/animal_theme/animal5.png',
+      'assets/themes/animal_theme/animal6.png',
+      'assets/themes/animal_theme/animal11.png',
+      'assets/themes/animal_theme/animal14.png',
+      'assets/themes/animal_theme/animal15.png',
+
+
     // TODO: Create custom avatars
   ];
   int currentAvatar = 0;
@@ -101,18 +110,21 @@ class _ChosenAvatarState extends State<AvatarPage> {
               ),
               Positioned(
                 left: 0,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    color: chooseColor,
-                    iconSize: 30,
-                    onPressed: () {
-                      Navigator.of(context).push(
-                          MaterialPageRoute(builder: (BuildContext context) {
-                        return const UserPage();
-                      },));
-                    },
+                child: Padding(
+                  padding: const EdgeInsets.only(top:15),
+                  child: Align(
+                    alignment: Alignment.center,
+                    child: IconButton(
+                      icon: const Icon(Icons.arrow_back),
+                      color: chooseColor,
+                      iconSize: 30,
+                      onPressed: () {
+                        Navigator.of(context).push(
+                            MaterialPageRoute(builder: (BuildContext context) {
+                          return const UserPage();
+                        },));
+                      },
+                    ),
                   ),
                 ),
               ),
