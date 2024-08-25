@@ -1,5 +1,5 @@
 import 'dart:math';
-import 'package:animattio_mobile_app/pages/game_page_1.dart';
+import 'package:animattio_mobile_app/pages/game_page.dart';
 import 'package:animattio_mobile_app/pages/game_page_2.dart';
 import 'package:animattio_mobile_app/poviders/images_provider.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
@@ -108,23 +108,15 @@ class _InstructionPageState extends State<InstructionPage> {
         //TODO: all of the parameters
         onTap: () {
           dbService.updateGameWithStimuli(stimuli);
-          if (widget.chosenMode == "mode1".tr) {
+          // if (widget.chosenMode == "mode1".tr) {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (BuildContext context) {
-                return GamePage1(stimuli: stimuli, listOfImages: listOfImages,
+                return GamePage(stimuli: stimuli, listOfImages: listOfImages, mode: widget.chosenMode,
                 );
               }),
             );
-          } else {
-            Navigator.of(context).push(
-              MaterialPageRoute(builder: (BuildContext context) {
-                return GamePage2(
-                 stimuliIndex: stimuliIndex,
-                  listOfImages: listOfImages,
-                );
-              }),
-            );
-          }
+          // } else
+          // }
         },
       ),
     );

@@ -7,11 +7,12 @@ class ResultPage extends StatefulWidget {
   final List<bool> tappedImages;
   final List<String> shownImages;
   final String stimuli;
+  final String mode;
   const ResultPage(
       {super.key,
       required this.shownImages,
       required this.tappedImages,
-      required this.stimuli});
+      required this.stimuli, required this.mode});
 
   @override
   State<ResultPage> createState() => _ResultPageState();
@@ -30,6 +31,9 @@ class _ResultPageState extends State<ResultPage> {
     //Colors
     Color pageColor = const Color(0xFF2A470C);
     Color fontColor = const Color(0xFFFEFFD9);
+    Color incorrectColor = const Color.fromARGB(255, 241, 46, 46);
+    Color correctColor = const Color.fromARGB(255, 46, 241, 88);
+    Color resultColor = const Color(0xFFFEFFD9);
 
     //Size
     dynamic deviceSize, height, width;
@@ -60,10 +64,38 @@ class _ResultPageState extends State<ResultPage> {
           ),
           Padding(
             padding: const EdgeInsets.only(top: 50.0),
-            child: ListView.builder( // Incorrect use of ParentDataWidget.
+            child: ListView.builder(
+              // Incorrect use of ParentDataWidget.
               itemCount: widget.shownImages.length,
               itemBuilder: (context, index) {
-                // if(widget.shownImages[index] == stimuli)
+                if(widget.mode == "mode1".tr){
+                if (widget.shownImages[index] == widget.stimuli) {
+                  if (ignoreFirstValue[index] == true) {
+                    resultColor = correctColor;
+                  } else {
+                    resultColor = incorrectColor;
+                  }
+                }else{
+                   if (ignoreFirstValue[index] == false) {
+                    resultColor = correctColor;
+                  } else {
+                    resultColor = incorrectColor;
+                  }
+                }}else{
+                  if (widget.shownImages[index] == widget.stimuli) {
+                  if (ignoreFirstValue[index] == true) {
+                    resultColor = incorrectColor;
+                  } else {
+                    resultColor = correctColor;
+                  }
+                }else{
+                   if (ignoreFirstValue[index] == false) {
+                    resultColor = incorrectColor;
+                  } else {
+                    resultColor = correctColor;
+                  }
+                }
+                }
                 return Row(
                   children: [
                     Expanded(
@@ -77,7 +109,7 @@ class _ResultPageState extends State<ResultPage> {
                       child: Text(
                         ignoreFirstValue[index] ? 'tapped'.tr : 'not_tapped'.tr,
                         style: TextStyle(
-                          color: fontColor,
+                          color: resultColor,
                           fontSize: 30,
                           fontFamily: 'Fredoka',
                         ),
@@ -106,84 +138,8 @@ class _ResultPageState extends State<ResultPage> {
                   }),
             ),
           ),
-          // ElevatedButton(
-          //   onPressed: () {
-          //     dbService.updateGameWithResult(
-          //         ignoreFirstValue, widget.shownImages);
-          //   },
-          //   style: ElevatedButton.styleFrom(
-          //     backgroundColor: buttonColor,
-          //     padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-          //     textStyle: const TextStyle(
-          //         fontSize: 25,
-          //         fontFamily: 'Lilita One',
-          //         fontWeight: FontWeight.w900),
-          //     shape: RoundedRectangleBorder(
-          //       borderRadius: BorderRadius.circular(20),
-          //     ),
-          //     elevation: 10,
-          //   ),
-          //   child: Text(
-          //     'continue'.tr,
-          //     style: TextStyle(color: fontColor),
-          //   ),
-          // ),
         ],
       ),
     );
   }
 }
-
-
-
-//     return Scaffold(
-//       backgroundColor: pageColor,
-//       body:  Stack(
-//         children: [Text(
-//                   result,
-//                   textAlign: TextAlign.center,
-//                   style: TextStyle(
-//                     color: fontColor,
-//                     fontSize: 36,
-//                     fontFamily: 'Lilita One',
-//                   ),
-//                 ),
-//                 ListView.builder(
-//         itemCount: widget.tappedImages.length,
-//         itemBuilder: (context, index) {
-//           return ListTile(
-//             title: Text('Item $index: ${widget.tappedImages[index]}', style: TextStyle(
-//                     color: fontColor,
-//                     fontSize: 24,
-//                     fontFamily: 'Lilita One',
-//                   ),),
-//           );
-//         },
-//       ),
-//        ElevatedButton(
-//                       onPressed: () {
-//                          dbService.updateGameWithResult(ignoreFirstValue,widget.shownImages);
-//                       },
-//                       style: ElevatedButton.styleFrom(
-//                         backgroundColor: buttonColor,
-//                         padding: const EdgeInsets.symmetric(
-//                             horizontal: 30, vertical: 10),
-//                         textStyle: const TextStyle(
-//                             fontSize: 25,
-//                             fontFamily: 'Lilita One',
-//                             fontWeight: FontWeight.w900),
-//                         shape: RoundedRectangleBorder(
-//                           borderRadius: BorderRadius.circular(20),
-//                         ),
-//                         elevation: 10,
-//                       ),
-//                       child: Text(
-//                         'continue'.tr,
-//                         style: TextStyle(color: fontColor),
-//                       ),
-//                     ),
-//                 ],
-//             ),
-//       );
-//   }
-// }

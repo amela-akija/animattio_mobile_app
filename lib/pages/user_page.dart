@@ -84,7 +84,8 @@ class UserPage extends StatelessWidget {
                   ),
                 );
               }
-              return const CircularProgressIndicator(
+              return 
+              const CircularProgressIndicator(
                 strokeAlign: CircularProgressIndicator.strokeAlignCenter,
               );
             },

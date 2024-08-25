@@ -5,16 +5,17 @@ import 'package:animattio_mobile_app/pages/result_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 
-class GamePage1 extends StatefulWidget {
+class GamePage extends StatefulWidget {
   final String stimuli;
   final List<String> listOfImages;
-  const GamePage1({super.key,required this. stimuli, required this.listOfImages});
+  final String mode;
+  const GamePage({super.key,required this. stimuli, required this.listOfImages, required this.mode});
 
   @override
-  _GamePage1State createState() => _GamePage1State();
+  _GamePageState createState() => _GamePageState();
 }
 
-class _GamePage1State extends State<GamePage1> {
+class _GamePageState extends State<GamePage> {
   Random random = Random();
   String? currentImage;
   List<String> shownImages = [];
@@ -39,7 +40,7 @@ class _GamePage1State extends State<GamePage1> {
         timer.cancel();
          Navigator.of(context).push(
               MaterialPageRoute(builder: (BuildContext context) {
-                return ResultPage(shownImages: shownImages, tappedImages: tappedImages, stimuli: widget.stimuli,
+                return ResultPage(shownImages: shownImages, tappedImages: tappedImages, stimuli: widget.stimuli, mode: widget.mode,
                 );
               }),
             );
@@ -83,7 +84,6 @@ class _GamePage1State extends State<GamePage1> {
   Widget build(BuildContext context) {
     //Colors
     Color pageColor = const Color(0xFFFEFFD9);
-
     return Scaffold(
       backgroundColor: pageColor,
       body: GestureDetector(
