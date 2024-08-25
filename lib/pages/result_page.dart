@@ -29,9 +29,7 @@ class _ResultPageState extends State<ResultPage> {
 
     //Colors
     Color pageColor = const Color(0xFF2A470C);
-    Color buttonColor = const Color(0xFFF7A559);
     Color fontColor = const Color(0xFFFEFFD9);
-    Color titleColor = const Color(0xFFFEFFD9);
 
     //Size
     dynamic deviceSize, height, width;
