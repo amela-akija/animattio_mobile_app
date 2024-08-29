@@ -1,5 +1,6 @@
 import 'package:animattio_mobile_app/pages/end_game_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,11 +9,12 @@ class ResultPage extends StatefulWidget {
   final List<String> shownImages;
   final String stimuli;
   final String mode;
+  final List<int> reactionTimes;
   const ResultPage(
       {super.key,
       required this.shownImages,
       required this.tappedImages,
-      required this.stimuli, required this.mode});
+      required this.stimuli, required this.mode, required this.reactionTimes});
 
   @override
   State<ResultPage> createState() => _ResultPageState();
@@ -42,6 +44,27 @@ class _ResultPageState extends State<ResultPage> {
     width = deviceSize.width;
 
     List<bool> ignoreFirstValue = widget.tappedImages.sublist(1);
+
+        //Parameters
+    int omissionErrors = 0; // stimuli was shown but no reaction
+    int commisionErrors = 0; // non stimuli was shown and there was a reaction - false alarm
+    int hitRate = 0; // stimuli was shown and there was a reaction
+
+    for (int i =0; i<ignoreFirstValue.length;i++){
+      if(ignoreFirstValue[i] == true){
+        if(widget.shownImages[i]== widget.stimuli){
+          hitRate++;
+        }
+        else{
+          commisionErrors++;
+        }
+      }
+      else{
+        if(widget.shownImages[i]== widget.stimuli){
+          omissionErrors++;
+        }
+      }
+    }
 
     return Scaffold(
       backgroundColor: pageColor,
@@ -96,6 +119,7 @@ class _ResultPageState extends State<ResultPage> {
                   }
                 }
                 }
+                
                 return Row(
                   children: [
                     Expanded(
@@ -117,6 +141,7 @@ class _ResultPageState extends State<ResultPage> {
                     ),
                   ],
                 );
+                
               },
             ),
           ),
@@ -127,8 +152,9 @@ class _ResultPageState extends State<ResultPage> {
               child: IconButton(
                   icon: Icon(Icons.arrow_right, color: fontColor, size: 50),
                   onPressed: () async {
+                  
                     await dbService.updateGameWithResult(
-                        ignoreFirstValue, widget.shownImages);
+                        ignoreFirstValue, widget.shownImages, commisionErrors, omissionErrors,hitRate, widget.reactionTimes);
                     // ignore: use_build_context_synchronously
                     Navigator.of(context).push(
                       MaterialPageRoute(builder: (BuildContext context) {

@@ -52,14 +52,19 @@ class ImagesProvider with ChangeNotifier {
       'assets/themes/car_theme/car13.png',
       'assets/themes/car_theme/car14.png',
       'assets/themes/car_theme/car15.png',
-      
     ],
     'dinosaur': [
       'assets/themes/dinosaur_theme/dinosaur1.png',
       'assets/themes/dinosaur_theme/dinosaur2.png',
       'assets/themes/dinosaur_theme/dinosaur3.png',
       'assets/themes/dinosaur_theme/dinosaur4.png',
-      'assets/themes/dinosaur_theme/dinosaur5.jpg',
+      'assets/themes/dinosaur_theme/dinosaur5.png',
+      'assets/themes/dinosaur_theme/dinosaur5.png',
+      'assets/themes/dinosaur_theme/dinosaur6.png',
+      'assets/themes/dinosaur_theme/dinosaur7.png',
+      'assets/themes/dinosaur_theme/dinosaur8.png',
+      'assets/themes/dinosaur_theme/dinosaur9.png',
+      'assets/themes/dinosaur_theme/dinosaur10.png',
     ],
   };
 

@@ -105,18 +105,15 @@ class _InstructionPageState extends State<InstructionPage> {
             ),
           ],
         ),
-        //TODO: all of the parameters
         onTap: () {
           dbService.updateGameWithStimuli(stimuli);
-          // if (widget.chosenMode == "mode1".tr) {
             Navigator.of(context).push(
               MaterialPageRoute(builder: (BuildContext context) {
                 return GamePage(stimuli: stimuli, listOfImages: listOfImages, mode: widget.chosenMode,
                 );
               }),
             );
-          // } else
-          // }
+  
         },
       ),
     );

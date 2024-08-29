@@ -20,12 +20,23 @@ class _GamePageState extends State<GamePage> {
   String? currentImage;
   List<String> shownImages = [];
   List<bool> tappedImages = [];
+
   int count = 0;
   int imageIndex = 0;
   int lastIndex = 0;
 
   Timer? showTimer;
   Timer? hideTimer;
+
+  DateTime? startTime;
+  DateTime? endTime;
+  Duration? reactionTime;
+  int? rT =0;
+
+  //intervals - interval time in ms + 250 ms
+  List<int> intervals = [1250, 2250, 4250];
+
+  List<int> reactionTimes=[];
 
    @override
   void initState() {
@@ -40,14 +51,14 @@ class _GamePageState extends State<GamePage> {
         timer.cancel();
          Navigator.of(context).push(
               MaterialPageRoute(builder: (BuildContext context) {
-                return ResultPage(shownImages: shownImages, tappedImages: tappedImages, stimuli: widget.stimuli, mode: widget.mode,
+                return ResultPage(shownImages: shownImages, tappedImages: tappedImages, stimuli: widget.stimuli, mode: widget.mode, reactionTimes: reactionTimes,
                 );
               }),
             );
       } else {
         setState(() {
           currentImage = widget.listOfImages[random.nextInt(widget.listOfImages.length)];
-
+          startTime = DateTime.now();
           shownImages.add(currentImage!);
           lastIndex++;
           // ignore: avoid_print
@@ -65,11 +76,15 @@ class _GamePageState extends State<GamePage> {
   }
 
   void tappedImage(){
+            endTime = DateTime.now();
+            reactionTime = endTime!.difference(startTime!);
+            rT = reactionTime?.inMilliseconds;
+            print("reaction time $reactionTime");
+            reactionTimes.add(rT!);
             tappedImages[lastIndex] = true;
             // ignore: avoid_print
             print("Tapped image $lastIndex");
   }
-
 
    @override
   void dispose() {

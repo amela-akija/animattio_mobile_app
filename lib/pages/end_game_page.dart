@@ -1,4 +1,5 @@
 import 'package:animattio_mobile_app/pages/instruction_page.dart';
+import 'package:animattio_mobile_app/pages/result_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -33,6 +34,21 @@ class EndGamePage extends StatelessWidget {
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
+          Positioned(
+                left: 0,
+                top: height * 0.01,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: IconButton(
+                    icon: const Icon(Icons.arrow_back),
+                    color: buttonColor,
+                    iconSize: 30,
+                    onPressed: () {
+Navigator.pop(context);
+                    },
+                  ),
+                ),
+              ),
           Column(
             children: [
               Expanded(

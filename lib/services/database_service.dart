@@ -138,7 +138,7 @@ class DatabaseService {
     }
   }
 
-  updateGameWithResult(List<bool> result, List<String> images) {
+  updateGameWithResult(List<bool> result, List<String> images, int comission, int omission, int hitRate, List<int> rT) {
     try {
       fireStore
           .collection("games")
@@ -146,7 +146,7 @@ class DatabaseService {
           .get()
           .then((value) {
         value.docs.first.reference
-            .update({'result': result, 'shown images': images});
+            .update({'result': result, 'shown images': images, 'comission errors': comission, "omission errors": omission, "hit rate": hitRate, "reaction times": rT});
       });
     } catch (e) {
       log(e.toString());
