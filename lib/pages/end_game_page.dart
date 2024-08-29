@@ -1,5 +1,4 @@
 import 'package:animattio_mobile_app/pages/instruction_page.dart';
-import 'package:animattio_mobile_app/pages/result_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';

@@ -1,6 +1,5 @@
 import 'dart:math';
 import 'package:animattio_mobile_app/pages/game_page.dart';
-import 'package:animattio_mobile_app/pages/game_page_2.dart';
 import 'package:animattio_mobile_app/poviders/images_provider.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
