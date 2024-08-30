@@ -9,13 +9,15 @@ class ResultPage extends StatefulWidget {
   final String stimuli;
   final String mode;
   final List<int> reactionTimes;
+  final List<int> intervals;
   const ResultPage(
       {super.key,
       required this.shownImages,
       required this.tappedImages,
       required this.stimuli,
       required this.mode,
-      required this.reactionTimes});
+      required this.reactionTimes,
+      required this.intervals});
 
   @override
   State<ResultPage> createState() => _ResultPageState();
@@ -24,9 +26,6 @@ class ResultPage extends StatefulWidget {
 class _ResultPageState extends State<ResultPage> {
   @override
   Widget build(BuildContext context) {
-    //Strings
-    String userTitle = "your_result".tr;
-
     final dbService = DatabaseService();
 
     //Colors
@@ -35,12 +34,6 @@ class _ResultPageState extends State<ResultPage> {
     Color incorrectColor = const Color.fromARGB(255, 241, 46, 46);
     Color correctColor = const Color.fromARGB(255, 46, 241, 88);
     Color resultColor = const Color(0xFFFEFFD9);
-
-    //Size
-    // dynamic deviceSize, height, width;
-    // deviceSize = MediaQuery.of(context).size;
-    // height = deviceSize.height;
-    // width = deviceSize.width;
 
     List<bool> ignoreFirstValue = widget.tappedImages.sublist(1);
 
@@ -85,8 +78,8 @@ class _ResultPageState extends State<ResultPage> {
       body: Stack(
         children: [
           Positioned(
-            top:50,
-            left:0,
+            top: 50,
+            left: 0,
             right: 0,
             bottom: 0,
             child: ListView.builder(
@@ -122,7 +115,7 @@ class _ResultPageState extends State<ResultPage> {
                     }
                   }
                 }
-            
+
                 return Row(
                   children: [
                     Expanded(
@@ -148,43 +141,52 @@ class _ResultPageState extends State<ResultPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 20),
+            padding: const EdgeInsets.only(top: 30),
             child: Align(
               alignment: Alignment.topRight,
-              child: IconButton(
-                  icon: Icon(Icons.arrow_right, color: fontColor, size: 50),
-                  onPressed: () async {
-                    await dbService.updateGameWithResult(
-                        ignoreFirstValue, //?
-                        widget.shownImages, //?
-                        commisionErrors,
-                        omissionErrors,
-                        hitRate,
-                        widget.reactionTimes);
-                    // ignore: use_build_context_synchronously
-                    Navigator.of(context).push(
-                      MaterialPageRoute(builder: (BuildContext context) {
-                        return const EndGamePage();
-                      }),
-                    );
-                  }),
-            ),
-          ),
-            Padding(
-             padding: const EdgeInsets.only(top: 20.0),
-            child: Align(
-              alignment: Alignment.topCenter,
-              child: Text(
-                userTitle,
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: fontColor,
-                  fontSize: 40,
-                  fontFamily: 'Fredoka',
+              child: TextButton(
+                onPressed: () async {
+                  await dbService.updateGameWithResult(
+                      ignoreFirstValue, //?
+                      widget.shownImages, //?
+                      commisionErrors,
+                      omissionErrors,
+                      hitRate,
+                      widget.reactionTimes,
+                      widget.intervals);
+                  // ignore: use_build_context_synchronously
+                  Navigator.of(context).push(
+                    MaterialPageRoute(builder: (BuildContext context) {
+                      return const EndGamePage();
+                    }),
+                  );
+                },
+                child: Text(
+                  'continue'.tr,
+                  style: TextStyle(
+                    color: fontColor,
+                    fontSize: 22,
+                    fontFamily: 'Lilita One',
+                  ),
                 ),
               ),
             ),
           ),
+          //   Padding(
+          //    padding: const EdgeInsets.only(top: 20.0),
+          //   child: Align(
+          //     alignment: Alignment.topCenter,
+          //     child: Text(
+          //       userTitle,
+          //       textAlign: TextAlign.center,
+          //       style: TextStyle(
+          //         color: fontColor,
+          //         fontSize: 40,
+          //         fontFamily: 'Fredoka',
+          //       ),
+          //     ),
+          //   ),
+          // ),
         ],
       ),
     );

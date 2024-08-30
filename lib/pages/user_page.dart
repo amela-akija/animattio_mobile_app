@@ -46,7 +46,7 @@ class UserPage extends StatelessWidget {
           Positioned(
             left: 0,
             top: height * 0.2,
-            width: width * 0.5,
+            width: width * 0.6,
             child: Align(
               alignment: Alignment.centerLeft,
               child: Image.asset(
@@ -58,7 +58,7 @@ class UserPage extends StatelessWidget {
             children: [Positioned(
               left: 0,
               top: height * 0.24,
-              width: width * 0.4,
+              width: width * 0.5,
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Image.asset(
@@ -70,15 +70,16 @@ class UserPage extends StatelessWidget {
             future: currentAvatar,
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (snapshot.hasData) {
-                return Positioned(
-                  top: height * 0.3,
-                  width: width * 0.45,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right:50.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
+                return Padding(
+                  padding: const EdgeInsets.only(right:50.0, bottom: 150),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: SizedBox(
+                      height: height*0.4,
                       child: Image.asset(
                         snapshot.data.toString(),
+                        fit: BoxFit.contain,
+                        width: 200,
                       ),
                     ),
                   ),
