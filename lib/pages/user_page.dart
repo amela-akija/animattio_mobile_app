@@ -70,16 +70,19 @@ class UserPage extends StatelessWidget {
             future: currentAvatar,
             builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
               if (snapshot.hasData) {
-                return Padding(
-                  padding: const EdgeInsets.only(right:50.0, bottom: 150),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: SizedBox(
-                      height: height*0.4,
-                      child: Image.asset(
-                        snapshot.data.toString(),
-                        fit: BoxFit.contain,
-                        width: 200,
+                return Positioned(
+                  bottom: height*0.4,
+                  child: Padding(
+                    padding: const EdgeInsets.only(right:50.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: SizedBox(
+                        height: height*0.4,
+                        child: Image.asset(
+                          snapshot.data.toString(),
+                          fit: BoxFit.contain,
+                          width: width*0.3,
+                        ),
                       ),
                     ),
                   ),

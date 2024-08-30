@@ -78,7 +78,7 @@ class _ResultPageState extends State<ResultPage> {
       body: Stack(
         children: [
           Positioned(
-            top: 50,
+            top: 30,
             left: 0,
             right: 0,
             bottom: 0,
@@ -172,21 +172,6 @@ class _ResultPageState extends State<ResultPage> {
               ),
             ),
           ),
-          //   Padding(
-          //    padding: const EdgeInsets.only(top: 20.0),
-          //   child: Align(
-          //     alignment: Alignment.topCenter,
-          //     child: Text(
-          //       userTitle,
-          //       textAlign: TextAlign.center,
-          //       style: TextStyle(
-          //         color: fontColor,
-          //         fontSize: 40,
-          //         fontFamily: 'Fredoka',
-          //       ),
-          //     ),
-          //   ),
-          // ),
         ],
       ),
     );
