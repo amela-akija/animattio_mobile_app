@@ -154,6 +154,7 @@ class _ResultPageState extends State<ResultPage> {
                       hitRate,
                       widget.reactionTimes,
                       widget.intervals);
+                  // await dbService.moveGamesToTests();
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (BuildContext context) {

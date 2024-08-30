@@ -3,6 +3,7 @@ import 'dart:developer';
 import 'package:animattio_mobile_app/pages/start_game_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:get/get.dart';
 
 class DatabaseService {
   final fireStore = FirebaseFirestore.instance;
@@ -62,31 +63,11 @@ class DatabaseService {
     }
   }
 
-  // Future<String> getStimuli() async {
-  //   try {
-  //     CollectionReference games =
-  //         FirebaseFirestore.instance.collection('games');
-  //     QuerySnapshot lastGame =
-  //         await games.orderBy('timestamp', descending: true).limit(1).get();
-  //     if (lastGame.docs.isNotEmpty) {
-  //       DocumentSnapshot lastGameRef = lastGame.docs.first;
-
-  //       var stimuli = lastGameRef['stimuli'];
-  //       return stimuli;
-  //     } else {
-  //       return "no stimuli";
-  //     }
-  //   } catch (e) {
-  //     log(e.toString());
-  //     rethrow;
-  //   }
-  // }
-
-    Future<String?> repeatGame() async {
+  Future<String?> repeatGame() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
       String userId = currentUser!.uid;
-       CollectionReference games =
+      CollectionReference games =
           FirebaseFirestore.instance.collection('games');
       QuerySnapshot lastGame =
           await games.orderBy('timestamp', descending: true).limit(1).get();
@@ -95,13 +76,12 @@ class DatabaseService {
         var mode = lastGameRef["mode"];
         var theme = lastGameRef["theme"];
         ChosenGame chosenGame =
-          ChosenGame(userId: userId, mode: mode, theme: theme);
+            ChosenGame(userId: userId, mode: mode, theme: theme);
 
-      DocumentReference newGame =
-          await fireStore.collection('games').add(chosenGame.toMap());
-      return newGame.id;
-
-      }else{
+        DocumentReference newGame =
+            await fireStore.collection('games').add(chosenGame.toMap());
+        return newGame.id;
+      } else {
         return null;
       }
     } catch (e) {
@@ -111,9 +91,15 @@ class DatabaseService {
   }
 
   Future<String?> addGame(String userId, String mode, String theme) async {
+    String chosenMode = '';
     try {
+      if(mode == "Kliknij na ekran tylko wtedy, gdy wyświetlony jest dany symbol" || mode == "Click on the screen only when given symbol is displayed"){
+         chosenMode = "mode1";
+      }else{
+        chosenMode = "mode2";
+      }
       ChosenGame chosenGame =
-          ChosenGame(userId: userId, mode: mode, theme: theme);
+          ChosenGame(userId: userId, mode: chosenMode, theme: theme);
 
       DocumentReference newGame =
           await fireStore.collection('games').add(chosenGame.toMap());
@@ -138,15 +124,23 @@ class DatabaseService {
     }
   }
 
-  updateGameWithResult(List<bool> result, List<String> images, int comission, int omission, int hitRate, List<int> rT, List<int> intervals) {
+  updateGameWithResult(List<bool> result, List<String> images, int comission,
+      int omission, int hitRate, List<int> rT, List<int> intervals) {
     try {
       fireStore
           .collection("games")
           .orderBy('timestamp', descending: true)
           .get()
           .then((value) {
-        value.docs.first.reference
-            .update({'result': result, 'shown images': images, 'comission errors': comission, "omission errors": omission, "hit rate": hitRate, "reaction times": rT, "intervals":intervals});
+        value.docs.first.reference.update({
+          'result': result,
+          'shown images': images,
+          'comission errors': comission,
+          "omission errors": omission,
+          "hit rate": hitRate,
+          "reaction times": rT,
+          "intervals": intervals
+        });
       });
     } catch (e) {
       log(e.toString());
@@ -182,4 +176,69 @@ class DatabaseService {
       log(e.toString());
     }
   }
+
+  Future<int?> countPlayedGames1() async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      String userId = currentUser!.uid;
+      QuerySnapshot games = await FirebaseFirestore.instance
+          .collection('games')
+          .where('id', isEqualTo: userId)
+          .where('mode', isEqualTo: "mode1")
+          .get();
+
+      int gamesAmount = games.docs.length;
+      print("1:$gamesAmount");
+      return gamesAmount;
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
+
+  Future<int?> countPlayedGames2() async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      String userId = currentUser!.uid;
+      QuerySnapshot games = await FirebaseFirestore.instance
+          .collection('games')
+          .where('userId', isEqualTo: userId)
+          .where('mode', isEqualTo: "mode2")
+          .get();
+
+      int gamesAmount = games.docs.length;
+      print(":$gamesAmount");
+      return gamesAmount;
+    } catch (e) {
+      print('Error: $e');
+      return null;
+    }
+  }
+
+  // Future<void> moveGamesToTests() async {
+  //   var allGames = FirebaseFirestore.instance.collection('games');
+  //   var tests = FirebaseFirestore.instance.collection('tests');
+  //   List<Map<String, dynamic>> test = [];
+
+  //   try {
+  //     QuerySnapshot games = await allGames.get();
+  //     if (games.size == 3) {
+  //       for (var doc in games.docs) {
+  //         test.add({
+  //           'id': doc.id,
+  //           ...doc.data() as Map<String, dynamic>,
+  //         });
+  //       }
+  //     }
+  //     await FirebaseFirestore.instance
+  //         .collection('tests')
+  //         .doc('id')
+  //         .set({'test': test});
+  //     for (var doc in games.docs) {
+  //       await doc.reference.delete();
+  //     }
+  //   } catch (e) {
+  //     print('Error: $e');
+  //   }
+  // }
 }

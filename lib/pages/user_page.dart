@@ -1,4 +1,5 @@
 import 'package:animattio_mobile_app/pages/avatar_page.dart';
+import 'package:animattio_mobile_app/pages/calendar_page.dart';
 import 'package:animattio_mobile_app/pages/settings_page.dart';
 import 'package:animattio_mobile_app/pages/theme_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
@@ -15,6 +16,7 @@ class UserPage extends StatelessWidget {
     String gameButton = "play_game".tr;
     String settingsButton = "settings".tr;
     String avatarButton = "change_avatar".tr;
+    String playedGamesButton = "played_games".tr;
 
     Future<String> currentAvatar = DatabaseService().getAvatar();
 
@@ -93,7 +95,8 @@ class UserPage extends StatelessWidget {
                 strokeAlign: CircularProgressIndicator.strokeAlignCenter,
               );
             },
-          ),],
+          ),
+          ],
           ),
           Center(
             child: Column(
@@ -192,6 +195,35 @@ class UserPage extends StatelessWidget {
                     ),
                     child: Text(
                       settingsButton,
+                      style: TextStyle(color: fontColor),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 5),
+                SizedBox(
+                  width: width * 0.5,
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).push(
+                          MaterialPageRoute(builder: (BuildContext context) {
+                        return const CalendarPage();
+                      }));
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: buttonColor,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 15, vertical: 10),
+                      textStyle: const TextStyle(
+                          fontSize: 20,
+                          fontFamily: 'Lilita One',
+                          fontWeight: FontWeight.w900),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(20),
+                      ),
+                      elevation: 10,
+                    ),
+                    child: Text(
+                      playedGamesButton,
                       style: TextStyle(color: fontColor),
                     ),
                   ),
