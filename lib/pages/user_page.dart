@@ -77,19 +77,16 @@ class UserPage extends StatelessWidget {
                     (BuildContext context, AsyncSnapshot<String> snapshot) {
                   if (snapshot.hasData) {
                     return Positioned(
-                      bottom: height * 0.4,
+                      bottom: height * 0.42,
                       child: Padding(
                         padding: EdgeInsets.only(
-                            top: height * 0.2, left: width * 0.03),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: SizedBox(
-                            height: height * 0.4,
-                            child: Image.asset(
-                              snapshot.data.toString(),
-                              fit: BoxFit.contain,
-                              width: width * 0.35,
-                            ),
+                            top: height * 0.15),
+                        child: SizedBox(
+                          height: height * 0.4,
+                          child: Image.asset(
+                            snapshot.data.toString(),
+                            fit: BoxFit.contain,
+                            width: width * 0.33,
                           ),
                         ),
                       ),

@@ -23,11 +23,11 @@ class _GamePageState extends State<GamePage> {
   String? currentImage;
   List<String> shownImages = [];
   List<bool> tappedImages = [];
+  // List<String> imagesToShow = [];
 
   int count = 0;
   int imageIndex = 0;
   int lastIndex = 0;
-  int imagesInBlock = 20;
 
   Timer? showTimer;
   Timer? hideTimer;
@@ -42,6 +42,18 @@ class _GamePageState extends State<GamePage> {
   List<int> orderOfIntervals = [];
 
   List<int> reactionTimes = [];
+
+  List<String> imagesToShow() {
+  List<String> newList = [widget.stimuli, widget.stimuli];
+  Random random = Random();
+  while (newList.length < 20) {
+    String image = widget.listOfImages[random.nextInt(widget.listOfImages.length)];
+    newList.add(image);
+  }
+  // newList.shuffle(random);
+
+  return newList;
+}
 
   @override
   void initState() {
@@ -79,8 +91,9 @@ class _GamePageState extends State<GamePage> {
           return;
         }
         setState(() {
+          List<String> block1 = imagesToShow();
           currentImage =
-              widget.listOfImages[random.nextInt(widget.listOfImages.length)];
+              block1[random.nextInt(block1.length)];
           startTime = DateTime.now();
           shownImages.add(currentImage!);
           lastIndex++;
@@ -127,8 +140,9 @@ class _GamePageState extends State<GamePage> {
           return;
         }
         setState(() {
+          List<String> block2 = imagesToShow();
           currentImage =
-              widget.listOfImages[random.nextInt(widget.listOfImages.length)];
+              block2[random.nextInt(block2.length)];
           startTime = DateTime.now();
           shownImages.add(currentImage!);
           lastIndex++;
@@ -167,8 +181,9 @@ class _GamePageState extends State<GamePage> {
         );
       } else {
         setState(() {
+          List<String> block3 = imagesToShow();
           currentImage =
-              widget.listOfImages[random.nextInt(widget.listOfImages.length)];
+              block3[random.nextInt(block3.length)];
           startTime = DateTime.now();
           shownImages.add(currentImage!);
           lastIndex++;
