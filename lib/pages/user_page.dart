@@ -57,52 +57,54 @@ class UserPage extends StatelessWidget {
             ),
           ),
           Stack(
-            children: [Positioned(
-              left: 0,
-              top: height * 0.24,
-              width: width * 0.5,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Image.asset(
-                  'assets/user_page/star_user_1.png',
+            children: [
+              Positioned(
+                left: 0,
+                top: height * 0.24,
+                width: width * 0.5,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Image.asset(
+                    'assets/user_page/star_user_1.png',
+                  ),
                 ),
               ),
-            ),
-            FutureBuilder<String>(
-            future: currentAvatar,
-            builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-              if (snapshot.hasData) {
-                return Positioned(
-                  bottom: height*0.4,
-                  child: Padding(
-                    padding: const EdgeInsets.only(right:50.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: SizedBox(
-                        height: height*0.4,
-                        child: Image.asset(
-                          snapshot.data.toString(),
-                          fit: BoxFit.contain,
-                          width: width*0.3,
+              FutureBuilder<String>(
+                future: currentAvatar,
+                builder:
+                    (BuildContext context, AsyncSnapshot<String> snapshot) {
+                  if (snapshot.hasData) {
+                    return Positioned(
+                      bottom: height * 0.4,
+                      child: Padding(
+                        padding: EdgeInsets.only(
+                            top: height * 0.2, left: width * 0.05),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: SizedBox(
+                            height: height * 0.4,
+                            child: Image.asset(
+                              snapshot.data.toString(),
+                              fit: BoxFit.contain,
+                              width: width * 0.3,
+                            ),
+                          ),
                         ),
                       ),
-                    ),
-                  ),
-                );
-              }
-              return 
-              const CircularProgressIndicator(
-                strokeAlign: CircularProgressIndicator.strokeAlignCenter,
-              );
-            },
-          ),
-          ],
+                    );
+                  }
+                  return const CircularProgressIndicator(
+                    strokeAlign: CircularProgressIndicator.strokeAlignCenter,
+                  );
+                },
+              ),
+            ],
           ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                const SizedBox(height: 20),
+                SizedBox(height: height * 0.05),
                 Text(
                   userTitle,
                   textAlign: TextAlign.center,

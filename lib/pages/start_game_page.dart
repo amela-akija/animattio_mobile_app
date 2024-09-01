@@ -164,7 +164,7 @@ class StartGamePage extends StatelessWidget {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 28.0),
+            padding: EdgeInsets.only(top: height * 0.05),
             child: Align(
               alignment: Alignment.topLeft,
               child: IconButton(

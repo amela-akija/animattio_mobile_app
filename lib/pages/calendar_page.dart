@@ -109,7 +109,7 @@ class _CalendarPageState extends State<CalendarPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 150, left: 125),
+                padding: EdgeInsets.only(top: height * 0.3, left: width*0.3),
             child: Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

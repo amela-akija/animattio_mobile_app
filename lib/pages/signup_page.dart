@@ -74,7 +74,7 @@ class _SignupPageState extends State<SignupPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(top: 20.0),
+                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: Text(

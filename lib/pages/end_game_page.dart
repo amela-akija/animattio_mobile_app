@@ -35,7 +35,7 @@ class EndGamePage extends StatelessWidget {
         children: <Widget>[
           Positioned(
                 left: 0,
-                top: height * 0.01,
+                top: height * 0.05,
                 child: Align(
                   alignment: Alignment.center,
                   child: IconButton(

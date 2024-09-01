@@ -171,7 +171,7 @@ class MainPage extends StatelessWidget {
           Positioned(
             width: deviceSize.width,
             child: Padding(
-              padding: const EdgeInsets.only(top: 20.0),
+            padding: EdgeInsets.only(top: height * 0.05),
               child: Align(
                 alignment: Alignment.topRight,
                 child: TextButton(

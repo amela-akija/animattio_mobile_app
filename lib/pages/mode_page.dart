@@ -54,7 +54,7 @@ class _ChooseModeState extends State<ModePage> {
             children: [
               Positioned(
                 left: 0,
-                top: height * 0.01,
+                top: height * 0.05,
                 child: Align(
                   alignment: Alignment.center,
                   child: IconButton(
@@ -106,7 +106,7 @@ class _ChooseModeState extends State<ModePage> {
             ],
           ),
           Positioned(
-            top: 50,
+            top: height*0.1,
             left: 0,
             right: 0,
             child: Center(

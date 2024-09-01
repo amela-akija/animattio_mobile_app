@@ -111,7 +111,7 @@ class _ChosenAvatarState extends State<AvatarPage> {
               Positioned(
                 left: 0,
                 child: Padding(
-                  padding: const EdgeInsets.only(top:15),
+                padding: EdgeInsets.only(top: height * 0.05),
                   child: Align(
                     alignment: Alignment.center,
                     child: IconButton(

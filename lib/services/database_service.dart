@@ -93,9 +93,11 @@ class DatabaseService {
   Future<String?> addGame(String userId, String mode, String theme) async {
     String chosenMode = '';
     try {
-      if(mode == "Kliknij na ekran tylko wtedy, gdy wyświetlony jest dany symbol" || mode == "Click on the screen only when given symbol is displayed"){
-         chosenMode = "mode1";
-      }else{
+      if (mode ==
+              "Kliknij na ekran tylko wtedy, gdy wyświetlony jest dany symbol" ||
+          mode == "Click on the screen only when given symbol is displayed") {
+        chosenMode = "mode1";
+      } else {
         chosenMode = "mode2";
       }
       ChosenGame chosenGame =
@@ -215,30 +217,46 @@ class DatabaseService {
     }
   }
 
-  // Future<void> moveGamesToTests() async {
-  //   var allGames = FirebaseFirestore.instance.collection('games');
-  //   var tests = FirebaseFirestore.instance.collection('tests');
-  //   List<Map<String, dynamic>> test = [];
+  Future<void> moveGamesToTests() async {
+    try{
+    final gamesCollection = FirebaseFirestore.instance.collection('games');
 
-  //   try {
-  //     QuerySnapshot games = await allGames.get();
-  //     if (games.size == 3) {
-  //       for (var doc in games.docs) {
-  //         test.add({
-  //           'id': doc.id,
-  //           ...doc.data() as Map<String, dynamic>,
-  //         });
-  //       }
-  //     }
-  //     await FirebaseFirestore.instance
-  //         .collection('tests')
-  //         .doc('id')
-  //         .set({'test': test});
-  //     for (var doc in games.docs) {
-  //       await doc.reference.delete();
-  //     }
-  //   } catch (e) {
-  //     print('Error: $e');
-  //   }
-  // }
-}
+    QuerySnapshot allGames = await gamesCollection.get();
+    List<QueryDocumentSnapshot> games = allGames.docs;
+
+    int count = 1;
+
+    List<Map<String, dynamic>> test = [];
+    List<DocumentReference> gamesToDelete = [];
+
+    for (var game in games) {
+      test.add(game.data() as Map<String, dynamic>);
+      gamesToDelete.add(game.reference);
+
+      if (test.length == 6) {
+        final testsCollection = FirebaseFirestore.instance.collection('tests');
+
+        await testsCollection.add({
+          'games in test': test,
+        });
+        count++;
+
+        for (var deletedGame in gamesToDelete) {
+          await deletedGame.delete();
+        }
+
+        test = [];
+        gamesToDelete = [];
+      }
+    }
+
+    if (test.isNotEmpty) {
+      print(
+          'Remaining games that are less than six and not sent: ${test.length}');
+    }
+  }
+  catch(e){
+    print(e.toString());
+
+  }
+}}

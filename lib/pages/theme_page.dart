@@ -30,7 +30,7 @@ class ThemePage extends StatelessWidget {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                const SizedBox(height: 30),
+                 SizedBox(height: height*0.05),
                 Align(
                   alignment: Alignment.topLeft,
                   child: IconButton(
