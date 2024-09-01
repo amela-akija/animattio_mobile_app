@@ -27,6 +27,7 @@ class _GamePageState extends State<GamePage> {
   int count = 0;
   int imageIndex = 0;
   int lastIndex = 0;
+  int imagesInBlock = 20;
 
   Timer? showTimer;
   Timer? hideTimer;
@@ -45,7 +46,7 @@ class _GamePageState extends State<GamePage> {
   @override
   void initState() {
     super.initState();
-    tappedImages = List.filled(11, false); 
+    tappedImages = List.filled(61, false); 
     startGame();
   }
 
@@ -58,7 +59,7 @@ class _GamePageState extends State<GamePage> {
       }
     }
     showTimer = Timer.periodic(Duration(milliseconds: interval), (timer) {
-      if (count >= 10) {
+      if (count >= 60) {
         timer.cancel();
         Navigator.of(context).push(
           MaterialPageRoute(builder: (BuildContext context) {
@@ -72,7 +73,7 @@ class _GamePageState extends State<GamePage> {
           }),
         );
       } else {
-        if(count>=2){
+        if(count>=20){
           timer.cancel();
           continueGame();
           return;
@@ -106,7 +107,7 @@ class _GamePageState extends State<GamePage> {
         intervals.removeAt(i);
       }}
     showTimer = Timer.periodic(Duration(milliseconds: interval), (timer) {
-      if (count >= 10) {
+      if (count >= 60) {
         timer.cancel();
         Navigator.of(context).push(
           MaterialPageRoute(builder: (BuildContext context) {
@@ -120,7 +121,7 @@ class _GamePageState extends State<GamePage> {
           }),
         );
       } else {
-        if(count>=4){
+        if(count>=40){
           timer.cancel();
           endGame();
           return;
@@ -151,7 +152,7 @@ class _GamePageState extends State<GamePage> {
     int interval=intervals.elementAt(Random().nextInt(intervals.length));
     orderOfIntervals.add(interval);
     showTimer = Timer.periodic(Duration(milliseconds: interval), (timer) {
-      if (count >= 10) {
+      if (count >= 60) {
         timer.cancel();
         Navigator.of(context).push(
           MaterialPageRoute(builder: (BuildContext context) {

@@ -70,7 +70,7 @@ class DatabaseService {
       CollectionReference games =
           FirebaseFirestore.instance.collection('games');
       QuerySnapshot lastGame =
-          await games.orderBy('timestamp', descending: true).limit(1).get();
+          await games.orderBy('timestamp', descending: true).where("id", isEqualTo: userId).limit(1).get(); // zmiana z id!!!!
       if (lastGame.docs.isNotEmpty) {
         DocumentSnapshot lastGameRef = lastGame.docs.first;
         var mode = lastGameRef["mode"];
