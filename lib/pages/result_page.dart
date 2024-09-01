@@ -37,6 +37,11 @@ class _ResultPageState extends State<ResultPage> {
 
     List<bool> ignoreFirstValue = widget.tappedImages.sublist(1);
 
+     //Size
+    dynamic deviceSize, height;
+    deviceSize = MediaQuery.of(context).size;
+    height = deviceSize.height;
+
     //Parameters
     int omissionErrors = 0; // stimuli was shown but no reaction
     int commisionErrors =
@@ -86,7 +91,7 @@ class _ResultPageState extends State<ResultPage> {
               // Incorrect use of ParentDataWidget.
               itemCount: widget.shownImages.length,
               itemBuilder: (context, index) {
-                if (widget.mode == "mode1".tr) {
+                if (widget.mode == "mode1".tr || widget.mode == "mode1") {
                   if (widget.shownImages[index] == widget.stimuli) {
                     if (ignoreFirstValue[index] == true) {
                       resultColor = correctColor;
@@ -141,7 +146,7 @@ class _ResultPageState extends State<ResultPage> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 30),
+            padding: EdgeInsets.only(top: height * 0.06),
             child: Align(
               alignment: Alignment.topRight,
               child: TextButton(
@@ -154,7 +159,6 @@ class _ResultPageState extends State<ResultPage> {
                       hitRate,
                       widget.reactionTimes,
                       widget.intervals);
-                  await dbService.moveGamesToTests();
                   // ignore: use_build_context_synchronously
                   Navigator.of(context).push(
                     MaterialPageRoute(builder: (BuildContext context) {

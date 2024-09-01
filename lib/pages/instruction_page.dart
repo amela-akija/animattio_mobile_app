@@ -50,7 +50,8 @@ class _InstructionPageState extends State<InstructionPage> {
         child: Column(
           children: [
             Builder(builder: (context) {
-              if (widget.chosenMode == "mode1".tr) {
+              print(widget.chosenMode);
+              if (widget.chosenMode == "mode1".tr || widget.chosenMode == "mode1") {
                 return Padding(
                   padding: const EdgeInsets.all(20),
                   child: Text(

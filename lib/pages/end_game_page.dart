@@ -1,4 +1,5 @@
 import 'package:animattio_mobile_app/pages/instruction_page.dart';
+import 'package:animattio_mobile_app/pages/start_game_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -34,20 +35,20 @@ class EndGamePage extends StatelessWidget {
       body: Stack(
         children: <Widget>[
           Positioned(
-                left: 0,
-                top: height * 0.05,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: IconButton(
-                    icon: const Icon(Icons.arrow_back),
-                    color: buttonColor,
-                    iconSize: 30,
-                    onPressed: () {
-Navigator.pop(context);
-                    },
-                  ),
-                ),
+            left: 0,
+            top: height * 0.05,
+            child: Align(
+              alignment: Alignment.center,
+              child: IconButton(
+                icon: const Icon(Icons.arrow_back),
+                color: buttonColor,
+                iconSize: 30,
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
+            ),
+          ),
           Column(
             children: [
               Expanded(
@@ -105,23 +106,20 @@ Navigator.pop(context);
                     children: [
                       ElevatedButton(
                         onPressed: () async {
-                          String? repeatedGameId = await dbService.repeatGame();
-                          if (repeatedGameId != null) {
-                            DocumentSnapshot newGameDoc =
-                                await FirebaseFirestore.instance
-                                    .collection('games')
-                                    .doc(repeatedGameId)
-                                    .get();
-
-                            var mode = newGameDoc["mode"];
-                            var theme = newGameDoc["theme"];
-
+                          List? repeatedGame = await dbService.repeatGame();
+                          if (repeatedGame != null &&
+                              repeatedGame.length == 2) {
+                            var mode = repeatedGame[0];
+                            var theme = repeatedGame[1];
+                            print("mode$mode");
+                            await dbService.moveGames1ToTests();
+                            await dbService.moveGames2ToTests();
                             Navigator.of(context).push(
                               MaterialPageRoute(
                                   builder: (BuildContext context) {
-                                return InstructionPage(
+                                return StartGamePage(
                                   chosenMode: mode,
-                                  chosenThemeList: theme,
+                                  chosenTheme: theme,
                                 );
                               }),
                             );
@@ -152,7 +150,7 @@ Navigator.pop(context);
                       ),
                       const SizedBox(width: 30),
                       ElevatedButton(
-                        onPressed: () {
+                        onPressed: () async {
                           Navigator.of(context).push(
                             MaterialPageRoute(builder: (BuildContext context) {
                               return const UserPage();

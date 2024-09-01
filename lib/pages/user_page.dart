@@ -19,6 +19,8 @@ class UserPage extends StatelessWidget {
     String playedGamesButton = "played_games".tr;
 
     Future<String> currentAvatar = DatabaseService().getAvatar();
+        final dbService = DatabaseService();
+
 
     //Colors
     Color pageColor = const Color(0xFFF7A559);
@@ -78,7 +80,7 @@ class UserPage extends StatelessWidget {
                       bottom: height * 0.4,
                       child: Padding(
                         padding: EdgeInsets.only(
-                            top: height * 0.2, left: width * 0.05),
+                            top: height * 0.2, left: width * 0.03),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: SizedBox(
@@ -86,7 +88,7 @@ class UserPage extends StatelessWidget {
                             child: Image.asset(
                               snapshot.data.toString(),
                               fit: BoxFit.contain,
-                              width: width * 0.3,
+                              width: width * 0.35,
                             ),
                           ),
                         ),
@@ -205,7 +207,9 @@ class UserPage extends StatelessWidget {
                 SizedBox(
                   width: width * 0.5,
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
+                       await dbService.moveGames1ToTests();
+                            await dbService.moveGames2ToTests();
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
                         return const CalendarPage();
@@ -217,7 +221,7 @@ class UserPage extends StatelessWidget {
                           horizontal: 15, vertical: 10),
                       textStyle: const TextStyle(
                           fontSize: 20,
-                          fontFamily: 'Lilita One',
+                          fontFamily: 'Fredoka',
                           fontWeight: FontWeight.w900),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(20),

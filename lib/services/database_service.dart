@@ -63,7 +63,7 @@ class DatabaseService {
     }
   }
 
-  Future<String?> repeatGame() async {
+  Future<List?> repeatGame() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
       String userId = currentUser!.uid;
@@ -75,12 +75,16 @@ class DatabaseService {
         DocumentSnapshot lastGameRef = lastGame.docs.first;
         var mode = lastGameRef["mode"];
         var theme = lastGameRef["theme"];
-        ChosenGame chosenGame =
-            ChosenGame(userId: userId, mode: mode, theme: theme);
+        List modeAndTheme = [];
+        modeAndTheme.add(mode);
+        modeAndTheme.add(theme);
+        return modeAndTheme;
+        // ChosenGame chosenGame =
+        //     ChosenGame(userId: userId, mode: mode, theme: theme);
 
-        DocumentReference newGame =
-            await fireStore.collection('games').add(chosenGame.toMap());
-        return newGame.id;
+        // DocumentReference newGame =
+        //     await fireStore.collection('games').add(chosenGame.toMap());
+        // return newGame.id;
       } else {
         return null;
       }
@@ -95,7 +99,7 @@ class DatabaseService {
     try {
       if (mode ==
               "Kliknij na ekran tylko wtedy, gdy wyświetlony jest dany symbol" ||
-          mode == "Click on the screen only when given symbol is displayed") {
+          mode == "Click on the screen only when given symbol is displayed" || mode == "mode1") {
         chosenMode = "mode1";
       } else {
         chosenMode = "mode2";
@@ -217,46 +221,108 @@ class DatabaseService {
     }
   }
 
-  Future<void> moveGamesToTests() async {
-    try{
-    final gamesCollection = FirebaseFirestore.instance.collection('games');
+  Future<void> moveGames1ToTests() async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      String userId = currentUser!.uid;
+      final gamesCollection = FirebaseFirestore.instance.collection('games');
 
-    QuerySnapshot allGames = await gamesCollection.get();
-    List<QueryDocumentSnapshot> games = allGames.docs;
+      QuerySnapshot games1 = await gamesCollection
+          .where('mode', isEqualTo: "mode1")
+          .where('id', isEqualTo:  userId)
+          // .where('result', isNotEqualTo: Null)
+          .get();
+      List<QueryDocumentSnapshot> games = games1.docs;
 
-    int count = 1;
+      // List<QueryDocumentSnapshot> games = games1.docs.where((doc) {
+        // return doc['result'] != null;
+      // }).toList();
 
-    List<Map<String, dynamic>> test = [];
-    List<DocumentReference> gamesToDelete = [];
+      int count = 1;
 
-    for (var game in games) {
-      test.add(game.data() as Map<String, dynamic>);
-      gamesToDelete.add(game.reference);
+      List<Map<String, dynamic>> test = [];
+      List<DocumentReference> gamesToDelete = [];
 
-      if (test.length == 6) {
-        final testsCollection = FirebaseFirestore.instance.collection('tests');
+      for (var game in games) {
+        test.add(game.data() as Map<String, dynamic>);
+        gamesToDelete.add(game.reference);
 
-        await testsCollection.add({
-          'games in test': test,
-        });
-        count++;
+        if (test.length == 6) {
+          final testsCollection =
+              FirebaseFirestore.instance.collection('tests');
 
-        for (var deletedGame in gamesToDelete) {
-          await deletedGame.delete();
+          await testsCollection.add({
+            'games in test': test,
+          });
+          count++;
+
+          for (var deletedGame in gamesToDelete) {
+            await deletedGame.delete();
+          }
+
+          test = [];
+          gamesToDelete = [];
         }
-
-        test = [];
-        gamesToDelete = [];
       }
-    }
 
-    if (test.isNotEmpty) {
-      print(
-          'Remaining games that are less than six and not sent: ${test.length}');
+      if (test.isNotEmpty) {
+        print(
+            'games ${test.length}');
+      }
+    } catch (e) {
+      print(e.toString());
     }
   }
-  catch(e){
-    print(e.toString());
 
+  Future<void> moveGames2ToTests() async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      String userId = currentUser!.uid;
+      final gamesCollection = FirebaseFirestore.instance.collection('games');
+
+      QuerySnapshot games2 =
+          await gamesCollection
+          .where('mode', isEqualTo: "mode2")
+          .where('id', isEqualTo: userId)
+          .get();
+      List<QueryDocumentSnapshot> games = games2.docs;
+      // List<QueryDocumentSnapshot> games = games2.docs.where((doc) {
+        // return doc['result'] != null;
+      // }).toList();
+
+      int count = 1;
+
+      List<Map<String, dynamic>> test = [];
+      List<DocumentReference> gamesToDelete = [];
+
+      for (var game in games) {
+        test.add(game.data() as Map<String, dynamic>);
+        gamesToDelete.add(game.reference);
+
+        if (test.length == 6) {
+          final testsCollection =
+              FirebaseFirestore.instance.collection('tests');
+
+          await testsCollection.add({
+            'games in test': test,
+          });
+          count++;
+
+          for (var deletedGame in gamesToDelete) {
+            await deletedGame.delete();
+          }
+
+          test = [];
+          gamesToDelete = [];
+        }
+      }
+
+      if (test.isNotEmpty) {
+        print(
+            'games 2: ${test.length}');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
   }
-}}
+}
