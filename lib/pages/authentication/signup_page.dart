@@ -1,4 +1,4 @@
-import 'package:animattio_mobile_app/pages/login_page.dart';
+import 'package:animattio_mobile_app/pages/authentication/login_page.dart';
 import 'package:animattio_mobile_app/services/auth_service.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';

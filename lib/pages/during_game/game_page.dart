@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 
-import 'package:animattio_mobile_app/pages/result_page.dart';
+import 'package:animattio_mobile_app/pages/after_game/result_page.dart';
 import 'package:flutter/material.dart';
 
 class GamePage extends StatefulWidget {

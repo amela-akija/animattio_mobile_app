@@ -1,8 +1,8 @@
-import 'package:animattio_mobile_app/pages/user_page.dart';
+import 'package:animattio_mobile_app/pages/user_pages/user_page.dart';
 import 'package:animattio_mobile_app/services/auth_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'signup_page.dart';
+import '../authentication/signup_page.dart';
 
 //Page for login
 class LoginPage extends StatefulWidget {

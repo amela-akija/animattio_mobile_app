@@ -1,5 +1,5 @@
-import 'package:animattio_mobile_app/pages/start_game_page.dart';
-import 'package:animattio_mobile_app/pages/user_page.dart';
+import 'package:animattio_mobile_app/pages/during_game/start_game_page.dart';
+import 'package:animattio_mobile_app/pages/user_pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -22,11 +22,11 @@ class _EndGamePageState extends State<EndGamePage> {
     super.initState();
     flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
-    const AndroidInitializationSettings initializationSettingsAndroid =
+    const AndroidInitializationSettings androidInitializationSettings =
         AndroidInitializationSettings('logo');
 
     const InitializationSettings initializationSettings = InitializationSettings(
-      android: initializationSettingsAndroid,
+      android: androidInitializationSettings,
     );
 
     flutterLocalNotificationsPlugin.initialize(
@@ -35,11 +35,11 @@ class _EndGamePageState extends State<EndGamePage> {
     testAdded();
   }
    void testAdded() {
-    final testsCollection = FirebaseFirestore.instance.collection('tests');
+    final testsCollection = FirebaseFirestore.instance.collection('games');
 
     testsCollection.snapshots().listen((snapshot) {
       for (var change in snapshot.docChanges) {
-        if (change.type == DocumentChangeType.added) {
+        if (change.type == DocumentChangeType.removed) {
           showNotification();
         }
       }
@@ -52,7 +52,7 @@ class _EndGamePageState extends State<EndGamePage> {
       final status = await Permission.notification.request();
 
       if (status.isDenied || status.isPermanentlyDenied) {
-        print('Notification permission not granted');
+        print('Permission for notifications not granted');
       }
     }
   }
@@ -64,20 +64,20 @@ class _EndGamePageState extends State<EndGamePage> {
         AndroidNotificationDetails(
       'channel_id',
       'channel_name',
-      channelDescription: 'channel_description',
+      // channelDescription: 'channel_description',
       importance: Importance.max,
       priority: Priority.high,
       showWhen: true,
     );
 
-    const NotificationDetails platformChannelSpecifics =
+    const NotificationDetails channelSpecifics =
         NotificationDetails(android: androidPlatformChannelSpecifics);
 
     await flutterLocalNotificationsPlugin.show(
       0,
       'congrats'.tr,
       'notification'.tr,
-      platformChannelSpecifics,
+      channelSpecifics,
     );
   }
   

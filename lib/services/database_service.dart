@@ -1,6 +1,6 @@
 import 'dart:developer';
 
-import 'package:animattio_mobile_app/pages/start_game_page.dart';
+import 'package:animattio_mobile_app/pages/during_game/start_game_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 // import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -213,18 +213,19 @@ class DatabaseService {
       String userId = currentUser!.uid;
       QuerySnapshot games = await FirebaseFirestore.instance
           .collection('games')
-          .where('userId', isEqualTo: userId)
+          .where('id', isEqualTo: userId)
           .where('mode', isEqualTo: "mode2")
           .get();
 
       int gamesAmount = games.docs.length;
-      print(":$gamesAmount");
+      print("2:$gamesAmount");
       return gamesAmount;
     } catch (e) {
       print('Error: $e');
       return null;
     }
   }
+
 
   Future<void> moveGames1ToTests() async {
     try {
@@ -239,6 +240,7 @@ class DatabaseService {
       List<QueryDocumentSnapshot> games = games1.docs;
 
 
+      // ignore: unused_local_variable
       int count = 1;
 
       List<Map<String, dynamic>> test = [];
@@ -292,6 +294,7 @@ class DatabaseService {
         // return doc['result'] != null;
       // }).toList();
 
+      // ignore: unused_local_variable
       int count = 1;
 
       List<Map<String, dynamic>> test = [];

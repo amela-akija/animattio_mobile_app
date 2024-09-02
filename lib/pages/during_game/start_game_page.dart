@@ -1,6 +1,6 @@
-import 'package:animattio_mobile_app/pages/instruction_page.dart';
-import 'package:animattio_mobile_app/pages/mode_page.dart';
-import 'package:animattio_mobile_app/pages/user_page.dart';
+import 'package:animattio_mobile_app/pages/during_game/instruction_page.dart';
+import 'package:animattio_mobile_app/pages/before_game/mode_page.dart';
+import 'package:animattio_mobile_app/pages/user_pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

@@ -1,5 +1,5 @@
-import 'package:animattio_mobile_app/pages/start_game_page.dart';
-import 'package:animattio_mobile_app/pages/theme_page.dart';
+import 'package:animattio_mobile_app/pages/during_game/start_game_page.dart';
+import 'package:animattio_mobile_app/pages/before_game/theme_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

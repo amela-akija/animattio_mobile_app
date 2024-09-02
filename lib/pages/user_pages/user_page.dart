@@ -1,7 +1,7 @@
-import 'package:animattio_mobile_app/pages/avatar_page.dart';
-import 'package:animattio_mobile_app/pages/calendar_page.dart';
-import 'package:animattio_mobile_app/pages/settings_page.dart';
-import 'package:animattio_mobile_app/pages/theme_page.dart';
+import 'package:animattio_mobile_app/pages/user_pages/avatar_page.dart';
+import 'package:animattio_mobile_app/pages/user_pages/calendar_page.dart';
+import 'package:animattio_mobile_app/pages/user_pages/settings_page.dart';
+import 'package:animattio_mobile_app/pages/before_game/theme_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

@@ -1,7 +1,7 @@
 import 'package:animattio_mobile_app/controllers/locale_controller.dart';
-import 'package:animattio_mobile_app/pages/edit_profile_page.dart';
-import 'package:animattio_mobile_app/pages/main_page.dart';
-import 'package:animattio_mobile_app/pages/user_page.dart';
+import 'package:animattio_mobile_app/pages/user_pages/edit_profile_page.dart';
+import 'package:animattio_mobile_app/pages/authentication/main_page.dart';
+import 'package:animattio_mobile_app/pages/user_pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';

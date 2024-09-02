@@ -1,4 +1,4 @@
-import 'package:animattio_mobile_app/pages/user_page.dart';
+import 'package:animattio_mobile_app/pages/user_pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

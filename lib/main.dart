@@ -1,9 +1,8 @@
 
 import 'package:animattio_mobile_app/firebase_options.dart';
 import 'package:animattio_mobile_app/services/localization_service.dart';
-import 'package:animattio_mobile_app/pages/main_page.dart';
+import 'package:animattio_mobile_app/pages/authentication/main_page.dart';
 import 'package:animattio_mobile_app/poviders/images_provider.dart';
-import 'package:animattio_mobile_app/services/notification_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
