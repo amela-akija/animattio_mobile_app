@@ -44,15 +44,15 @@ class _GamePageState extends State<GamePage> {
   List<int> reactionTimes = [];
 
   List<String> imagesToShow() {
-  List<String> newList = [widget.stimuli, widget.stimuli];
+  List<String> listOfRandomImages = [widget.stimuli, widget.stimuli];
   Random random = Random();
-  while (newList.length < 20) {
+  while (listOfRandomImages.length < 20) {
     String image = widget.listOfImages[random.nextInt(widget.listOfImages.length)];
-    newList.add(image);
+    listOfRandomImages.add(image);
   }
-  // newList.shuffle(random);
+  listOfRandomImages.shuffle(random);
 
-  return newList;
+  return listOfRandomImages;
 }
 
   @override
@@ -92,8 +92,11 @@ class _GamePageState extends State<GamePage> {
         }
         setState(() {
           List<String> block1 = imagesToShow();
-          currentImage =
-              block1[random.nextInt(block1.length)];
+          for(int i=0; i<block1.length;i++){
+            currentImage = block1[i];
+          }
+          // currentImage =
+          //     block1[random.nextInt(block1.length)];
           startTime = DateTime.now();
           shownImages.add(currentImage!);
           lastIndex++;
@@ -141,8 +144,9 @@ class _GamePageState extends State<GamePage> {
         }
         setState(() {
           List<String> block2 = imagesToShow();
-          currentImage =
-              block2[random.nextInt(block2.length)];
+          for(int i=0; i<block2.length;i++){
+            currentImage = block2[i];
+          }
           startTime = DateTime.now();
           shownImages.add(currentImage!);
           lastIndex++;
@@ -182,8 +186,9 @@ class _GamePageState extends State<GamePage> {
       } else {
         setState(() {
           List<String> block3 = imagesToShow();
-          currentImage =
-              block3[random.nextInt(block3.length)];
+         for(int i=0; i<block3.length;i++){
+            currentImage = block3[i];
+          }
           startTime = DateTime.now();
           shownImages.add(currentImage!);
           lastIndex++;
