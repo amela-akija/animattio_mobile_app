@@ -3,11 +3,16 @@ import 'dart:developer';
 import 'package:animattio_mobile_app/pages/start_game_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:get/get.dart';
+// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+// import 'package:get/get.dart';
+// import 'package:get/get.dart';
+// import 'package:permission_handler/permission_handler.dart';
 
 class DatabaseService {
   final fireStore = FirebaseFirestore.instance;
   User? currentUser = FirebaseAuth.instance.currentUser;
+  // late  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
 
   addAvatar(String avatar) {
     try {
@@ -230,13 +235,9 @@ class DatabaseService {
       QuerySnapshot games1 = await gamesCollection
           .where('mode', isEqualTo: "mode1")
           .where('id', isEqualTo:  userId)
-          // .where('result', isNotEqualTo: Null)
           .get();
       List<QueryDocumentSnapshot> games = games1.docs;
 
-      // List<QueryDocumentSnapshot> games = games1.docs.where((doc) {
-        // return doc['result'] != null;
-      // }).toList();
 
       int count = 1;
 
@@ -254,6 +255,7 @@ class DatabaseService {
           await testsCollection.add({
             'games in test': test,
           });
+          // await _showNotification();
           count++;
 
           for (var deletedGame in gamesToDelete) {
@@ -306,6 +308,8 @@ class DatabaseService {
           await testsCollection.add({
             'games in test': test,
           });
+                    // await _showNotification();
+
           count++;
 
           for (var deletedGame in gamesToDelete) {

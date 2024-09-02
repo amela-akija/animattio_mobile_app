@@ -82,7 +82,7 @@ class UserPage extends StatelessWidget {
                         padding: EdgeInsets.only(
                             top: height * 0.15),
                         child: SizedBox(
-                          height: height * 0.4,
+                          height: height * 0.3,
                           child: Image.asset(
                             snapshot.data.toString(),
                             fit: BoxFit.contain,

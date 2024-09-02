@@ -54,5 +54,6 @@ const Map<String, String> en = {
   "email_repeat": "User with this email address already exists",
   "unknown_error": "Unknown error",
   "played_games":"Played games",
+  "congrats": "Congrats!", "notification":"You've finished 6 games of one of the available modes. Your result is now being analized by your Doctor. Keep up the good work!",
   "result_message":"Here we keep track of all the games you've completed. Every sixth game the results will be send to your doctor for analysis"
 };

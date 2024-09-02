@@ -54,6 +54,8 @@ const Map<String, String> pl = {
   "first_mode": "Tryb 1:",
   "second_mode": "Tryb 2:",
   "played_games":"Zakończone gry",
+    "congrats": "Gratulacje!", "notification":"Ukończono 6 gier w jednym z dostępnych trybów. Twój wynik jest teraz analizowany przez Twojego lekarza. Tak trzymaj!",
+
     "result_message":"Tutaj śledzimy wszystkie ukończone przez Ciebie gry. Co szóstą grę wyniki zostaną wysłane do Twojego lekarza w celu analizy"
 
 };

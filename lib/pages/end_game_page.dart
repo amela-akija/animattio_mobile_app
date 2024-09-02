@@ -1,14 +1,86 @@
-import 'package:animattio_mobile_app/pages/instruction_page.dart';
 import 'package:animattio_mobile_app/pages/start_game_page.dart';
 import 'package:animattio_mobile_app/pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
-class EndGamePage extends StatelessWidget {
+class EndGamePage extends StatefulWidget {
   const EndGamePage({super.key});
 
+  @override
+  State<EndGamePage> createState() => _EndGamePageState();
+}
+
+class _EndGamePageState extends State<EndGamePage> {
+   late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  @override
+  void initState() {
+    super.initState();
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings('logo');
+
+    const InitializationSettings initializationSettings = InitializationSettings(
+      android: initializationSettingsAndroid,
+    );
+
+    flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+    );
+    testAdded();
+  }
+   void testAdded() {
+    final testsCollection = FirebaseFirestore.instance.collection('tests');
+
+    testsCollection.snapshots().listen((snapshot) {
+      for (var change in snapshot.docChanges) {
+        if (change.type == DocumentChangeType.added) {
+          showNotification();
+        }
+      }
+    });
+  }
+
+
+   Future<void> requestPermissions() async {
+    if (await Permission.notification.isDenied) {
+      final status = await Permission.notification.request();
+
+      if (status.isDenied || status.isPermanentlyDenied) {
+        print('Notification permission not granted');
+      }
+    }
+  }
+
+  Future<void> showNotification() async {
+    await requestPermissions();
+
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'channel_id',
+      'channel_name',
+      channelDescription: 'channel_description',
+      importance: Importance.max,
+      priority: Priority.high,
+      showWhen: true,
+    );
+
+    const NotificationDetails platformChannelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'congrats'.tr,
+      'notification'.tr,
+      platformChannelSpecifics,
+    );
+  }
+  
   @override
   Widget build(BuildContext context) {
     //Strings
