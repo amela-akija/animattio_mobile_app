@@ -1,9 +1,14 @@
 import 'dart:async';
 import 'dart:math';
-
 import 'package:animattio_mobile_app/pages/after_game/result_page.dart';
 import 'package:flutter/material.dart';
-
+/// GamePage is a page where user completes a block of CPT test in form of one game.
+///
+/// This page contains of 60 randomly chosen images that are displayed for 250 ms with intervals where no image is shown between them.
+///  The images are seperated by intervals, each interval lasts for 20 pictures and they are chosen randomly. 
+/// Values of intervals are: 1s, 2s and 4s. 
+///  [GamePage] has three parameters [listOfImages], [stimuli] and [mode].
+///
 class GamePage extends StatefulWidget {
   final String stimuli;
   final List<String> listOfImages;
