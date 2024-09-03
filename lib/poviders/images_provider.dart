@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+/// [ImagesProvider] is a class that provides the app with list of images basen on chosen theme.
+///
+/// It contains of a map of 4 lists, one for each theme and consisting of available symbols within the theme.
+///
 class ImagesProvider with ChangeNotifier {
   Map<String, List<String>> listsOfThemes = {
     'animal': [
@@ -68,10 +72,29 @@ class ImagesProvider with ChangeNotifier {
     ],
   };
 
+  /// [getList] provides a list from available lists.
+  ///
+  /// The [getList] method searches for a list of images associated with provided key [listName].
+  /// If the list is found, it returns the corresponding list; otherwise, it returns an empty list.
+  ///
+  /// - [listName]: The key (name) of the list to be retrieved from [listsOfThemes].
+  ///
+  /// Returns:
+  /// - A [List<String>] containing the symbols from theme [listName], or an empty list if
+  ///   the specified list does not exist.
+  ///
   List<String> getList(String listName) {
     return listsOfThemes[listName] ?? [];
   }
 
+  /// [setList] updates or sets a list of images in the [listsOfThemes] collection.
+  ///
+  /// The [setList] method updates the [listsOfThemes] map by associating the key [listName]
+  /// with the provided [list]. It also informs listeners with notifyListeners that the data was modified.
+  ///
+  /// - [listName]: The key to connect with the list of images.
+  /// - [list]: The new list of images to be set for the specified key [listName].
+  ///
   void setList(String listName, List<String> list) {
     listsOfThemes[listName] = list;
     notifyListeners();

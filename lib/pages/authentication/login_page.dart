@@ -4,23 +4,29 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'signup_page.dart';
 
-//Page for login
+/// LoginPage is the page where already signed up user can log in to their account.
+///
+/// This page contains of two Textfields: one for email input and another
+/// for password input. The layout includes button that when pressed navigates to UserPage if the credentials were correct.
+///  It also includesdecorative images positioned
+/// around the screen and a TextButton that navigates to SignupPage.
 class LoginPage extends StatefulWidget {
+  /// Creates a [LoginPage].
   const LoginPage({super.key});
 
   @override
   State<LoginPage> createState() => _LoginPageState();
 }
 
+/// State class for [LoginPage], managing user inputs and UI updates.
 class _LoginPageState extends State<LoginPage> {
-  //Login controllers
+  /// Controllers for the email and password input fields.
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
-  bool showLoading = false;
-
   @override
   void dispose() {
+    // Disposes of the controllers when the widget is removed from the widget tree.
     emailController.dispose();
     passwordController.dispose();
 
@@ -29,29 +35,31 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    //Colors
+    // Color definitions used throughout the page.
     Color fontColor = const Color(0xFFFEFFD9);
     Color pageColor = const Color(0xFFF7A559);
     Color buttonColor = const Color(0xFFF7A559);
     Color inputColor = const Color(0xFFFEFFD9);
     Color textColor = const Color(0xFF2A470C);
 
-    //Strings
+    ///Strings used on page.
     String loginTitle = "log_in".tr;
     String toSignUpString = "log_to_sign".tr;
 
-    //Size
+    //Size of the screen used for a responsive ui.
     dynamic deviceSize, height, width;
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
 
+    // Main UI of the page composed of multiple stacked elements.
     return Scaffold(
       resizeToAvoidBottomInset:
           false, // for images to not move when keyboard is active
       backgroundColor: pageColor,
       body: Column(
         children: <Widget>[
+          //Image displayed in the background (star_login)
           Expanded(
             child: Stack(
               children: <Widget>[
@@ -66,8 +74,10 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+                //Title of the page
                 Padding(
-                padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.05),
                   child: Align(
                     alignment: Alignment.topCenter,
                     child: Text(
@@ -81,6 +91,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+                //Email text input
                 Positioned(
                   top: deviceSize.height * 0.35,
                   width: deviceSize.width,
@@ -126,6 +137,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+                //Password text input
                 Positioned(
                   top: deviceSize.height * 0.50,
                   width: deviceSize.width,
@@ -172,15 +184,17 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+                //Button to authenticate the provided credentials
                 Positioned(
                   top: deviceSize.height * 0.7,
                   width: deviceSize.width,
                   child: Center(
                     child: ElevatedButton(
+                      //when pressed authenticates the credentials and displays correct message in Snackbar
                       onPressed: () async {
                         final message = await AuthServices().loginUser(
-                          email: "test@game.com",//emailController.text,
-                          password: "Test1234" //passwordController.text,
+                          email: emailController.text,
+                          password: passwordController.text,
                         );
                         if (message!.contains('login_successfull'.tr)) {
                           Navigator.of(context).pushReplacement(
@@ -216,6 +230,7 @@ class _LoginPageState extends State<LoginPage> {
               ],
             ),
           ),
+          //Button that when clicked navigates to SignupPage
           Align(
             alignment: Alignment.bottomCenter,
             child: Padding(

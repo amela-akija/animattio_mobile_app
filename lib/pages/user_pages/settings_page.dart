@@ -8,9 +8,21 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/// SettingsPage is the page where user can perform various operations.
+///
+/// This page contains of 4 buttons: one for changing the app language, one for changing user data,
+/// one for logging out of the app and one for deleting account.
+/// The layout includes decorative images positioned around the screen.
+/// 
 class SettingsPage extends StatefulWidget {
+  /// [localeController] is an instance of [LanguageController] used for managing language settings of the app.
+  ///
+  /// The [Get.put] method allows to create [LanguageController] instance only once and manage it byt GetX so
+  ///  the [localeController] can be accessed throughout the application without manually passing it to next pages.
+  ///
   final LanguageController localeController = Get.put(LanguageController());
 
+  /// Creates a [SettingsPage].
   SettingsPage({super.key});
 
   @override
@@ -20,26 +32,27 @@ class SettingsPage extends StatefulWidget {
 class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
-    //Strings
+    ///Strings used on page.
     String pageTitle = "settings".tr;
 
-    //Colors
+    /// Color definitions used throughout the page.
     Color buttonColor = const Color(0xFF2A470C);
     Color chooseColor = const Color(0xFFFEFFD9);
     Color pageColor = const Color(0xFF2A470C);
     Color fontColor = const Color(0xFFFEFFD9);
 
-    //Size
+    /// Size of the screen used for a responsive ui.
     dynamic deviceSize, height, width;
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
-
+    // Main UI of the page composed of multiple stacked elements.
     return Scaffold(
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
           Positioned(
+            //Image displayed in the background (star_avatar_1) positioned top right
             top: 0,
             right: 0,
             child: SizedBox(
@@ -53,6 +66,8 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+          //Image displayed in the background (star_avatar_2) positioned bottom left
+
           Positioned(
             left: 0,
             bottom: 0,
@@ -67,8 +82,9 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
+          //Title of the page
           Padding(
-            padding: const EdgeInsets.only(top:30),
+            padding: const EdgeInsets.only(top: 30),
             child: Align(
               alignment: Alignment.topCenter,
               child: Text(
@@ -89,6 +105,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 const SizedBox(height: 225),
                 SizedBox(
                   width: width * 0.75,
+                  //Button to change language of the app after pressing
                   child: ElevatedButton(
                     onPressed: () {
                       widget.localeController.swapLanguages();
@@ -121,6 +138,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 SizedBox(
                   width: width * 0.75,
+                  //Button to edit user data, navigates to EditProfilePage after pressing
                   child: ElevatedButton(
                     onPressed: () {
                       Navigator.of(context).push(
@@ -152,6 +170,7 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 SizedBox(
                   width: width * 0.75,
+                  //Button to sign out from app
                   child: ElevatedButton(
                     onPressed: () async {
                       await FirebaseAuth.instance.signOut();
@@ -184,9 +203,10 @@ class _SettingsPageState extends State<SettingsPage> {
                 ),
                 SizedBox(
                   width: width * 0.75,
+                  //Button to delete account
                   child: ElevatedButton(
                     onPressed: () async {
-                      showAlertDeleteDialog(context);
+                      showDeleteWindow(context);
                     },
                     style: TextButton.styleFrom(
                       backgroundColor: fontColor,
@@ -245,33 +265,42 @@ class _SettingsPageState extends State<SettingsPage> {
               ),
             ),
           ),
-           Positioned(
-                left: 0,
-                child: Padding(
-                padding: EdgeInsets.only(top: height * 0.05),
-                  child: Align(
-                    alignment: Alignment.center,
-                    child: IconButton(
-                      icon: const Icon(Icons.arrow_back),
-                      color: chooseColor,
-                      iconSize: 30,
-                      onPressed: () {
-                        Navigator.of(context).push(
-                            MaterialPageRoute(builder: (BuildContext context) {
-                          return const UserPage();
-                        },));
+          Positioned(
+            left: 0,
+            child: Padding(
+              padding: EdgeInsets.only(top: height * 0.05),
+              child: Align(
+                alignment: Alignment.center,
+                child: IconButton(
+                  icon: const Icon(Icons.arrow_back),
+                  color: chooseColor,
+                  iconSize: 30,
+                  onPressed: () {
+                    Navigator.of(context).push(MaterialPageRoute(
+                      builder: (BuildContext context) {
+                        return const UserPage();
                       },
-                    ),
-                  ),
+                    ));
+                  },
                 ),
               ),
+            ),
+          ),
         ],
       ),
     );
   }
 }
 
-showAlertDeleteDialog(BuildContext context) {
+/// [showDeleteWindow] displays a confirmation dialog to delete the account.
+///
+/// The [showDeleteWindow] function shows an [AlertDialog] that asks the user to confirm
+/// whether they want to delete their account. There are two buttons available: "No" to
+/// cancel the deletion process and "Yes" to proceed with account deletion and sign out.
+///
+///Deleted account is proccessed by the [DatabaseService] and moved to another collection.
+///
+showDeleteWindow(BuildContext context) {
   Widget noButton = TextButton(
     child: Text("no".tr),
     onPressed: () {
@@ -284,6 +313,7 @@ showAlertDeleteDialog(BuildContext context) {
   Widget continueButton = TextButton(
     child: Text("yes".tr),
     onPressed: () async {
+      //When pressed the button calls function that deletes the account from database and navigates to MainPage
       await DatabaseService().moveUserData();
       User? currentUser = FirebaseAuth.instance.currentUser;
       await FirebaseFirestore.instance
@@ -299,7 +329,7 @@ showAlertDeleteDialog(BuildContext context) {
       }));
     },
   );
-
+  //Delete confirmation dialog with two options
   AlertDialog alert = AlertDialog(
     title: Text("account_deletion".tr),
     content: Text("delete_info".tr),

@@ -4,34 +4,44 @@ import 'package:get/get.dart';
 import 'login_page.dart';
 import 'signup_page.dart';
 
-// Main page from which user can choose either to log in or to sign up
+/// MainPage is the starting point of the app from which the user can choose to either log in or sign up.
+///
+/// This page contains of two buttons: one for navigating to the login page and another
+/// for navigating to the sign-up page. The layout includes decorative images positioned
+/// around the screen, a language switcher, and a logo at the center.
+/// 
 class MainPage extends StatelessWidget {
-  // instance of localeController for button that switches languages
+  /// Instance of [LanguageController] for button that switches languages.
   final LanguageController localeController = Get.put(LanguageController());
+
+  /// Creates a [MainPage].
   MainPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    //Size
+    //Size of the screen used for a responsive ui.
     dynamic deviceSize, height, width;
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
 
-    //Colors
+    // Color definitions used throughout the page.
     Color pageColor = const Color(0xFFF7A559);
     Color buttonColor = const Color(0xFFF7A559);
     Color fontColor = const Color(0xFFFEFFD9);
 
-    //Strings
+    ///Strings used on page.
     String buttonSign = "sign_up".tr;
     String buttonLogin = "log_in".tr;
 
+    // Main UI of the page composed of multiple stacked elements.
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset:
+          false, //for elements to stay in place when keyboard is visible
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
+          //First image (star_main_2) positioned top right.
           Positioned(
             top: 0,
             right: 0,
@@ -49,6 +59,8 @@ class MainPage extends StatelessWidget {
               ),
             ),
           ),
+          //Second image (star_main_1) positioned top right on top of first image.
+
           Positioned(
             top: 0,
             right: 0,
@@ -66,6 +78,8 @@ class MainPage extends StatelessWidget {
               ),
             ),
           ),
+          //Third image (star_main_4) positioned bottom left.
+
           Positioned(
             bottom: 0,
             left: 0,
@@ -83,6 +97,8 @@ class MainPage extends StatelessWidget {
               ),
             ),
           ),
+          //Fourth image (star_main_3) positioned bottom left on top of third image.
+
           Positioned(
             bottom: 0,
             left: 0,
@@ -100,6 +116,7 @@ class MainPage extends StatelessWidget {
               ),
             ),
           ),
+          // Elevated button that navigates to LoginPage when pressed.
           Positioned(
             top: deviceSize.height * 0.75,
             width: deviceSize.width,
@@ -131,6 +148,8 @@ class MainPage extends StatelessWidget {
               ),
             ),
           ),
+          // Elevated button that navigates to SignupPage when pressed.
+
           Positioned(
             top: deviceSize.height * 0.85,
             width: deviceSize.width,
@@ -169,10 +188,11 @@ class MainPage extends StatelessWidget {
               width: width * 0.5,
             ),
           ),
+          //Button that changes app language when pressed.
           Positioned(
             width: deviceSize.width,
             child: Padding(
-            padding: EdgeInsets.only(top: height * 0.05),
+              padding: EdgeInsets.only(top: height * 0.05),
               child: Align(
                 alignment: Alignment.topRight,
                 child: TextButton(

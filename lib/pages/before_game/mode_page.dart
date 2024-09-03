@@ -3,8 +3,16 @@ import 'package:animattio_mobile_app/pages/before_game/theme_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/// ModePage is a page where user chooses in which mode the game should be played.
+///
+/// This page contains of a list of available modes.
+/// The layout includes decorative images positioned around the screen
+/// and a field where available modes are displayed. It includes arrows that help browse through available modes
+///  and a button to save chosen mode. [ModePage] class has one parameter [chosenTheme].
+///
 class ModePage extends StatefulWidget {
   final String chosenTheme;
+  /// Creates a [ModePage].
   const ModePage({super.key, required this.chosenTheme});
 
   @override
@@ -12,16 +20,30 @@ class ModePage extends StatefulWidget {
 }
 
 class _ChooseModeState extends State<ModePage> {
+  /// [modes] is a list of available modes
+  ///
   List<String> modes = ["mode1".tr, "mode2".tr];
+
+  /// Index of currently displayed mode.
   int currentMode = 0;
 
-  void _showNextMode() {
+  /// [showNextMode] navigates to the next mode in the [modes] and updates the displayed mode.
+  ///
+  /// The method increments the index of the current mode and uses modulo operation so
+  /// if it reaches the end of the list, the modes are repeated. With every new mode [setState] is called.
+  ///
+  void showNextMode() {
     setState(() {
       currentMode = (currentMode + 1) % modes.length;
     });
   }
 
-  void _showPreviousMode() {
+  /// [showPreviousMode] navigates to the previous mode in the [modes] and updates the displayed mode.
+  ///
+  /// The method decrements the index of the current mode and uses modulo operation so
+  /// if it reaches the beginning of the list, the modes are repeated. With every new mode [setState] is called.
+  ///
+  void showPreviousMode() {
     setState(() {
       currentMode = (currentMode - 1 + modes.length) % modes.length;
     });
@@ -29,29 +51,31 @@ class _ChooseModeState extends State<ModePage> {
 
   @override
   Widget build(BuildContext context) {
-    //Strings
+    ///Strings used on page.
     String themeTitle = "choose_mode".tr;
     String chosenMode = modes[currentMode];
 
-    //Colors
+    /// Color definitions used throughout the page.
     Color pageColor = const Color(0xFFF7A559);
     Color buttonColor = const Color(0xFFFEFFD9);
     Color fontColor = const Color(0xFFF7A559);
     Color arrowColor = const Color(0xFF2A470C);
     Color titleColor = const Color(0xFF2A470C);
 
-    //Size
+    ///Size of the screen used for a responsive ui.
     dynamic deviceSize, height, width;
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
 
+    /// Main UI of the page composed of multiple stacked elements.
     return Scaffold(
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
           Stack(
             children: [
+              //Button that allows the user to go back to ThemePage
               Positioned(
                 left: 0,
                 top: height * 0.05,
@@ -70,6 +94,7 @@ class _ChooseModeState extends State<ModePage> {
                   ),
                 ),
               ),
+              //Image positioned bottom left (star_mode_1)
               Positioned(
                 left: 0,
                 bottom: 0,
@@ -80,6 +105,7 @@ class _ChooseModeState extends State<ModePage> {
                   ),
                 ),
               ),
+              //Field where modes are displayed
               Center(
                 child: SizedBox(
                   width: width * 0.2,
@@ -92,6 +118,7 @@ class _ChooseModeState extends State<ModePage> {
                   ),
                 ),
               ),
+              //Image positioned top right (star_mode_2)
               Positioned(
                 right: 0,
                 top: 0,
@@ -105,8 +132,9 @@ class _ChooseModeState extends State<ModePage> {
               ),
             ],
           ),
+          //Title of page
           Positioned(
-            top: height*0.1,
+            top: height * 0.1,
             left: 0,
             right: 0,
             child: Center(
@@ -122,6 +150,7 @@ class _ChooseModeState extends State<ModePage> {
             ),
           ),
           Center(
+            //current mode
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               constraints: BoxConstraints(
@@ -143,20 +172,25 @@ class _ChooseModeState extends State<ModePage> {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
+                //Button that when pressed calls [showPreviousMode]
+
                 child: IconButton(
                   icon: Icon(Icons.arrow_left, color: arrowColor, size: 50),
-                  onPressed: _showPreviousMode,
+                  onPressed: showPreviousMode,
                 ),
               ),
               Align(
                 alignment: Alignment.centerRight,
+                //Button that when pressed calls [showNextMode]
+
                 child: IconButton(
                   icon: Icon(Icons.arrow_right, color: arrowColor, size: 50),
-                  onPressed: _showNextMode,
+                  onPressed: showNextMode,
                 ),
               ),
             ],
           ),
+          //Button that when pressed navigates user to StartGamePage and passes along two parameters which are chosenMode and chosenTheme
           Positioned(
             top: deviceSize.height * 0.75,
             width: deviceSize.width,

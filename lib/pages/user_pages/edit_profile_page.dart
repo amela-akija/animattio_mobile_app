@@ -5,7 +5,13 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/// EditProfilePage is the page where user can modify their account data.
+///
+/// This page contains of the same TextFields as in SignupPage but with user data by default.
+/// The layout includes decorative images positioned around the screen and a button to save the changes.
+///
 class EditProfilePage extends StatefulWidget {
+  /// Creates a [EditProfilePage].
   const EditProfilePage({super.key});
 
   @override
@@ -14,55 +20,71 @@ class EditProfilePage extends StatefulWidget {
 
 class _EditProfilePageState extends State<EditProfilePage> {
   final dbService = DatabaseService();
+
+  /// A [GlobalKey] that uniquely identifies the [FormState] of a form widget.
+  ///
+  /// The [_formKey] is used to validate inputs and save form data while pressing assigned button.
+  ///
   final GlobalKey<FormState> _formKey = GlobalKey();
 
+  /// Controllers for email and username inputs.
   final TextEditingController usernameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
+  /// [initState] is the first method invoked when the state object is inserted into the widget tree.
+  ///
+  /// The [initState] method is the first method invoked when the state object is inserted into the widget tree
+  /// It is used to call the [loadUserData] method, responsible for filling the input fields with user data from database
+  ///
   @override
   void initState() {
     super.initState();
-    _loadUserData();
+    loadUserData();
   }
 
-  Future<void> _loadUserData() async {
+  /// Future function [loadUserData] retrieves user data from [DatabaseService].
+  ///
+  ///It is used to set username and email controllers with values user provided during registration.
+  Future<void> loadUserData() async {
     Map<String, String> userData = await dbService.getUserData();
     usernameController.text = userData['username'] ?? '';
     emailController.text = userData['email'] ?? '';
   }
 
-  //Registration controllers
+  /// Controller for password inputs.
   final passwordController = TextEditingController();
-  final repeatPasswordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    //Strings
+    ///Strings used on page.
     String pageTitle = "update".tr;
 
-    //Colors
+    /// Color definitions used throughout the page.
     Color buttonColor = const Color(0xFFF7A559);
     Color textColor = const Color(0xFF2A470C);
     Color pageColor = const Color(0xFF2A470C);
     Color fontColor = const Color(0xFFFEFFD9);
     Color inputColor = const Color(0xFFFEFFD9);
 
-    //Size
+    /// Size of the screen used for a responsive ui.
     dynamic deviceSize, height, width;
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
-    
+    /// Main UI of the page composed of form container with multiple stacked elements.
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: pageColor,
-      body: Form(
+      body:
+          //Form consisting of 4 input fields similar to SignuPage
+          Form(
         key: _formKey,
         child: Column(
           children: [
             Expanded(
               child: Stack(
                 children: <Widget>[
+                  //Image positioned top right (star_avatar_1)
                   Positioned(
                     top: 0,
                     right: 0,
@@ -77,6 +99,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
+                  //Image positioned bottom left (star_avatar_2)
                   Positioned(
                     left: 0,
                     bottom: 0,
@@ -91,6 +114,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
+                  //Title of the page
                   Padding(
                     padding: const EdgeInsets.only(top: 25.0),
                     child: Align(
@@ -106,6 +130,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
+                  //Username text label
                   Positioned(
                     top: deviceSize.height * 0.22,
                     left: 0,
@@ -120,6 +145,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
+                  //Username text input
                   Positioned(
                     top: deviceSize.height * 0.25,
                     width: deviceSize.width,
@@ -157,6 +183,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                           ),
                           validator: (value) {
+                            ///Validation rule: Field cannot be empty.
                             if (value!.isEmpty) {
                               return null;
                             } else {
@@ -167,7 +194,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
-                   Positioned(
+                  //Email text label
+                  Positioned(
                     top: deviceSize.height * 0.37,
                     left: 0,
                     right: 0,
@@ -181,6 +209,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
+                  //Email text input
                   Positioned(
                     top: deviceSize.height * 0.40,
                     width: deviceSize.width,
@@ -218,18 +247,21 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                           ),
                           validator: (value) {
+                            ///Validation rules: field cannot be empty and must contain special character @.
+
                             if (value!.isEmpty) {
                               return null;
                             } else if (!value.contains("@")) {
                               return "email_format".tr;
                             }
-                            return null; //zmiana
+                            return null;
                           },
                         ),
                       ),
                     ),
                   ),
-                   Positioned(
+                  //Password text label
+                  Positioned(
                     top: deviceSize.height * 0.52,
                     left: 0,
                     right: 0,
@@ -243,6 +275,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
+                  //Password text input
                   Positioned(
                     top: deviceSize.height * 0.55,
                     width: deviceSize.width,
@@ -280,6 +313,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                             ),
                           ),
                           validator: (value) {
+                            ///Validation rules: field cannot be empty, it must contain one capital letter, one number
+                            ///and the length must be above 8 characters.
                             if (value!.isEmpty) {
                               return null;
                             } else if (value.length < 8) {
@@ -297,6 +332,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
+                  //Button for saving modified data
                   Positioned(
                     top: height * 0.8,
                     width: deviceSize.width,
@@ -306,9 +342,16 @@ class _EditProfilePageState extends State<EditProfilePage> {
                         alignment: Alignment.center,
                         child: ElevatedButton(
                           onPressed: () async {
+                            ///when pressed instance of [FirebaseAuth] is created and
+                            /// methods for updating user data are called asynchronously depending on which TextFields were modified
+                            ///
+                            /// After change in email or password the user is signed out and redirected to MainPage.
+                            /// Otherwise the user is navigated to UserPage after changing the data
+                            ///
                             FirebaseAuth firebaseAuth = FirebaseAuth.instance;
                             User? currentUser = firebaseAuth.currentUser;
-                             if (passwordController.text != '' && emailController.text != currentUser?.email) {
+                            if (passwordController.text != '' &&
+                                emailController.text != currentUser?.email) {
                               dbService.updateUserData(usernameController.text,
                                   emailController.text);
                               currentUser
@@ -320,8 +363,8 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 return MainPage();
                               }));
                               await FirebaseAuth.instance.signOut();
-                            }
-                            else if (emailController.text != currentUser?.email) {
+                            } else if (emailController.text !=
+                                currentUser?.email) {
                               dbService.updateUserData(usernameController.text,
                                   emailController.text);
                               currentUser?.verifyBeforeUpdateEmail(
@@ -341,9 +384,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                 return MainPage();
                               }));
                               await FirebaseAuth.instance.signOut();
-                            } 
-                            
-                            else {
+                            } else {
                               dbService.updateUserData(usernameController.text,
                                   emailController.text);
                               Navigator.of(context).push(MaterialPageRoute(

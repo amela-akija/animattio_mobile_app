@@ -4,7 +4,15 @@ import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/// SignupPage is the page where user can register.
+///
+/// This page contains of a register form: 4 TextFormFields for email, username, and two inputs for password.
+/// The layout includes button that when pressed navigates to LoginPage if the registration proccess
+/// was correct. It also includes decorative images positioned
+/// around the screen and a TextButton that navigates to LoginPage.
+///
 class SignupPage extends StatefulWidget {
+  /// Creates a [SignupPage].
   const SignupPage({super.key});
 
   @override
@@ -12,20 +20,30 @@ class SignupPage extends StatefulWidget {
 }
 
 class _SignupPageState extends State<SignupPage> {
+  /// Instance of [DatabaseService].
   final dbService = DatabaseService();
+
+  /// A [GlobalKey] that uniquely identifies the [FormState] of a form widget.
+  ///
+  /// The [_formKey] is used to validate inputs and save form data while pressing assigned button.
+  ///
   final GlobalKey<FormState> _formKey = GlobalKey();
 
-  //Registration controllers
+  /// Controllers for the email, username and password input fields.
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   final usernameController = TextEditingController();
   final repeatPasswordController = TextEditingController();
+
+  /// Default avatar when no avatar was chosen.
   final String avatar = 'assets/user_page/no_avatar.png';
 
+  /// Boolean flag that indicates if loading sign should be shown.
   bool showLoading = false;
 
   @override
   void dispose() {
+    // Disposes of the controllers when the widget is removed from the widget tree.
     emailController.dispose();
     passwordController.dispose();
     usernameController.dispose();
@@ -35,33 +53,37 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   Widget build(BuildContext context) {
-    //Size
+    //Size of the screen used for a responsive ui.
     dynamic deviceSize, height, width;
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
 
-    //Colors
+    // Color definitions used throughout the page.
     Color fontColor = const Color(0xFFFEFFD9);
     Color pageColor = const Color(0xFFF7A559);
     Color buttonColor = const Color(0xFFF7A559);
     Color inputColor = const Color(0xFFFEFFD9);
     Color textColor = const Color(0xFF2A470C);
 
-    //Strings
+    ///Strings used on page.
     String signUpTitle = "sign_up".tr;
     String toLogInString = "sign_to_log".tr;
-
+    // Main UI of the page composed of multiple stacked elements in Form container.
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset:
+          false, // for images to not move when keyboard is active
       backgroundColor: pageColor,
-      body: Form(
+      body:
+          //Registration form
+          Form(
         key: _formKey,
         child: Column(
           children: <Widget>[
             Expanded(
               child: Stack(
                 children: <Widget>[
+                  //Image displayed in the background (star_login)
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: SizedBox(
@@ -73,8 +95,10 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                   ),
+                  //Title of the page
                   Padding(
-                  padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.05),
+                    padding: EdgeInsets.only(
+                        top: MediaQuery.of(context).size.height * 0.05),
                     child: Align(
                       alignment: Alignment.topCenter,
                       child: Text(
@@ -88,6 +112,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                   ),
+                  //Username text input
                   Positioned(
                     top: deviceSize.height * 0.2,
                     width: deviceSize.width,
@@ -130,6 +155,7 @@ class _SignupPageState extends State<SignupPage> {
                                 vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
+                            ///Validation rule: Field cannot be empty.
                             if (value!.isEmpty) {
                               return "fields".tr;
                             } else {
@@ -140,6 +166,7 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                   ),
+                  //Email text input
                   Positioned(
                     top: deviceSize.height * 0.32,
                     width: deviceSize.width,
@@ -182,17 +209,19 @@ class _SignupPageState extends State<SignupPage> {
                                 vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
+                            ///Validation rules: field cannot be empty and must contain special character @.
                             if (value!.isEmpty) {
                               return "fields".tr;
                             } else if (!value.contains("@")) {
                               return "email_format".tr;
                             }
-                            return null; //zmiana
+                            return null;
                           },
                         ),
                       ),
                     ),
                   ),
+                  //Password text input
                   Positioned(
                     top: deviceSize.height * 0.44,
                     width: deviceSize.width,
@@ -235,6 +264,8 @@ class _SignupPageState extends State<SignupPage> {
                                 vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
+                            ///Validation rules: field cannot be empty, it must contain one capital letter, one number
+                            ///and the length must be above 8 characters.
                             if (value!.isEmpty) {
                               return "fields".tr;
                             } else if (value.length < 8) {
@@ -247,11 +278,12 @@ class _SignupPageState extends State<SignupPage> {
                               return null;
                             }
                           },
-                          obscureText: true,
+                          obscureText: true, //hides the characters
                         ),
                       ),
                     ),
                   ),
+                  //Second password text input
                   Positioned(
                     top: deviceSize.height * 0.56,
                     width: deviceSize.width,
@@ -294,6 +326,7 @@ class _SignupPageState extends State<SignupPage> {
                                 vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
+                            ///Validation rules: field cannot be empty and it must be the same value as provided in the first password TextFormField.
                             if (value!.isEmpty) {
                               return "fields".tr;
                             } else if (value != passwordController.text) {
@@ -307,14 +340,17 @@ class _SignupPageState extends State<SignupPage> {
                       ),
                     ),
                   ),
+                  //Button that registers the user if the form was correctly filled
                   Positioned(
                     top: deviceSize.height * 0.75,
                     width: deviceSize.width,
                     child: Center(
                       child: ElevatedButton(
+                        //When pressed validates the submitted data and registers user or show error messages
                         onPressed: () async {
                           if (_formKey.currentState!.validate()) {
                             setState(() {
+                              //show loading symbol while processing the data
                               showLoading = true;
                             });
                             await AuthServices().registerUser(
@@ -324,6 +360,7 @@ class _SignupPageState extends State<SignupPage> {
                                 avatar,
                                 context);
                             setState(() {
+                              //hide loading symbol when registration is complete
                               showLoading = false;
                             });
 
@@ -363,6 +400,7 @@ class _SignupPageState extends State<SignupPage> {
                 ],
               ),
             ),
+            //Button when pressed navigates to LoginPage
             Align(
               alignment: Alignment.bottomCenter,
               child: Padding(
@@ -393,13 +431,29 @@ class _SignupPageState extends State<SignupPage> {
   }
 }
 
+/// [RegisteredUser] is a class which objects represent registered user of the app.
+///
+/// It contains basic information about the user, including their username, email address,
+/// and their chosen avatar image.
 class RegisteredUser {
+  ///Username provided in registration.
   final String username;
+
+  ///Email provided in registration
   final String email;
+  // Default avatar - the user can later choose from AvatarPage.
   final String avatar;
 
+  /// Creates a [RegisteredUser] instance with provided [username], [email], and [avatar].
+  ///
+  /// All fields are required and must be provided when creating a new instance of [RegisteredUser].
   RegisteredUser(
       {required this.username, required this.email, required this.avatar});
+
+  /// Converts the [RegisteredUser] instance into a map
+  ///
+  /// Returns a map with keys corresponding to
+  /// the user's data.
   Map<String, dynamic> toMap() =>
       {"username": username, "email": email, "avatar": avatar};
 }
