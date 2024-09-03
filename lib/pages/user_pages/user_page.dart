@@ -86,7 +86,7 @@ class UserPage extends StatelessWidget {
                           child: Image.asset(
                             snapshot.data.toString(),
                             fit: BoxFit.contain,
-                            width: width * 0.33,
+                            width: width * 0.37,
                           ),
                         ),
                       ),

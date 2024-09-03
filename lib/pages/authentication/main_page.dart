@@ -6,6 +6,7 @@ import 'signup_page.dart';
 
 // Main page from which user can choose either to log in or to sign up
 class MainPage extends StatelessWidget {
+  // instance of localeController for button that switches languages
   final LanguageController localeController = Get.put(LanguageController());
   MainPage({super.key});
 

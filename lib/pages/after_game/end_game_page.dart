@@ -223,6 +223,8 @@ class _EndGamePageState extends State<EndGamePage> {
                       const SizedBox(width: 30),
                       ElevatedButton(
                         onPressed: () async {
+                          await dbService.moveGames1ToTests();
+                            await dbService.moveGames2ToTests();
                           Navigator.of(context).push(
                             MaterialPageRoute(builder: (BuildContext context) {
                               return const UserPage();
