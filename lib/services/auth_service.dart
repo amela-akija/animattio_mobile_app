@@ -26,13 +26,14 @@ class AuthServices {
   /// It requires 5 parameters: [email], [password], [username], [avatar] and [context].
   /// Upon filling the registration form it calls the method createUserWithEmailAndPassword which creates user instance in Firebase
   /// and then creates an instance of [RegisteredUser] class in Firestore collection connecting them by the [uid] parameter.
-  registerUser(email, password, String username, String avatar, context) async {
+  registerUser(email, password, String username, String avatar, String role,
+      context) async {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       String uid = userCredential.user!.uid;
-      RegisteredUser registeredUser =
-          RegisteredUser(username: username, email: email, avatar: avatar);
+      RegisteredUser registeredUser = RegisteredUser(
+          username: username, email: email, avatar: avatar, role: role);
       await fireStore.collection('users').doc(uid).set(registeredUser.toMap());
       return ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(successfullRegister.tr)));

@@ -38,6 +38,9 @@ class _SignupPageState extends State<SignupPage> {
   /// Default avatar when no avatar was chosen.
   final String avatar = 'assets/user_page/no_avatar.png';
 
+  /// Default role fo this app.
+  final String role = "patient";
+
   /// Boolean flag that indicates if loading sign should be shown.
   bool showLoading = false;
 
@@ -357,7 +360,7 @@ class _SignupPageState extends State<SignupPage> {
                                 emailController.text,
                                 passwordController.text,
                                 usernameController.text,
-                                avatar,
+                                avatar, role,
                                 context);
                             setState(() {
                               //hide loading symbol when registration is complete
@@ -433,7 +436,7 @@ class _SignupPageState extends State<SignupPage> {
 
 /// [RegisteredUser] is a class which objects represent registered user of the app.
 ///
-/// It contains basic information about the user, including their username, email address,
+/// It contains basic information about the user, including their username, email address, default role
 /// and their chosen avatar image.
 class RegisteredUser {
   ///Username provided in registration.
@@ -443,17 +446,22 @@ class RegisteredUser {
   final String email;
   // Default avatar - the user can later choose from AvatarPage.
   final String avatar;
+  // Default role patient;
+  final String role;
 
-  /// Creates a [RegisteredUser] instance with provided [username], [email], and [avatar].
+  /// Creates a [RegisteredUser] instance with provided [username], [email], [role] and [avatar].
   ///
   /// All fields are required and must be provided when creating a new instance of [RegisteredUser].
   RegisteredUser(
-      {required this.username, required this.email, required this.avatar});
+      {required this.username,
+      required this.email,
+      required this.avatar,
+      required this.role});
 
   /// Converts the [RegisteredUser] instance into a map
   ///
   /// Returns a map with keys corresponding to
   /// the user's data.
   Map<String, dynamic> toMap() =>
-      {"username": username, "email": email, "avatar": avatar};
+      {"username": username, "email": email, "avatar": avatar, "role": role};
 }
