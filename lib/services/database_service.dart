@@ -3,17 +3,21 @@ import 'dart:developer';
 import 'package:animattio_mobile_app/pages/during_game/start_game_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-// import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-// import 'package:get/get.dart';
-// import 'package:get/get.dart';
-// import 'package:permission_handler/permission_handler.dart';
 
+/// [DatabaseService] contains all of the method that fetch, update or delete data from database.
+///
 class DatabaseService {
+  /// Instance of [FirebaseFirestore] to interact with the database.
   final fireStore = FirebaseFirestore.instance;
+
+  /// [currentUser] is currently signed in user.
   User? currentUser = FirebaseAuth.instance.currentUser;
-  // late  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
-
+  /// [addAvatar] method is used to create [avatar] field.
+  ///
+  /// The method searches for an instance of [currentuser] and updates it with chosen by the user avatar
+  ///  and stores the value in [avatar] field.
+  ///
   addAvatar(String avatar) {
     try {
       var userCollection = fireStore.collection("users");
@@ -23,6 +27,37 @@ class DatabaseService {
     }
   }
 
+  /// [removeGamesWithoutResult] removes games that weren't completed by user.
+  ///
+  /// It checks if the game has a [result] field and if not it removes it from collection.
+  ///
+  Future<void> removeGamesWithoutResult() async {
+    CollectionReference gameCollection =
+        FirebaseFirestore.instance.collection("games");
+    User? currentUser = FirebaseAuth.instance.currentUser;
+    var uid = currentUser?.uid;
+
+    try {
+      QuerySnapshot userGames =
+          await gameCollection.where("id", isEqualTo: uid).get();
+
+      for (QueryDocumentSnapshot game in userGames.docs) {
+        Map<String, dynamic> data = game.data() as Map<String, dynamic>;
+
+        if (!data.containsKey("result")) {
+          await game.reference.delete();
+          print('Deleted game: ${game.id}');
+        }
+      }
+    } catch (e) {
+      print('Error: $e');
+    }
+  }
+
+  /// [updateUserData] method updates user's email and username.
+  ///
+  /// It has two parameters: [username] and [email] and replaces the old value of fields with the values provided by the parameters.
+  ///
   updateUserData(String username, String email) {
     try {
       var userCollection = fireStore.collection("users");
@@ -34,6 +69,11 @@ class DatabaseService {
     }
   }
 
+  /// [getUserData] retrieves the currently signed in user's data.
+  ///
+  ///   /// Returns:
+  /// - A [Map<String,String>] containing the values from the [email] and [username] fields.
+  ///
   Future<Map<String, String>> getUserData() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
 
@@ -52,6 +92,11 @@ class DatabaseService {
     return {'username': '', 'email': ''};
   }
 
+  /// [getAvatar] method retrieves currently signed in user's avatar.
+  ///
+  /// The method checks if user's data exists in database and returns
+  /// value of the [avatar] fields if it exists and if not default image path.
+  ///
   Future<String> getAvatar() async {
     try {
       var userCollection = fireStore.collection("users");
@@ -60,7 +105,7 @@ class DatabaseService {
         return currentUserData.data()?['avatar'] ??
             'assets/user_page/no_avatar.png';
       } else {
-        return "User doesn't exists"; //!!!
+        return "User doesn't exists";
       }
     } catch (e) {
       log(e.toString());
@@ -68,14 +113,23 @@ class DatabaseService {
     }
   }
 
+  /// [repeatGame] method is used to repeat game's settings.
+  ///
+  /// It fetches the last completed by user game's settings
+  ///   /// Returns:
+  /// - A [List<String>] containing the values from the [mode] and [theme] fields.
+  ///
   Future<List?> repeatGame() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
       String userId = currentUser!.uid;
       CollectionReference games =
           FirebaseFirestore.instance.collection('games');
-      QuerySnapshot lastGame =
-          await games.orderBy('timestamp', descending: true).where("id", isEqualTo: userId).limit(1).get(); // zmiana z id!!!!
+      QuerySnapshot lastGame = await games
+          .orderBy('timestamp', descending: true)
+          .where("id", isEqualTo: userId)
+          .limit(1)
+          .get();
       if (lastGame.docs.isNotEmpty) {
         DocumentSnapshot lastGameRef = lastGame.docs.first;
         var mode = lastGameRef["mode"];
@@ -84,12 +138,6 @@ class DatabaseService {
         modeAndTheme.add(mode);
         modeAndTheme.add(theme);
         return modeAndTheme;
-        // ChosenGame chosenGame =
-        //     ChosenGame(userId: userId, mode: mode, theme: theme);
-
-        // DocumentReference newGame =
-        //     await fireStore.collection('games').add(chosenGame.toMap());
-        // return newGame.id;
       } else {
         return null;
       }
@@ -99,12 +147,18 @@ class DatabaseService {
     }
   }
 
+  /// [addGame] method adds a new instance of [ChosenGame] to database.
+  ///
+  /// It consists of parameters: [userId], [mode], [theme] and adds a game to database
+  /// with currently signed in user's id and chosen by them mode and theme.
+  ///
   Future<String?> addGame(String userId, String mode, String theme) async {
     String chosenMode = '';
     try {
       if (mode ==
               "Kliknij na ekran tylko wtedy, gdy wyświetlony jest dany symbol" ||
-          mode == "Click on the screen only when given symbol is displayed" || mode == "mode1") {
+          mode == "Click on the screen only when given symbol is displayed" ||
+          mode == "mode1") {
         chosenMode = "mode1";
       } else {
         chosenMode = "mode2";
@@ -121,20 +175,24 @@ class DatabaseService {
     }
   }
 
-  deleteGame() {
-    try {
-      fireStore
-          .collection("games")
-          .orderBy('timestamp', descending: true)
-          .get()
-          .then((value) {
-        value.docs.first.reference.delete();
-      });
-    } catch (e) {
-      log(e.toString());
-    }
-  }
+  // deleteGame() {
+  //   try {
+  //     fireStore
+  //         .collection("games")
+  //         .orderBy('timestamp', descending: true)
+  //         .get()
+  //         .then((value) {
+  //       value.docs.first.reference.delete();
+  //     });
+  //   } catch (e) {
+  //     log(e.toString());
+  //   }
+  // }
 
+  /// [updateGameWithResult] is a methods that adds all of the calculated game parameters to a game document.
+  ///
+  /// It updates the currently played game with the fields: [result], [images], [comission], [omission], [hitRate], [rT] and [intervals].
+  ///
   updateGameWithResult(List<bool> result, List<String> images, int comission,
       int omission, int hitRate, List<int> rT, List<int> intervals) {
     try {
@@ -158,6 +216,10 @@ class DatabaseService {
     }
   }
 
+  /// [updateGameWithStimuli] is a method that adds to game randomly chosen stimuli.
+  ///
+  /// It updates the currently played game with the field [stimuli].
+  ///
   updateGameWithStimuli(String stimuli) {
     try {
       fireStore
@@ -172,6 +234,8 @@ class DatabaseService {
     }
   }
 
+  /// [moveUserData] is method thar removes current user's data from users collection and inserts it into deleted users collection.
+  ///
   Future<void> moveUserData() async {
     try {
       DocumentSnapshot userData = await FirebaseFirestore.instance
@@ -188,6 +252,11 @@ class DatabaseService {
     }
   }
 
+  /// [countPlayedGames1] method counts how many games in mode 1 were played by user.
+  ///
+  ///   /// Returns:
+  /// - A [Future<int?>] which is the amount of games played in mode 1.
+  ///
   Future<int?> countPlayedGames1() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
@@ -207,6 +276,11 @@ class DatabaseService {
     }
   }
 
+  /// [countPlayedGames2] method counts how many games in mode 2 were played by user.
+  ///
+  ///   /// Returns:
+  /// - A [Future<int?>] which is the amount of games played in mode 2.
+  ///
   Future<int?> countPlayedGames2() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
@@ -226,7 +300,11 @@ class DatabaseService {
     }
   }
 
-
+  /// [moveGames1ToTests] method moves 6 completed games in mode 1 by user to tests collection.
+  ///
+  /// It adds 6 completed games to a list while removing them from games collection.
+  /// It then passes the list of games as a field in tests collection.
+  ///
   Future<void> moveGames1ToTests() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
@@ -235,10 +313,9 @@ class DatabaseService {
 
       QuerySnapshot games1 = await gamesCollection
           .where('mode', isEqualTo: "mode1")
-          .where('id', isEqualTo:  userId)
+          .where('id', isEqualTo: userId)
           .get();
       List<QueryDocumentSnapshot> games = games1.docs;
-
 
       // ignore: unused_local_variable
       int count = 1;
@@ -257,7 +334,6 @@ class DatabaseService {
           await testsCollection.add({
             'games in test': test,
           });
-          // await _showNotification();
           count++;
 
           for (var deletedGame in gamesToDelete) {
@@ -270,31 +346,29 @@ class DatabaseService {
       }
 
       if (test.isNotEmpty) {
-        print(
-            'games ${test.length}');
+        print('games ${test.length}');
       }
     } catch (e) {
       print(e.toString());
     }
   }
 
+  /// [moveGames1ToTests] method moves 6 completed games in mode 2 by user to tests collection.
+  ///
+  /// It adds 6 completed games to a list while removing them from games collection.
+  /// It then passes the list of games as a field in tests collection.
+  ///
   Future<void> moveGames2ToTests() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
       String userId = currentUser!.uid;
       final gamesCollection = FirebaseFirestore.instance.collection('games');
 
-      QuerySnapshot games2 =
-          await gamesCollection
+      QuerySnapshot games2 = await gamesCollection
           .where('mode', isEqualTo: "mode2")
           .where('id', isEqualTo: userId)
           .get();
       List<QueryDocumentSnapshot> games = games2.docs;
-      // List<QueryDocumentSnapshot> games = games2.docs.where((doc) {
-        // return doc['result'] != null;
-      // }).toList();
-
-      // ignore: unused_local_variable
       int count = 1;
 
       List<Map<String, dynamic>> test = [];
@@ -311,7 +385,6 @@ class DatabaseService {
           await testsCollection.add({
             'games in test': test,
           });
-                    // await _showNotification();
 
           count++;
 
@@ -325,8 +398,7 @@ class DatabaseService {
       }
 
       if (test.isNotEmpty) {
-        print(
-            'games 2: ${test.length}');
+        print('games 2: ${test.length}');
       }
     } catch (e) {
       print(e.toString());

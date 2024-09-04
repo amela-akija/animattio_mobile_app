@@ -33,7 +33,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
 
   /// [initState] is the first method invoked when the state object is inserted into the widget tree.
   ///
-  /// The [initState] method is the first method invoked when the state object is inserted into the widget tree
   /// It is used to call the [loadUserData] method, responsible for filling the input fields with user data from database
   ///
   @override

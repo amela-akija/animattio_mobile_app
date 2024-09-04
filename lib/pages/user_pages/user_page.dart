@@ -169,7 +169,8 @@ class UserPage extends StatelessWidget {
                   width: width * 0.5,
                   //Button that when pressed navigates to ThemePage
                   child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: () async{
+                      await DatabaseService().removeGamesWithoutResult();
                       Navigator.of(context).push(
                           MaterialPageRoute(builder: (BuildContext context) {
                         return const ThemePage();

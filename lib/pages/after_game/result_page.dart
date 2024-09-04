@@ -3,13 +3,31 @@ import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+/// ResultPage is a page where the result of the game is displayed.
+///
+/// This page contains of a Listbuilder with images and messages whether the image was tapped or not.
+///  [ResultPage] has six parameters [tappedImages], [shownImages], [stimuli], [reactionTimes], [intervals] and [mode].
+///
 class ResultPage extends StatefulWidget {
+  /// [tappedImages] list contains information about indexes of the images that were tapped during the game.
   final List<bool> tappedImages;
+
+  /// [shownImages] list contains all of the images that were shown during the game.
   final List<String> shownImages;
+
+  /// [stimuli] is the randomly chosen image in InstructionPage.
   final String stimuli;
+
+  /// [mode] is the chosen mode in ModePage.
   final String mode;
+
+  /// [reactionTimes] list contains all of the reaction times that were calculated during the game.
   final List<int> reactionTimes;
+
+  /// [intervals] list contains information about the order of intervals.
   final List<int> intervals;
+
+  /// Creates a [ResultPage].
   const ResultPage(
       {super.key,
       required this.shownImages,
@@ -28,26 +46,33 @@ class _ResultPageState extends State<ResultPage> {
   Widget build(BuildContext context) {
     final dbService = DatabaseService();
 
-    //Colors
+    /// Color definitions used throughout the page.
     Color pageColor = const Color(0xFF2A470C);
     Color fontColor = const Color(0xFFFEFFD9);
     Color incorrectColor = const Color.fromARGB(255, 241, 46, 46);
     Color correctColor = const Color.fromARGB(255, 46, 241, 88);
     Color resultColor = const Color(0xFFFEFFD9);
 
+    /// [ignoreFirstValue] is a [tappedImages] list without the first element.
     List<bool> ignoreFirstValue = widget.tappedImages.sublist(1);
 
-     //Size
+    ///Size of the screen used for a responsive ui.
     dynamic deviceSize, height;
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
 
-    //Parameters
-    int omissionErrors = 0; // stimuli was shown but no reaction
-    int commisionErrors =
-        0; // non stimuli was shown and there was a reaction - false alarm
-    int hitRate = 0; // stimuli was shown and there was a reaction
+    /// Collected parameters
+    int omissionErrors = 0;
 
+    /// stimuli was shown but no reaction
+    int commisionErrors = 0;
+
+    /// non stimuli was shown and there was a reaction - false alarm
+    int hitRate = 0;
+
+    /// stimuli was shown and there was a reaction
+    /// The parameters are calculated according to chosen [mode]
+    ///
     if (widget.mode == "mode1".tr) {
       for (int i = 0; i < ignoreFirstValue.length; i++) {
         if (ignoreFirstValue[i] == true) {
@@ -78,19 +103,21 @@ class _ResultPageState extends State<ResultPage> {
       }
     }
 
+    /// Main UI of the page composed of multiple stacked elements.
     return Scaffold(
       backgroundColor: pageColor,
       body: Stack(
         children: [
+          /// Listview builder containg result
           Positioned(
             top: 30,
             left: 0,
             right: 0,
             bottom: 0,
             child: ListView.builder(
-              // Incorrect use of ParentDataWidget.
               itemCount: widget.shownImages.length,
               itemBuilder: (context, index) {
+                /// All of comission errors and emission errors are displayed in red and hit rate is displayed in green.
                 if (widget.mode == "mode1".tr || widget.mode == "mode1") {
                   if (widget.shownImages[index] == widget.stimuli) {
                     if (ignoreFirstValue[index] == true) {
@@ -122,6 +149,7 @@ class _ResultPageState extends State<ResultPage> {
                 }
 
                 return Row(
+                  // Shown images
                   children: [
                     Expanded(
                       child: Image.asset(
@@ -131,6 +159,7 @@ class _ResultPageState extends State<ResultPage> {
                       ),
                     ),
                     Expanded(
+                      // Information wether certain image was tapped or not
                       child: Text(
                         ignoreFirstValue[index] ? 'tapped'.tr : 'not_tapped'.tr,
                         style: TextStyle(
@@ -149,11 +178,12 @@ class _ResultPageState extends State<ResultPage> {
             padding: EdgeInsets.only(top: height * 0.06),
             child: Align(
               alignment: Alignment.topRight,
+              // Button that when pressed calls method that updates game with result and navigates to EndGamePage
               child: TextButton(
                 onPressed: () async {
                   await dbService.updateGameWithResult(
-                      ignoreFirstValue, //?
-                      widget.shownImages, //?
+                      ignoreFirstValue,
+                      widget.shownImages,
                       commisionErrors,
                       omissionErrors,
                       hitRate,
