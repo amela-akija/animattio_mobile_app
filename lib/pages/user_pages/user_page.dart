@@ -98,15 +98,15 @@ class UserPage extends StatelessWidget {
                     (BuildContext context, AsyncSnapshot<String> snapshot) {
                   if (snapshot.hasData) {
                     return Positioned(
-                      bottom: height * 0.42,
+                      bottom: height * 0.45,
                       child: Padding(
-                        padding: EdgeInsets.only(top: height * 0.15),
+                        padding: EdgeInsets.only(top: height * 0.15,),
                         child: SizedBox(
-                          height: height * 0.3,
+                          height: height * 0.29,
                           child: Image.asset(
                             snapshot.data.toString(),
                             fit: BoxFit.contain,
-                            width: width * 0.37,
+                            width: width * 0.32,
                           ),
                         ),
                       ),
@@ -134,7 +134,7 @@ class UserPage extends StatelessWidget {
                     fontFamily: 'Lilita One',
                   ),
                 ),
-                SizedBox(height: height * 0.55), // in the middle of page
+                SizedBox(height: height * 0.42), // in the middle of page
                 SizedBox(
                   width: width * 0.5,
                   //Button that when pressed navigates to AvatarPage
