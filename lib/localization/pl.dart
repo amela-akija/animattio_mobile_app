@@ -58,5 +58,5 @@ const Map<String, String> pl = {
   "notification":
       "Ukończono 6 gier w jednym z dostępnych trybów. Twój wynik jest teraz analizowany przez Twojego lekarza. Tak trzymaj!",
   "result_message":
-      "Tutaj śledzimy wszystkie ukończone przez Ciebie gry. Co szóstą grę wyniki zostaną wysłane do Twojego lekarza w celu analizy"
+      "Tutaj widoczne są wszystkie ukończone przez Ciebie gry. Co szóstą grę wyniki zostaną wysłane do Twojego lekarza w celu analizy"
 };
