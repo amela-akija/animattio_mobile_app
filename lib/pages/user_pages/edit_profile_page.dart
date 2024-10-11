@@ -47,7 +47,6 @@ class _EditProfilePageState extends State<EditProfilePage> {
   Future<void> loadUserData() async {
     Map<String, String> userData = await dbService.getUserData();
     usernameController.text = userData['username'] ?? '';
-    emailController.text = userData['email'] ?? '';
   }
 
   /// Controller for password inputs.
@@ -129,71 +128,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
-                  //Username text label
-                  Positioned(
-                    top: deviceSize.height * 0.22,
-                    left: 0,
-                    right: 0,
-                    child: Text(
-                      "enter_new_username".tr,
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: fontColor,
-                        fontSize: 12,
-                        fontFamily: 'Fredoka',
-                      ),
-                    ),
-                  ),
-                  //Username text input
-                  Positioned(
-                    top: deviceSize.height * 0.25,
-                    width: deviceSize.width,
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                              color: Colors.black.withOpacity(0.2),
-                              spreadRadius: 1,
-                              blurRadius: 2,
-                              offset: const Offset(0, 5),
-                            ),
-                          ],
-                        ),
-                        child: TextFormField(
-                          controller: usernameController,
-                          style: TextStyle(color: textColor),
-                          decoration: InputDecoration(
-                            filled: true,
-                            fillColor: inputColor,
-                            border: OutlineInputBorder(
-                              borderSide: BorderSide(color: inputColor),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: inputColor),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: inputColor),
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                          ),
-                          validator: (value) {
-                            ///Validation rule: Field cannot be empty.
-                            if (value!.isEmpty) {
-                              return null;
-                            } else {
-                              return null;
-                            }
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
-                  //Email text label
+                  // //Email text label
                   Positioned(
                     top: deviceSize.height * 0.37,
                     left: 0,
@@ -208,7 +143,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       ),
                     ),
                   ),
-                  //Email text input
+                  // //Email text input
                   Positioned(
                     top: deviceSize.height * 0.40,
                     width: deviceSize.width,
@@ -340,58 +275,49 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       child: Align(
                         alignment: Alignment.center,
                         child: ElevatedButton(
-                          onPressed: () async {
-                            ///when pressed instance of [FirebaseAuth] is created and
+                           ///when pressed instance of [FirebaseAuth] is created and
                             /// methods for updating user data are called asynchronously depending on which TextFields were modified
                             ///
                             /// After change in email or password the user is signed out and redirected to MainPage.
                             /// Otherwise the user is navigated to UserPage after changing the data
                             ///
-                            FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-                            User? currentUser = firebaseAuth.currentUser;
-                            if (passwordController.text != '' &&
-                                emailController.text != currentUser?.email) {
-                              dbService.updateUserData(usernameController.text,
-                                  emailController.text);
-                              currentUser
-                                  ?.updatePassword(passwordController.text);
-                              currentUser?.verifyBeforeUpdateEmail(
-                                  emailController.text);
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                return MainPage();
-                              }));
-                              await FirebaseAuth.instance.signOut();
-                            } else if (emailController.text !=
-                                currentUser?.email) {
-                              dbService.updateUserData(usernameController.text,
-                                  emailController.text);
-                              currentUser?.verifyBeforeUpdateEmail(
-                                  emailController.text);
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                return MainPage();
-                              }));
-                              await FirebaseAuth.instance.signOut();
-                            } else if (passwordController.text != '') {
-                              dbService.updateUserData(usernameController.text,
-                                  emailController.text);
-                              currentUser
-                                  ?.updatePassword(passwordController.text);
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                return MainPage();
-                              }));
-                              await FirebaseAuth.instance.signOut();
-                            } else {
-                              dbService.updateUserData(usernameController.text,
-                                  emailController.text);
-                              Navigator.of(context).push(MaterialPageRoute(
-                                  builder: (BuildContext context) {
-                                return const UserPage();
-                              }));
-                            }
-                          },
+                          onPressed: () async {
+  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+  User? currentUser = firebaseAuth.currentUser;
+
+  try {
+    // Update both email and password
+    if (passwordController.text.isNotEmpty && emailController.text.isNotEmpty) {
+      await currentUser?.updatePassword(passwordController.text);
+      await currentUser?.verifyBeforeUpdateEmail(emailController.text);
+      
+      await firebaseAuth.signOut(); // Sign out after changes
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainPage()));
+    
+    // Update email only
+    } else if (emailController.text.isNotEmpty) {
+      await currentUser?.verifyBeforeUpdateEmail(emailController.text);
+      
+      await firebaseAuth.signOut(); // Sign out after email change
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainPage()));
+    
+    // Update password only
+    } else if (passwordController.text.isNotEmpty) {
+      await currentUser?.updatePassword(passwordController.text);
+      
+      await firebaseAuth.signOut(); // Sign out after password change
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainPage()));
+    
+    // No changes, go to UserPage
+    } else {
+      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const UserPage()));
+    }
+  } catch (error) {
+    print('Error updating profile: $error');
+    // Handle errors and provide feedback to the user if needed
+  }
+},
+
                           style: TextButton.styleFrom(
                             backgroundColor: fontColor,
                             padding: const EdgeInsets.symmetric(

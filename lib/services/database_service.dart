@@ -27,6 +27,19 @@ class DatabaseService {
     }
   }
 
+/// [checkIfUsernameExists] method is used to ensure all usernames in database are unique.
+  ///
+  /// The method checks if [username] field in any of the documents of [users] collection is equal to provided username.
+  ///
+    static Future<bool> checkIfUsernameExists(String username) async {
+    final usersCollection = await FirebaseFirestore.instance
+        .collection('users')
+        .where('username', isEqualTo: username)
+        .get();
+
+    return usersCollection.docs.isNotEmpty;
+  }
+
   /// [removeGamesWithoutResult] removes games that weren't completed by user.
   ///
   /// It checks if the game has a [result] field and if not it removes it from collection.
@@ -54,25 +67,12 @@ class DatabaseService {
     }
   }
 
-  /// [updateUserData] method updates user's email and username.
-  ///
-  /// It has two parameters: [username] and [email] and replaces the old value of fields with the values provided by the parameters.
-  ///
-  updateUserData(String username, String email) {
-    try {
-      var userCollection = fireStore.collection("users");
-      userCollection
-          .doc(currentUser?.uid)
-          .update({'username': username, "email": email});
-    } catch (e) {
-      log(e.toString());
-    }
-  }
+
 
   /// [getUserData] retrieves the currently signed in user's data.
   ///
   ///   /// Returns:
-  /// - A [Map<String,String>] containing the values from the [email] and [username] fields.
+  /// - A [Map<String,String>] containing the values from the [username] field.
   ///
   Future<Map<String, String>> getUserData() async {
     User? currentUser = FirebaseAuth.instance.currentUser;
@@ -84,12 +84,10 @@ class DatabaseService {
           .get();
 
       String username = userData['username'];
-      String email = userData['email'];
-
-      return {'username': username, 'email': email};
+      return {'username': username};
     }
 
-    return {'username': '', 'email': ''};
+    return {'username': ''};
   }
 
   /// [getAvatar] method retrieves currently signed in user's avatar.

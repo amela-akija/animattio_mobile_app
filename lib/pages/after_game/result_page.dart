@@ -197,7 +197,7 @@ class _ResultPageState extends State<ResultPage> {
                   );
                 },
                 child: Text(
-                  'continue'.tr,
+                  'save'.tr,
                   style: TextStyle(
                     color: fontColor,
                     fontSize: 22,

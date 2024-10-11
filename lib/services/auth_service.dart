@@ -33,7 +33,7 @@ class AuthServices {
           .createUserWithEmailAndPassword(email: email, password: password);
       String uid = userCredential.user!.uid;
       RegisteredUser registeredUser = RegisteredUser(
-          username: username, email: email, avatar: avatar, role: role);
+          username: username, avatar: avatar, role: role);
       await fireStore.collection('users').doc(uid).set(registeredUser.toMap());
       return ScaffoldMessenger.of(context)
           .showSnackBar(SnackBar(content: Text(successfullRegister.tr)));

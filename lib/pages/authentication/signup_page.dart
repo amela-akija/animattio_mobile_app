@@ -1,6 +1,7 @@
 import 'package:animattio_mobile_app/pages/authentication/login_page.dart';
 import 'package:animattio_mobile_app/services/auth_service.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -158,7 +159,6 @@ class _SignupPageState extends State<SignupPage> {
                                 vertical: 10, horizontal: 10),
                           ),
                           validator: (value) {
-                            ///Validation rule: Field cannot be empty.
                             if (value!.isEmpty) {
                               return "fields".tr;
                             } else {
@@ -351,6 +351,18 @@ class _SignupPageState extends State<SignupPage> {
                       child: ElevatedButton(
                         //When pressed validates the submitted data and registers user or show error messages
                         onPressed: () async {
+                          // Check if username is unique
+                          bool uniqueUsername =
+                              await DatabaseService.checkIfUsernameExists(
+                                  usernameController.text);
+
+                          if (uniqueUsername) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                  content: Text("username_found".tr)),
+                            );
+                            return;
+                          }
                           if (_formKey.currentState!.validate()) {
                             setState(() {
                               //show loading symbol while processing the data
@@ -360,7 +372,8 @@ class _SignupPageState extends State<SignupPage> {
                                 emailController.text,
                                 passwordController.text,
                                 usernameController.text,
-                                avatar, role,
+                                avatar,
+                                role,
                                 context);
                             setState(() {
                               //hide loading symbol when registration is complete
@@ -442,26 +455,21 @@ class RegisteredUser {
   ///Username provided in registration.
   final String username;
 
-  ///Email provided in registration
-  final String email;
   // Default avatar - the user can later choose from AvatarPage.
   final String avatar;
   // Default role patient;
   final String role;
 
-  /// Creates a [RegisteredUser] instance with provided [username], [email], [role] and [avatar].
+  /// Creates a [RegisteredUser] instance with provided [username], [role] and [avatar].
   ///
   /// All fields are required and must be provided when creating a new instance of [RegisteredUser].
   RegisteredUser(
-      {required this.username,
-      required this.email,
-      required this.avatar,
-      required this.role});
+      {required this.username, required this.avatar, required this.role});
 
   /// Converts the [RegisteredUser] instance into a map
   ///
   /// Returns a map with keys corresponding to
   /// the user's data.
   Map<String, dynamic> toMap() =>
-      {"username": username, "email": email, "avatar": avatar, "role": role};
+      {"username": username, "avatar": avatar, "role": role};
 }

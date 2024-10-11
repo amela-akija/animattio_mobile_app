@@ -49,6 +49,7 @@ class _InstructionPageState extends State<InstructionPage> {
     String instructionMode1 = "instructionMode1".tr;
     String instructionMode2 = "instructionMode2".tr;
     String message = "message".tr;
+    String message2 = "message2".tr;
 
     /// Color definitions used throughout the page.
     Color pageColor = const Color(0xFFFEFFD9);
@@ -100,6 +101,22 @@ class _InstructionPageState extends State<InstructionPage> {
                 );
               }
             }),
+              // Message informing to save the game
+            Padding(
+              padding: const EdgeInsets.only(bottom: 5),
+              child: Align(
+                alignment: Alignment.topCenter,
+                child: Text(
+                  message2,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: textColor,
+                    fontSize: 18,
+                    fontFamily: 'Fredoka',
+                  ),
+                ),
+              ),
+            ),
             // Message informing to tap the screen to continue
             Padding(
               padding: const EdgeInsets.only(bottom: 10),

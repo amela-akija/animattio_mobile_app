@@ -1,6 +1,7 @@
 import 'package:animattio_mobile_app/pages/user_pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 /// AvatarPage is a page that allows user to pick an avatar.
 ///
@@ -62,8 +63,8 @@ class _ChosenAvatarState extends State<AvatarPage> {
   @override
   Widget build(BuildContext context) {
     ///Strings used on page.
-    String pageTitle = "Choose your avatar";
-    String chooseButton = "Choose";
+    String pageTitle = "choose_avatar".tr;
+    String chooseButton = "choose".tr;
     String avatar = listOfAvatars[currentAvatar];
 
     /// Color definitions used throughout the page.
