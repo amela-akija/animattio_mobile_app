@@ -201,11 +201,11 @@ class DatabaseService {
           .then((value) {
         value.docs.first.reference.update({
           'result': result,
-          'shown images': images,
-          'comission errors': comission,
-          "omission errors": omission,
-          "hit rate": hitRate,
-          "reaction times": rT,
+          'shownImages': images,
+          'comissionErrors': comission,
+          "omissionErrors": omission,
+          "hitRate": hitRate,
+          "reactionTimes": rT,
           "intervals": intervals
         });
       });
@@ -330,7 +330,7 @@ class DatabaseService {
               FirebaseFirestore.instance.collection('tests');
 
           await testsCollection.add({
-            'games in test': test,
+            'gamesInTest': test,
           });
           count++;
 
@@ -381,7 +381,7 @@ class DatabaseService {
               FirebaseFirestore.instance.collection('tests');
 
           await testsCollection.add({
-            'games in test': test,
+            'gamesInTest': test,
           });
 
           count++;

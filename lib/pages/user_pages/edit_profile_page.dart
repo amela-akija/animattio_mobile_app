@@ -69,6 +69,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
+
     /// Main UI of the page composed of form container with multiple stacked elements.
     return Scaffold(
       resizeToAvoidBottomInset: false,
@@ -275,48 +276,55 @@ class _EditProfilePageState extends State<EditProfilePage> {
                       child: Align(
                         alignment: Alignment.center,
                         child: ElevatedButton(
-                           ///when pressed instance of [FirebaseAuth] is created and
-                            /// methods for updating user data are called asynchronously depending on which TextFields were modified
-                            ///
-                            /// After change in email or password the user is signed out and redirected to MainPage.
-                            /// Otherwise the user is navigated to UserPage after changing the data
-                            ///
+                          ///when pressed instance of [FirebaseAuth] is created and
+                          /// methods for updating user data are called asynchronously depending on which TextFields were modified
+                          ///
+                          /// After change in email or password the user is signed out and redirected to MainPage.
+                          /// Otherwise the user is navigated to UserPage after changing the data
+                          ///
                           onPressed: () async {
-  FirebaseAuth firebaseAuth = FirebaseAuth.instance;
-  User? currentUser = firebaseAuth.currentUser;
+                            FirebaseAuth firebaseAuth = FirebaseAuth.instance;
+                            User? currentUser = firebaseAuth.currentUser;
 
-  try {
-    // Update both email and password
-    if (passwordController.text.isNotEmpty && emailController.text.isNotEmpty) {
-      await currentUser?.updatePassword(passwordController.text);
-      await currentUser?.verifyBeforeUpdateEmail(emailController.text);
-      
-      await firebaseAuth.signOut(); // Sign out after changes
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainPage()));
-    
-    // Update email only
-    } else if (emailController.text.isNotEmpty) {
-      await currentUser?.verifyBeforeUpdateEmail(emailController.text);
-      
-      await firebaseAuth.signOut(); // Sign out after email change
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainPage()));
-    
-    // Update password only
-    } else if (passwordController.text.isNotEmpty) {
-      await currentUser?.updatePassword(passwordController.text);
-      
-      await firebaseAuth.signOut(); // Sign out after password change
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => MainPage()));
-    
-    // No changes, go to UserPage
-    } else {
-      Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => const UserPage()));
-    }
-  } catch (error) {
-    print('Error updating profile: $error');
-    // Handle errors and provide feedback to the user if needed
-  }
-},
+                            try {
+                              // Update both email and password
+                              if (passwordController.text.isNotEmpty &&
+                                  emailController.text.isNotEmpty) {
+                                await currentUser
+                                    ?.updatePassword(passwordController.text);
+                                await currentUser?.verifyBeforeUpdateEmail(
+                                    emailController.text);
+
+                                await firebaseAuth.signOut();
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => MainPage()));
+                              } else if (emailController.text.isNotEmpty) {
+                                await currentUser?.verifyBeforeUpdateEmail(
+                                    emailController.text);
+
+                                await firebaseAuth.signOut();
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => MainPage()));
+                              } else if (passwordController.text.isNotEmpty) {
+                                await currentUser
+                                    ?.updatePassword(passwordController.text);
+
+                                await firebaseAuth.signOut();
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) => MainPage()));
+                              } else {
+                                Navigator.of(context).pushReplacement(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const UserPage()));
+                              }
+                            } catch (error) {
+                              print('Error updating profile: $error');
+                            }
+                          },
 
                           style: TextButton.styleFrom(
                             backgroundColor: fontColor,
