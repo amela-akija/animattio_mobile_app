@@ -307,16 +307,23 @@ class _GamePageState extends State<GamePage> {
   ///  The method checks the value of [lastIndex] and then sets the value of [tappedImages] with given index to true
   ///  indicating that image with this index was tapped.
   ///
-  void tappedImage() {
+void tappedImage() {
+  if (!tappedImages[lastIndex]) {
     endTime = DateTime.now();
     reactionTime = endTime!.difference(startTime!);
     rT = reactionTime?.inMilliseconds;
+    
     print("reaction time $reactionTime");
     reactionTimes.add(rT!);
     tappedImages[lastIndex] = true;
+    
     // ignore: avoid_print
     print("Tapped image $lastIndex");
+  } else {
+    print("Image $lastIndex already tapped");
   }
+}
+
 
   @override
 

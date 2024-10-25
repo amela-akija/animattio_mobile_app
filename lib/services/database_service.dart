@@ -189,9 +189,9 @@ class DatabaseService {
 
   /// [updateGameWithResult] is a methods that adds all of the calculated game parameters to a game document.
   ///
-  /// It updates the currently played game with the fields: [result], [images], [comission], [omission], [hitRate], [rT] and [intervals].
+  /// It updates the currently played game with the fields: [result], [images], [commission], [omission], [hitRate], [rT] and [intervals].
   ///
-  updateGameWithResult(List<bool> result, List<String> images, int comission,
+  updateGameWithResult(List<bool> result, List<String> images, int commission,
       int omission, int hitRate, List<int> rT, List<int> intervals) {
     try {
       fireStore
@@ -202,7 +202,7 @@ class DatabaseService {
         value.docs.first.reference.update({
           'result': result,
           'shownImages': images,
-          'comissionErrors': comission,
+          'commissionErrors': commission,
           "omissionErrors": omission,
           "hitRate": hitRate,
           "reactionTimes": rT,
@@ -331,6 +331,8 @@ class DatabaseService {
 
           await testsCollection.add({
             'gamesInTest': test,
+            'userId': userId,
+
           });
           count++;
 
@@ -382,6 +384,8 @@ class DatabaseService {
 
           await testsCollection.add({
             'gamesInTest': test,
+            'userId': userId,
+            
           });
 
           count++;
