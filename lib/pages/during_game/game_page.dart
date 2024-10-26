@@ -34,6 +34,9 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
   /// [currentImage] is the currently displayed image.
   String? currentImage;
+  /// [lastShownImage] is the last displayed image.
+  String? lastShownImage;
+
 
   /// [shownImages] is a list of all of the images that were shown.
   List<String> shownImages = [];
@@ -157,6 +160,7 @@ class _GamePageState extends State<GamePage> {
             currentImage = block1[i];
           }
           startTime = DateTime.now();
+           lastShownImage = currentImage;
           shownImages.add(currentImage!);
           lastIndex++;
           // ignore: avoid_print
@@ -222,6 +226,7 @@ class _GamePageState extends State<GamePage> {
             currentImage = block2[i];
           }
           startTime = DateTime.now();
+           lastShownImage = currentImage;
           shownImages.add(currentImage!);
           lastIndex++;
           // ignore: avoid_print
@@ -277,6 +282,7 @@ class _GamePageState extends State<GamePage> {
             currentImage = block3[i];
           }
           startTime = DateTime.now();
+           lastShownImage = currentImage;
           shownImages.add(currentImage!);
           lastIndex++;
           // ignore: avoid_print
@@ -312,17 +318,33 @@ void tappedImage() {
     endTime = DateTime.now();
     reactionTime = endTime!.difference(startTime!);
     rT = reactionTime?.inMilliseconds;
-    
-    print("reaction time $reactionTime");
-    reactionTimes.add(rT!);
+
+    print("Current mode: ${widget.mode}");
+    print("Last shown image: $lastShownImage");
+    print("Stimuli: ${widget.stimuli}");
+
+    if ((widget.mode == 'Kliknij na ekran tylko wtedy, gdy wyświetlony jest dany symbol' && lastShownImage == widget.stimuli) ||
+        (widget.mode == 'Kliknij na ekran tylko wtedy, gdy dany symbol NIE jest wyświetlany' && lastShownImage != widget.stimuli) ||
+        (widget.mode == 'mode1' && lastShownImage == widget.stimuli) ||
+        (widget.mode == 'mode2' && lastShownImage != widget.stimuli)) {
+      print("Adding reaction time $reactionTime");
+      reactionTimes.add(rT!);
+    } else {
+      print("Condition not met, reaction time not added.");
+    }
+
     tappedImages[lastIndex] = true;
-    
+
     // ignore: avoid_print
     print("Tapped image $lastIndex");
   } else {
     print("Image $lastIndex already tapped");
   }
 }
+
+
+
+
 
 
   @override
