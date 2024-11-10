@@ -34,12 +34,15 @@ class GamePage extends StatefulWidget {
 class _GamePageState extends State<GamePage> {
   /// [currentImage] is the currently displayed image.
   String? currentImage;
+
   /// [lastShownImage] is the last displayed image.
   String? lastShownImage;
 
-
   /// [shownImages] is a list of all of the images that were shown.
   List<String> shownImages = [];
+
+  /// [test] is a list of all of the images that were shown.
+  List<String> test = [];
 
   /// [tappedImages] is a list of boolean values - true when image of given index was tapped and false if not.
   List<bool> tappedImages = [];
@@ -86,16 +89,31 @@ class _GamePageState extends State<GamePage> {
   ///   /// Returns:
   /// - A [List<String>] containing the random images to show during the game.
   List<String> imagesToShow() {
-    List<String> listOfRandomImages = [widget.stimuli, widget.stimuli];
+    List<String> listOfRandomImages = [];
 
-    /// Instance of [Random] that is used to pick random stimuli.
+    // Instance of [Random] to pick random stimuli
     Random random = Random();
+
+    listOfRandomImages.add(widget.stimuli);
+    listOfRandomImages.add(widget.stimuli);
+
+    print("After adding target stimuli: $listOfRandomImages");
+
+    List<String> nonTargetImages = List.from(widget.listOfImages);
+    nonTargetImages
+        .remove(widget.stimuli); 
+
     while (listOfRandomImages.length < 20) {
-      String image =
-          widget.listOfImages[random.nextInt(widget.listOfImages.length)];
+      String image = nonTargetImages[random.nextInt(nonTargetImages.length)];
       listOfRandomImages.add(image);
+
+      print("Img $image");
+      print("Stimuli ${widget.stimuli}");
     }
+
+    // Shuffle the list to randomize the order of images
     listOfRandomImages.shuffle(random);
+    print("After adding image: $listOfRandomImages");
     return listOfRandomImages;
   }
 
@@ -108,6 +126,8 @@ class _GamePageState extends State<GamePage> {
   void initState() {
     super.initState();
     tappedImages = List.filled(61, false);
+    test = imagesToShow();
+    print("test: $test");
     startGame();
   }
 
@@ -155,16 +175,19 @@ class _GamePageState extends State<GamePage> {
           return;
         }
         setState(() {
-          List<String> block1 = imagesToShow();
-          for (int i = 0; i < block1.length; i++) {
-            currentImage = block1[i];
-          }
+          List<String> block1 = test;
+          currentImage = block1[count % block1.length];
+          print("block1 $block1");
+          // for (int i = 0; i < block1.length; i++) {
+          //   currentImage = block1[i];
+          // }
           startTime = DateTime.now();
-           lastShownImage = currentImage;
+          lastShownImage = currentImage;
           shownImages.add(currentImage!);
           lastIndex++;
           // ignore: avoid_print
           print("Images shown ${shownImages.length}");
+          print("Stimuli: ${widget.stimuli}");
           print("Interval $interval");
           count++;
         });
@@ -192,6 +215,8 @@ class _GamePageState extends State<GamePage> {
   /// if it reached 40 then it calls the [endGame] function.
   ///
   void continueGame() {
+    List<String> block2 = test;
+          block2.shuffle();
     int interval = intervals.elementAt(Random().nextInt(intervals.length));
     orderOfIntervals.add(interval);
     for (int i = 0; i < intervals.length; i++) {
@@ -215,22 +240,23 @@ class _GamePageState extends State<GamePage> {
           }),
         );
       } else {
+      
         if (count >= 40) {
           timer.cancel();
           endGame();
           return;
         }
         setState(() {
-          List<String> block2 = imagesToShow();
-          for (int i = 0; i < block2.length; i++) {
-            currentImage = block2[i];
-          }
+                    print("block2: $block2");
+
+          currentImage = block2[count % block2.length];
           startTime = DateTime.now();
-           lastShownImage = currentImage;
+          lastShownImage = currentImage;
           shownImages.add(currentImage!);
           lastIndex++;
           // ignore: avoid_print
           print("Images shown ${shownImages.length}");
+          print("Stimuli: ${widget.stimuli}");
           print("Interval $interval");
 
           count++;
@@ -258,6 +284,9 @@ class _GamePageState extends State<GamePage> {
   /// parameters [shownImages], [tappedImages], [stimuli], [mode], [reactionTimes], [orderOfIntervals],
   ///
   void endGame() {
+        List<String> block3 = test;
+          block3.shuffle();
+          print("block3: $block3");
     int interval = intervals.elementAt(Random().nextInt(intervals.length));
     orderOfIntervals.add(interval);
     showTimer = Timer.periodic(Duration(milliseconds: interval), (timer) {
@@ -277,16 +306,15 @@ class _GamePageState extends State<GamePage> {
         );
       } else {
         setState(() {
-          List<String> block3 = imagesToShow();
-          for (int i = 0; i < block3.length; i++) {
-            currentImage = block3[i];
-          }
+                    print("block3: $block3");
+          currentImage = block3[count % block3.length];
           startTime = DateTime.now();
-           lastShownImage = currentImage;
+          lastShownImage = currentImage;
           shownImages.add(currentImage!);
           lastIndex++;
           // ignore: avoid_print
           print("Images shown ${shownImages.length}");
+          print("Stimuli: ${widget.stimuli}");
           print("Interval $interval");
 
           count++;
@@ -313,39 +341,38 @@ class _GamePageState extends State<GamePage> {
   ///  The method checks the value of [lastIndex] and then sets the value of [tappedImages] with given index to true
   ///  indicating that image with this index was tapped.
   ///
-void tappedImage() {
-  if (!tappedImages[lastIndex]) {
-    endTime = DateTime.now();
-    reactionTime = endTime!.difference(startTime!);
-    rT = reactionTime?.inMilliseconds;
+  void tappedImage() {
+    if (!tappedImages[lastIndex]) {
+      endTime = DateTime.now();
+      reactionTime = endTime!.difference(startTime!);
+      rT = reactionTime?.inMilliseconds;
 
-    print("Current mode: ${widget.mode}");
-    print("Last shown image: $lastShownImage");
-    print("Stimuli: ${widget.stimuli}");
+      print("Current mode: ${widget.mode}");
+      print("Last shown image: $lastShownImage");
+      print("Stimuli: ${widget.stimuli}");
 
-    if ((widget.mode == 'Kliknij na ekran tylko wtedy, gdy wyświetlony jest dany symbol' && lastShownImage == widget.stimuli) ||
-        (widget.mode == 'Kliknij na ekran tylko wtedy, gdy dany symbol NIE jest wyświetlany' && lastShownImage != widget.stimuli) ||
-        (widget.mode == 'mode1' && lastShownImage == widget.stimuli) ||
-        (widget.mode == 'mode2' && lastShownImage != widget.stimuli)) {
-      print("Adding reaction time $reactionTime");
-      reactionTimes.add(rT!);
+      if ((widget.mode ==
+                  'Kliknij na ekran tylko wtedy, gdy wyświetlony jest dany symbol' &&
+              lastShownImage == widget.stimuli) ||
+          (widget.mode ==
+                  'Kliknij na ekran tylko wtedy, gdy dany symbol NIE jest wyświetlany' &&
+              lastShownImage != widget.stimuli) ||
+          (widget.mode == 'mode1' && lastShownImage == widget.stimuli) ||
+          (widget.mode == 'mode2' && lastShownImage != widget.stimuli)) {
+        print("Adding reaction time $reactionTime");
+        reactionTimes.add(rT!);
+      } else {
+        print("Condition not met, reaction time not added.");
+      }
+
+      tappedImages[lastIndex] = true;
+
+      // ignore: avoid_print
+      print("Tapped image $lastIndex");
     } else {
-      print("Condition not met, reaction time not added.");
+      print("Image $lastIndex already tapped");
     }
-
-    tappedImages[lastIndex] = true;
-
-    // ignore: avoid_print
-    print("Tapped image $lastIndex");
-  } else {
-    print("Image $lastIndex already tapped");
   }
-}
-
-
-
-
-
 
   @override
 
