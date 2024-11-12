@@ -41,8 +41,8 @@ class _GamePageState extends State<GamePage> {
   /// [shownImages] is a list of all of the images that were shown.
   List<String> shownImages = [];
 
-  /// [test] is a list of all of the images that were shown.
-  List<String> test = [];
+  /// [shuffledList] is a list of all of the images that were shown.
+  List<String> shuffledList = [];
 
   /// [tappedImages] is a list of boolean values - true when image of given index was tapped and false if not.
   List<bool> tappedImages = [];
@@ -126,8 +126,8 @@ class _GamePageState extends State<GamePage> {
   void initState() {
     super.initState();
     tappedImages = List.filled(61, false);
-    test = imagesToShow();
-    print("test: $test");
+    shuffledList = imagesToShow();
+    print("test: $shuffledList");
     startGame();
   }
 
@@ -175,7 +175,7 @@ class _GamePageState extends State<GamePage> {
           return;
         }
         setState(() {
-          List<String> block1 = test;
+          List<String> block1 = shuffledList;
           currentImage = block1[count % block1.length];
           print("block1 $block1");
           // for (int i = 0; i < block1.length; i++) {
@@ -215,7 +215,7 @@ class _GamePageState extends State<GamePage> {
   /// if it reached 40 then it calls the [endGame] function.
   ///
   void continueGame() {
-    List<String> block2 = test;
+    List<String> block2 = shuffledList;
           block2.shuffle();
     int interval = intervals.elementAt(Random().nextInt(intervals.length));
     orderOfIntervals.add(interval);
@@ -284,7 +284,7 @@ class _GamePageState extends State<GamePage> {
   /// parameters [shownImages], [tappedImages], [stimuli], [mode], [reactionTimes], [orderOfIntervals],
   ///
   void endGame() {
-        List<String> block3 = test;
+        List<String> block3 = shuffledList;
           block3.shuffle();
           print("block3: $block3");
     int interval = intervals.elementAt(Random().nextInt(intervals.length));

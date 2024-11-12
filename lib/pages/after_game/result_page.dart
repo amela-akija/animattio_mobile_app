@@ -73,17 +73,21 @@ class _ResultPageState extends State<ResultPage> {
     /// stimuli was shown and there was a reaction
     /// The parameters are calculated according to chosen [mode]
     ///
-    if (widget.mode == "mode1".tr) {
+    if (widget.mode == "mode1".tr || widget.mode == "mode1") {
+      print("mode ${widget.mode}");
       for (int i = 0; i < ignoreFirstValue.length; i++) {
         if (ignoreFirstValue[i] == true) {
           if (widget.shownImages[i] == widget.stimuli) {
             hitRate++;
           } else {
             commisionErrors++;
+            print("commissions: $commisionErrors");
           }
         } else {
           if (widget.shownImages[i] == widget.stimuli) {
             omissionErrors++;
+            print("omissions: $omissionErrors");
+
           }
         }
       }
@@ -92,12 +96,15 @@ class _ResultPageState extends State<ResultPage> {
         if (ignoreFirstValue[i] == true) {
           if (widget.shownImages[i] == widget.stimuli) {
             commisionErrors++;
+            print("commissions: $commisionErrors");
           } else {
             hitRate++;
           }
         } else {
           if (widget.shownImages[i] != widget.stimuli) {
             omissionErrors++;
+                        print("omissions: $omissionErrors");
+
           }
         }
       }
