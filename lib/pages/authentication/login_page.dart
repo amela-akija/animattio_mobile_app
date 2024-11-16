@@ -1,5 +1,6 @@
 import 'package:animattio_mobile_app/pages/user_pages/user_page.dart';
 import 'package:animattio_mobile_app/services/auth_service.dart';
+import 'package:animattio_mobile_app/services/database_service.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'signup_page.dart';
@@ -23,6 +24,8 @@ class _LoginPageState extends State<LoginPage> {
   /// Controllers for the email and password input fields.
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+  final dbService = DatabaseService();
+
 
   @override
   void dispose() {
@@ -192,11 +195,13 @@ class _LoginPageState extends State<LoginPage> {
                     child: ElevatedButton(
                       //when pressed authenticates the credentials and displays correct message in Snackbar
                       onPressed: () async {
+                        await dbService.removeGamesWithoutResult();
                         final message = await AuthServices().loginUser(
                           email: emailController.text,
                           password: passwordController.text,
                         );
                         if (message!.contains('login_successfull'.tr)) {
+                          await dbService.removeGamesWithoutResult();
                           Navigator.of(context).pushReplacement(
                               MaterialPageRoute(
                                   builder: (context) => const UserPage()));

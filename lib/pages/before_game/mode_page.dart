@@ -1,7 +1,10 @@
 import 'package:animattio_mobile_app/pages/during_game/start_game_page.dart';
 import 'package:animattio_mobile_app/pages/before_game/theme_page.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 /// ModePage is a page where user chooses in which mode the game should be played.
 ///
@@ -20,6 +23,84 @@ class ModePage extends StatefulWidget {
 }
 
 class _ChooseModeState extends State<ModePage> {
+   /// Instance of [FlutterLocalNotificationsPlugin] used for creating notifications from app.
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  /// [initState] is the first method invoked when the state object is inserted into the widget tree.
+  ///
+  /// It is used to initialize: [FlutterLocalNotificationsPlugin] instance,
+  /// settings for Android notifications [AndroidInitializationSettings], [InitializationSettings] and to call [testAdded] method
+  ///
+  @override
+  void initState() {
+    super.initState();
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    const AndroidInitializationSettings androidInitializationSettings =
+        AndroidInitializationSettings('logo');
+
+    const InitializationSettings initializationSettings =
+        InitializationSettings(
+      android: androidInitializationSettings,
+    );
+
+    /// Initializes the local notifications plugin with the defined settings.
+    flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+    );
+    testAdded();
+  }
+    /// [testAdded] method calls [showNotification] method every time a document is deleted from specific Firestore collection.
+  ///
+  void testAdded() {
+    final testsCollection = FirebaseFirestore.instance.collection('games');
+
+    testsCollection.snapshots().listen((snapshot) {
+      for (var change in snapshot.docChanges) {
+        if (change.type == DocumentChangeType.removed) {
+          showNotification();
+        }
+      }
+    });
+  }
+
+  /// [requestPermissions] method requests permission from the user to allow the app to send notifications.
+  Future<void> requestPermissions() async {
+    if (await Permission.notification.isDenied) {
+      final status = await Permission.notification.request();
+
+      if (status.isDenied || status.isPermanentlyDenied) {
+        print('Permission for notifications not granted');
+      }
+    }
+  }
+
+  /// [showNotification] method creates and displays a custom app notfication.
+  ///
+  /// It calls first [requestPermissions] method.
+  Future<void> showNotification() async {
+    await requestPermissions();
+
+    const AndroidNotificationDetails androidPlatformChannelSpecifics =
+        AndroidNotificationDetails(
+      'channel_id',
+      'channel_name',
+      importance: Importance.max,
+      priority: Priority.high,
+      showWhen: true,
+    );
+
+    const NotificationDetails channelSpecifics =
+        NotificationDetails(android: androidPlatformChannelSpecifics);
+
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      'congrats'.tr,
+      'notification'.tr,
+      channelSpecifics,
+    );
+  }
+
   /// [modes] is a list of available modes
   ///
   List<String> modes = ["mode1".tr, "mode2".tr];
