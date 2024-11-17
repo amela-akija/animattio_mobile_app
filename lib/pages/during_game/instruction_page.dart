@@ -64,7 +64,10 @@ class _InstructionPageState extends State<InstructionPage> {
     final dbService = DatabaseService();
 
     /// Main UI of the page composed of multiple stacked elements.
-    return Scaffold(
+    return WillPopScope(onWillPop: () async{
+        return false;
+      },child: 
+    Scaffold(
       backgroundColor: pageColor,
       body: GestureDetector(
         child: Column(
@@ -160,6 +163,6 @@ class _InstructionPageState extends State<InstructionPage> {
           );
         },
       ),
-    );
+    ));
   }
 }

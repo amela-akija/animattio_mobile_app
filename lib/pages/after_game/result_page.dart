@@ -111,7 +111,11 @@ class _ResultPageState extends State<ResultPage> {
     }
 
     /// Main UI of the page composed of multiple stacked elements.
-    return Scaffold(
+    return WillPopScope(onWillPop: () async{
+        return false;
+      },
+       child:
+    Scaffold(
       backgroundColor: pageColor,
       body: Stack(
         children: [
@@ -216,6 +220,6 @@ class _ResultPageState extends State<ResultPage> {
           ),
         ],
       ),
-    );
+    ));
   }
 }

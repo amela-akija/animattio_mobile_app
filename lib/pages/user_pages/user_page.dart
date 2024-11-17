@@ -232,6 +232,7 @@ class UserPage extends StatelessWidget {
                   //Button that when pressed navigates to TrackGamesPage and calls functions moveGames1ToTests() and moveGames2ToTests()
                   child: ElevatedButton(
                     onPressed: () async {
+                      await DatabaseService().removeGamesWithoutResult();
                       await dbService.moveGames1ToTests();
                       await dbService.moveGames2ToTests();
                       Navigator.of(context).push(

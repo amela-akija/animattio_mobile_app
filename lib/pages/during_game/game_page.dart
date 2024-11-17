@@ -387,7 +387,12 @@ class _GamePageState extends State<GamePage> {
   Widget build(BuildContext context) {
     /// Color definitions used throughout the page.
     Color pageColor = const Color(0xFFFEFFD9);
-    return Scaffold(
+    return WillPopScope(
+      onWillPop: () async{
+        return false;
+      },
+      child:
+    Scaffold(
       backgroundColor: pageColor,
       body: GestureDetector(
         // When screen is tapped the tappedImage() function is called
@@ -403,6 +408,6 @@ class _GamePageState extends State<GamePage> {
                 ),
         ),
       ),
-    );
+    ));
   }
 }
