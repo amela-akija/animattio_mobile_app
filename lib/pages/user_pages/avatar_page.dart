@@ -191,7 +191,7 @@ class _ChosenAvatarState extends State<AvatarPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                const SizedBox(height: 30),
+                const SizedBox(height: 55),
                 Text(
                   pageTitle,
                   textAlign: TextAlign.center,

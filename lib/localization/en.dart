@@ -30,7 +30,7 @@ const Map<String, String> en = {
   "enter_username": "Enter username:",
   "email_format": "Wrong format of email",
   "short_password": "Password is too short",
-  "uppercase": "Password must contain at least one uppercase letter",
+  "uppercase": "Password needs at least one uppercase letter",
   "numerical": "Password must contain at least one number",
   "repeat_password": "Repeat password:",
   "password_match": "Passwords do not match",

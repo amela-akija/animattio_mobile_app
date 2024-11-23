@@ -357,6 +357,8 @@ class _GamePageState extends State<GamePage> {
           (widget.mode ==
                   'Kliknij na ekran tylko wtedy, gdy dany symbol NIE jest wyświetlany' &&
               lastShownImage != widget.stimuli) ||
+              (widget.mode == "Click on the screen only when given symbol is displayed" &&  lastShownImage == widget.stimuli) ||
+                (widget.mode == "Click on the screen only when given symbol is NOT displayed" &&  lastShownImage != widget.stimuli) ||
           (widget.mode == 'mode1' && lastShownImage == widget.stimuli) ||
           (widget.mode == 'mode2' && lastShownImage != widget.stimuli)) {
         print("Adding reaction time $reactionTime");
