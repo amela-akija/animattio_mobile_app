@@ -1,17 +1,13 @@
 import 'package:animattio_mobile_app/pages/during_game/start_game_page.dart';
 import 'package:animattio_mobile_app/pages/user_pages/user_page.dart';
 import 'package:animattio_mobile_app/services/database_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
-import 'package:permission_handler/permission_handler.dart';
 
-/// EndGamePage is a page for informing that the user has finished the game and sking if they want to repeat this game (with the same theme and mode)
+/// EndGamePage is a page for informing that the user has finished the game and asking if they want to repeat this game (with the same theme and mode).
 ///
-/// This page contains of two buttons providing two options: yes for repeating the game and no for going back to UserPage.
+/// This page contains two buttons providing two options: yes for repeating the game and no for going back to UserPage.
 /// The layout includes decorative images positioned around the screen.
-///
 class EndGamePage extends StatefulWidget {
   /// Creates a [EndGamePage].
   const EndGamePage({super.key});
@@ -21,88 +17,12 @@ class EndGamePage extends StatefulWidget {
 }
 
 class _EndGamePageState extends State<EndGamePage> {
-  /// Instance of [FlutterLocalNotificationsPlugin] used for creating notifications from app.
-  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
-  /// [initState] is the first method invoked when the state object is inserted into the widget tree.
-  ///
-  /// It is used to initialize: [FlutterLocalNotificationsPlugin] instance,
-  /// settings for Android notifications [AndroidInitializationSettings], [InitializationSettings] and to call [testAdded] method
-  ///
-  @override
-  void initState() {
-    super.initState();
-    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-
-    const AndroidInitializationSettings androidInitializationSettings =
-        AndroidInitializationSettings('logo');
-
-    const InitializationSettings initializationSettings =
-        InitializationSettings(
-      android: androidInitializationSettings,
-    );
-
-    /// Initializes the local notifications plugin with the defined settings.
-    flutterLocalNotificationsPlugin.initialize(
-      initializationSettings,
-    );
-    testAdded();
-  }
-
-  /// [testAdded] method calls [showNotification] method every time a document is deleted from specific Firestore collection.
-  ///
-  void testAdded() {
-    final testsCollection = FirebaseFirestore.instance.collection('games');
-
-    testsCollection.snapshots().listen((snapshot) {
-      for (var change in snapshot.docChanges) {
-        if (change.type == DocumentChangeType.removed) {
-          showNotification();
-        }
-      }
-    });
-  }
-
-  /// [requestPermissions] method requests permission from the user to allow the app to send notifications.
-  Future<void> requestPermissions() async {
-    if (await Permission.notification.isDenied) {
-      final status = await Permission.notification.request();
-
-      if (status.isDenied || status.isPermanentlyDenied) {
-        print('Permission for notifications not granted');
-      }
-    }
-  }
-
-  /// [showNotification] method creates and displays a custom app notfication.
-  ///
-  /// It calls first [requestPermissions] method.
-  Future<void> showNotification() async {
-    await requestPermissions();
-
-    const AndroidNotificationDetails androidPlatformChannelSpecifics =
-        AndroidNotificationDetails(
-      'channel_id',
-      'channel_name',
-      importance: Importance.max,
-      priority: Priority.high,
-      showWhen: true,
-    );
-
-    const NotificationDetails channelSpecifics =
-        NotificationDetails(android: androidPlatformChannelSpecifics);
-
-    await flutterLocalNotificationsPlugin.show(
-      0,
-      'congrats'.tr,
-      'notification'.tr,
-      channelSpecifics,
-    );
-  }
+  /// [dbService] is an instance of [DatabaseService] used to access all of the methods that interact with the database.
+  final dbService = DatabaseService();
 
   @override
   Widget build(BuildContext context) {
-    ///Strings used on page.
+    /// Strings used on page.
     String endMessage = "end_message".tr;
     String yesButton = "yes".tr;
     String noButton = "no".tr;
@@ -113,22 +33,18 @@ class _EndGamePageState extends State<EndGamePage> {
     Color fontColor = const Color(0xFFF7A559);
     Color fontButtonColor = const Color(0xFFFEFFD9);
 
-    ///Size of the screen used for a responsive ui.
+    /// Size of the screen used for a responsive UI.
     dynamic deviceSize, height, width;
     deviceSize = MediaQuery.of(context).size;
     height = deviceSize.height;
     width = deviceSize.width;
-
-    /// [dbService] is an instance of [DatabaseService] used to access all of the methods that interact with the database.
-
-    final dbService = DatabaseService();
 
     /// Main UI of the page composed of multiple stacked elements.
     return Scaffold(
       backgroundColor: pageColor,
       body: Stack(
         children: <Widget>[
-          //Button that allows the user to go back to ResultPage
+          // Button that allows the user to go back to the previous page
           Positioned(
             left: 0,
             top: height * 0.05,
@@ -149,7 +65,7 @@ class _EndGamePageState extends State<EndGamePage> {
               Expanded(
                 child: Stack(
                   children: <Widget>[
-                    // Image star_start_2
+                    // Decorative background image 1
                     Align(
                       alignment: Alignment.center,
                       child: SizedBox(
@@ -162,7 +78,7 @@ class _EndGamePageState extends State<EndGamePage> {
                         ),
                       ),
                     ),
-                    //Image star_start_1
+                    // Decorative background image 2
                     Align(
                       alignment: Alignment.center,
                       child: SizedBox(
@@ -204,7 +120,7 @@ class _EndGamePageState extends State<EndGamePage> {
                       // Button to repeat the game
                       ElevatedButton(
                         onPressed: () async {
-                          // When pressed calls methods repeatGame(), moveGames1ToTests() and moveGames2ToTests()
+                          // When pressed, calls methods repeatGame(), moveGames1ToTests(), and moveGames2ToTests()
                           List? repeatedGame = await dbService.repeatGame();
                           if (repeatedGame != null &&
                               repeatedGame.length == 2) {
@@ -251,8 +167,7 @@ class _EndGamePageState extends State<EndGamePage> {
                       // Button to go back to UserPage
                       ElevatedButton(
                         onPressed: () async {
-                          // When pressed calls methods moveGames1ToTests() and moveGames2ToTests() and navigates to UserPage
-
+                          // When pressed, calls methods moveGames1ToTests() and moveGames2ToTests() and navigates to UserPage
                           await dbService.moveGames1ToTests();
                           await dbService.moveGames2ToTests();
                           Navigator.of(context).push(

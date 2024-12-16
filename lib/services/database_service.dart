@@ -3,6 +3,9 @@ import 'dart:developer';
 import 'package:animattio_mobile_app/pages/during_game/start_game_page.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:get/get.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 /// [DatabaseService] contains all of the method that fetch, update or delete data from database.
 ///
@@ -12,6 +15,178 @@ class DatabaseService {
 
   /// [currentUser] is currently signed in user.
   User? currentUser = FirebaseAuth.instance.currentUser;
+
+   // Instance of FlutterLocalNotificationsPlugin
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+
+  DatabaseService() {
+    // Initialize notifications
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    const androidInitializationSettings = AndroidInitializationSettings('logo');
+    const initializationSettings = InitializationSettings(
+      android: androidInitializationSettings,
+    );
+    flutterLocalNotificationsPlugin.initialize(initializationSettings);
+  }
+
+  // Request permissions for notifications
+  Future<void> _requestPermissions() async {
+    if (await Permission.notification.isDenied) {
+      final status = await Permission.notification.request();
+      if (status.isDenied || status.isPermanentlyDenied) {
+        print('Notification permissions not granted');
+      }
+    }
+  }
+
+  // Show a notification
+  Future<void> _showNotification() async {
+    await _requestPermissions();
+
+    const androidNotificationDetails = AndroidNotificationDetails(
+      'channel_id',
+      'channel_name',
+      importance: Importance.max,
+      priority: Priority.high,
+      showWhen: true,
+    );
+
+    const notificationDetails = NotificationDetails(
+      android: androidNotificationDetails,
+    );
+
+    await flutterLocalNotificationsPlugin.show(
+      0,
+       'congrats'.tr,
+      'notification'.tr,
+      notificationDetails,
+    );
+  }
+
+  Future<void> moveGames1ToTests() async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      String userId = currentUser!.uid;
+      final gamesCollection = FirebaseFirestore.instance.collection('games');
+      final deletedGamesCollection =
+          FirebaseFirestore.instance.collection('deleted_games');
+
+      QuerySnapshot games1 = await gamesCollection
+          .where('mode', isEqualTo: "mode1")
+          .where('id', isEqualTo: userId)
+          .get();
+      List<QueryDocumentSnapshot> games = games1.docs;
+
+      List<Map<String, dynamic>> test = [];
+      List<DocumentReference> gamesToDelete = [];
+
+      for (var game in games) {
+        test.add(game.data() as Map<String, dynamic>);
+        gamesToDelete.add(game.reference);
+
+        if (test.length == 6) {
+          final testsCollection =
+              FirebaseFirestore.instance.collection('tests');
+
+          await testsCollection.add({
+            'gamesInTest': test,
+            'userId': userId,
+          });
+
+          // Show notification after adding the test
+          await _showNotification();
+
+          for (var gameReference in gamesToDelete) {
+            var gameData = await gameReference.get();
+            var gameDataMap = gameData.data() as Map<String, dynamic>;
+
+            await deletedGamesCollection.add(gameDataMap);
+
+            await gameReference.delete();
+          }
+
+          test = [];
+          gamesToDelete = [];
+        }
+      }
+
+      if (test.isNotEmpty) {
+        print('games ${test.length}');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  Future<void> moveGames2ToTests() async {
+    try {
+      User? currentUser = FirebaseAuth.instance.currentUser;
+      String userId = currentUser!.uid;
+      final gamesCollection = FirebaseFirestore.instance.collection('games');
+      final deletedGamesCollection =
+          FirebaseFirestore.instance.collection('deleted_games');
+
+      QuerySnapshot games1 = await gamesCollection
+          .where('mode', isEqualTo: "mode2")
+          .where('id', isEqualTo: userId)
+          .get();
+      List<QueryDocumentSnapshot> games = games1.docs;
+
+      List<Map<String, dynamic>> test = [];
+      List<DocumentReference> gamesToDelete = [];
+
+      for (var game in games) {
+        test.add(game.data() as Map<String, dynamic>);
+        gamesToDelete.add(game.reference);
+
+        if (test.length == 6) {
+          final testsCollection =
+              FirebaseFirestore.instance.collection('tests');
+
+          await testsCollection.add({
+            'gamesInTest': test,
+            'userId': userId,
+          });
+
+          // Show notification after adding the test
+          await _showNotification();
+
+          for (var gameReference in gamesToDelete) {
+            var gameData = await gameReference.get();
+            var gameDataMap = gameData.data() as Map<String, dynamic>;
+
+            await deletedGamesCollection.add(gameDataMap);
+
+            await gameReference.delete();
+          }
+
+          test = [];
+          gamesToDelete = [];
+        }
+      }
+
+      if (test.isNotEmpty) {
+        print('games ${test.length}');
+      }
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /// [addAvatar] method is used to create [avatar] field.
   ///
@@ -303,116 +478,6 @@ class DatabaseService {
   /// It adds 6 completed games to a list while removing them from games collection.
   /// It then passes the list of games as a field in tests collection.
   ///
-Future<void> moveGames1ToTests() async {
-  try {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    String userId = currentUser!.uid;
-    final gamesCollection = FirebaseFirestore.instance.collection('games');
-    final deletedGamesCollection = FirebaseFirestore.instance.collection('deleted_games');
 
-    QuerySnapshot games1 = await gamesCollection
-        .where('mode', isEqualTo: "mode1")
-        .where('id', isEqualTo: userId)
-        .get();
-    List<QueryDocumentSnapshot> games = games1.docs;
-
-    int count = 1;
-
-    List<Map<String, dynamic>> test = [];
-    List<DocumentReference> gamesToDelete = [];
-
-    for (var game in games) {
-      test.add(game.data() as Map<String, dynamic>);
-      gamesToDelete.add(game.reference);
-
-      if (test.length == 6) {
-        final testsCollection = FirebaseFirestore.instance.collection('tests');
-
-        await testsCollection.add({
-          'gamesInTest': test,
-          'userId': userId,
-        });
-        count++;
-
-        for (var gameReference in gamesToDelete) {
-          var gameData = await gameReference.get();
-          var gameDataMap = gameData.data() as Map<String, dynamic>;
-
-          await deletedGamesCollection.add(gameDataMap);
-
-          await gameReference.delete();
-        }
-
-        test = [];
-        gamesToDelete = [];
-      }
-    }
-
-    if (test.isNotEmpty) {
-      print('games ${test.length}');
-    }
-  } catch (e) {
-    print(e.toString());
-  }
-}
-
-
-  /// [moveGames1ToTests] method moves 6 completed games in mode 2 by user to tests collection.
-  ///
-  /// It adds 6 completed games to a list while removing them from games collection.
-  /// It then passes the list of games as a field in tests collection.
-  ///
- Future<void> moveGames2ToTests() async {
-  try {
-    User? currentUser = FirebaseAuth.instance.currentUser;
-    String userId = currentUser!.uid;
-    final gamesCollection = FirebaseFirestore.instance.collection('games');
-    final deletedGamesCollection = FirebaseFirestore.instance.collection('deleted_games');
-
-    QuerySnapshot games1 = await gamesCollection
-        .where('mode', isEqualTo: "mode2")
-        .where('id', isEqualTo: userId)
-        .get();
-    List<QueryDocumentSnapshot> games = games1.docs;
-
-    int count = 1;
-
-    List<Map<String, dynamic>> test = [];
-    List<DocumentReference> gamesToDelete = [];
-
-    for (var game in games) {
-      test.add(game.data() as Map<String, dynamic>);
-      gamesToDelete.add(game.reference);
-
-      if (test.length == 6) {
-        final testsCollection = FirebaseFirestore.instance.collection('tests');
-
-        await testsCollection.add({
-          'gamesInTest': test,
-          'userId': userId,
-        });
-        count++;
-
-        for (var gameReference in gamesToDelete) {
-          var gameData = await gameReference.get();
-          var gameDataMap = gameData.data() as Map<String, dynamic>;
-
-          await deletedGamesCollection.add(gameDataMap);
-
-          await gameReference.delete();
-        }
-
-        test = [];
-        gamesToDelete = [];
-      }
-    }
-
-    if (test.isNotEmpty) {
-      print('games ${test.length}');
-    }
-  } catch (e) {
-    print(e.toString());
-  }
-}
 
 }

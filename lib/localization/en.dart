@@ -5,6 +5,7 @@ const Map<String, String> en = {
   "Log_in": "Log in",
   "enter_password": "Enter password:",
   "enter_new_password": "Enter new password:",
+
   "enter_new_email": "Enter new email:",
   "enter_new_username": "Enter new username:",
   "enter_email": "Enter email:",

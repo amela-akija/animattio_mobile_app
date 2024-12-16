@@ -104,22 +104,7 @@ class _InstructionPageState extends State<InstructionPage> {
                 );
               }
             }),
-              // Message informing to save the game
-            Padding(
-              padding: const EdgeInsets.only(bottom: 5),
-              child: Align(
-                alignment: Alignment.topCenter,
-                child: Text(
-                  message2,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    color: textColor,
-                    fontSize: 18,
-                    fontFamily: 'Fredoka',
-                  ),
-                ),
-              ),
-            ),
+       
             // Message informing to tap the screen to continue
             Padding(
               padding: const EdgeInsets.only(bottom: 10),
