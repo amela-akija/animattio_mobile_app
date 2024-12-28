@@ -29,7 +29,8 @@ class DatabaseService {
     flutterLocalNotificationsPlugin.initialize(initializationSettings);
   }
 
-  // Request permissions for notifications
+  /// Requests notification permissions from the user.
+  /// If notifications are denied, it requests the user to grant permission. 
   Future<void> _requestPermissions() async {
     if (await Permission.notification.isDenied) {
       final status = await Permission.notification.request();
@@ -39,7 +40,8 @@ class DatabaseService {
     }
   }
 
-  // Show a notification
+  /// Displays a notification using the `flutter_local_notifications` plugin.
+ /// Ensures permissions are granted before attempting to show the notification.
   Future<void> _showNotification() async {
     await _requestPermissions();
 
@@ -48,7 +50,7 @@ class DatabaseService {
       'channel_name',
       importance: Importance.max,
       priority: Priority.high,
-      showWhen: true,
+      showWhen: true, // Displays the timestamp on the notification
     );
 
     const notificationDetails = NotificationDetails(
@@ -62,7 +64,9 @@ class DatabaseService {
       notificationDetails,
     );
   }
-
+  /// [moveGames1ToTests] moves games with mode1 from the [games] collection to the [tests] collection.
+  /// Each test consists of 6 games. After creating a test, the original games are
+  /// moved to the [deleted_games] collection and removed from [games].
   Future<void> moveGames1ToTests() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
@@ -70,7 +74,7 @@ class DatabaseService {
       final gamesCollection = FirebaseFirestore.instance.collection('games');
       final deletedGamesCollection =
           FirebaseFirestore.instance.collection('deleted_games');
-
+      // Query games with mode1 for the current user
       QuerySnapshot games1 = await gamesCollection
           .where('mode', isEqualTo: "mode1")
           .where('id', isEqualTo: userId)
@@ -117,7 +121,9 @@ class DatabaseService {
       print(e.toString());
     }
   }
-
+  /// [moveGames2ToTests] moves games with mode2 from the [games] collection to the [tests] collection.
+  /// Each test consists of 6 games. After creating a test, the original games are
+  /// moved to the [deleted_games] collection and removed from [games].
   Future<void> moveGames2ToTests() async {
     try {
       User? currentUser = FirebaseAuth.instance.currentUser;
@@ -175,19 +181,6 @@ class DatabaseService {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   /// [addAvatar] method is used to create [avatar] field.
   ///
   /// The method searches for an instance of [currentuser] and updates it with chosen by the user avatar
@@ -211,6 +204,7 @@ class DatabaseService {
         .collection('users')
         .where('username', isEqualTo: username)
         .get();
+
 
     return usersCollection.docs.isNotEmpty;
   }
@@ -348,19 +342,6 @@ class DatabaseService {
     }
   }
 
-  // deleteGame() {
-  //   try {
-  //     fireStore
-  //         .collection("games")
-  //         .orderBy('timestamp', descending: true)
-  //         .get()
-  //         .then((value) {
-  //       value.docs.first.reference.delete();
-  //     });
-  //   } catch (e) {
-  //     log(e.toString());
-  //   }
-  // }
 
   /// [updateGameWithResult] is a methods that adds all of the calculated game parameters to a game document.
   ///
@@ -472,12 +453,6 @@ class DatabaseService {
       return null;
     }
   }
-
-  /// [moveGames1ToTests] method moves 6 completed games in mode 1 by user to tests collection.
-  ///
-  /// It adds 6 completed games to a list while removing them from games collection.
-  /// It then passes the list of games as a field in tests collection.
-  ///
 
 
 }

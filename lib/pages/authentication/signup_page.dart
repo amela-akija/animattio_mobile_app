@@ -69,6 +69,7 @@ class _SignupPageState extends State<SignupPage> {
     Color buttonColor = const Color(0xFFF7A559);
     Color inputColor = const Color(0xFFFEFFD9);
     Color textColor = const Color(0xFF2A470C);
+    Color text2Color = const Color(0xFF2A470C);
 
     ///Strings used on page.
     String signUpTitle = "sign_up".tr;

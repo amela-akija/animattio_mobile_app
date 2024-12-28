@@ -93,12 +93,12 @@ class _GamePageState extends State<GamePage> {
 
     // Instance of [Random] to pick random stimuli
     Random random = Random();
-
+    // Amount of stimulis in one list
     listOfRandomImages.add(widget.stimuli);
     listOfRandomImages.add(widget.stimuli);
 
     print("After adding target stimuli: $listOfRandomImages");
-
+    // List without stimuli
     List<String> nonTargetImages = List.from(widget.listOfImages);
     nonTargetImages
         .remove(widget.stimuli); 
@@ -120,7 +120,7 @@ class _GamePageState extends State<GamePage> {
   /// [initState] is the first method invoked when the state object is inserted into the widget tree.
   ///
   /// It is used to call the [startGame] method, responsible for showing the first 20 images of the game
-  /// and for initializinf a [tappedImages] list and filling it with boolean values.
+  /// and for initializing a [tappedImages] list and filling it with boolean values.
   ///
   @override
   void initState() {
@@ -148,11 +148,13 @@ class _GamePageState extends State<GamePage> {
   void startGame() {
     int interval = intervals.elementAt(Random().nextInt(intervals.length));
     orderOfIntervals.add(interval);
+    // first interval
     for (int i = 0; i < intervals.length; i++) {
       if (interval == intervals[i]) {
         intervals.removeAt(i);
       }
     }
+    // if 60 images were shown end the game
     showTimer = Timer.periodic(Duration(milliseconds: interval), (timer) {
       if (count >= 60) {
         timer.cancel();
@@ -169,6 +171,7 @@ class _GamePageState extends State<GamePage> {
           }),
         );
       } else {
+        /// move on to continueGame()
         if (count >= 20) {
           timer.cancel();
           continueGame();
@@ -176,11 +179,8 @@ class _GamePageState extends State<GamePage> {
         }
         setState(() {
           List<String> block1 = shuffledList;
-          currentImage = block1[count % block1.length];
+          currentImage = block1[count % block1.length]; // calculates the remainder when count is divided by block1.length
           print("block1 $block1");
-          // for (int i = 0; i < block1.length; i++) {
-          //   currentImage = block1[i];
-          // }
           startTime = DateTime.now();
           lastShownImage = currentImage;
           shownImages.add(currentImage!);
@@ -192,7 +192,7 @@ class _GamePageState extends State<GamePage> {
           count++;
         });
 
-        hideTimer = Timer(const Duration(milliseconds: 250), () {
+        hideTimer = Timer(const Duration(milliseconds: 250), () { // Ensures that each image is visible only 250 milliseconds
           setState(() {
             currentImage = null;
           });
@@ -224,6 +224,7 @@ class _GamePageState extends State<GamePage> {
         intervals.removeAt(i);
       }
     }
+    // if 60 images were shown end the game
     showTimer = Timer.periodic(Duration(milliseconds: interval), (timer) {
       if (count >= 60) {
         timer.cancel();
@@ -240,7 +241,7 @@ class _GamePageState extends State<GamePage> {
           }),
         );
       } else {
-      
+          // move on to endGame()
         if (count >= 40) {
           timer.cancel();
           endGame();
@@ -262,7 +263,7 @@ class _GamePageState extends State<GamePage> {
           count++;
         });
 
-        hideTimer = Timer(const Duration(milliseconds: 250), () {
+        hideTimer = Timer(const Duration(milliseconds: 250), () { // Ensures that each image is visible only 250 milliseconds
           setState(() {
             currentImage = null;
           });
@@ -289,6 +290,7 @@ class _GamePageState extends State<GamePage> {
           print("block3: $block3");
     int interval = intervals.elementAt(Random().nextInt(intervals.length));
     orderOfIntervals.add(interval);
+    // if 60 images were shown end the game
     showTimer = Timer.periodic(Duration(milliseconds: interval), (timer) {
       if (count >= 60) {
         timer.cancel();
@@ -342,7 +344,7 @@ class _GamePageState extends State<GamePage> {
   ///  indicating that image with this index was tapped.
   ///
   void tappedImage() {
-    if (!tappedImages[lastIndex]) {
+    if (!tappedImages[lastIndex]) { // check if the value of tappedImages[lastIndex] is false to prevent double tap
       endTime = DateTime.now();
       reactionTime = endTime!.difference(startTime!);
       rT = reactionTime?.inMilliseconds;
