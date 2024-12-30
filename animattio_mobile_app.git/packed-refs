@@ -1,0 +1,6 @@
+# pack-refs with: peeled fully-peeled sorted 
+d19baea3d5b7b293725486e4222530e1d11b90af refs/heads/authentication
+991735b894a0b126283f69e78e417635d7df629e refs/heads/customization
+8dfcca84d24ba3afe9b3a41d7c2fea860b1f01fc refs/heads/game
+0926e4d1ef8278b4b1492488caf70c8eac14e8f4 refs/heads/main
+af41a1c1ac8244be6e0da59803df9fa0a0a1f4a4 refs/heads/ui

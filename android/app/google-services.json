@@ -2,7 +2,7 @@
   "project_info": {
     "project_number": "202556353541",
     "project_id": "animattio-mobile-app",
-    "storage_bucket": "animattio-mobile-app.appspot.com"
+    "storage_bucket": "animattio-mobile-app.firebasestorage.app"
   },
   "client": [
     {
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyAEsDukjUwjo2s6CEXYFajMcaHx-fjfmww"
+          "current_key": "AIzaSyC3iFLwBXe_zM3s8VqsuLphQwZb0rPfh3Y"
         }
       ],
       "services": {
